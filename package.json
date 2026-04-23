@@ -9,7 +9,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "cf:pages:deploy": "wrangler pages deploy dist --project-name sitedotmoss",
+    "cf:deploy": "npm run build && npm run cf:pages:deploy"
   },
   "dependencies": {
     "@astrojs/alpinejs": "^0.5.0",

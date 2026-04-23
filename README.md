@@ -35,6 +35,15 @@ Use these build settings in Cloudflare Pages:
 - Framework preset: `Astro`
 - Build command: `npm run build`
 - Build output directory: `dist`
+- Deploy command: leave empty (recommended for Git-connected Pages)
+
+If you use a custom deploy command (CI/manual), use Pages deploy instead of Workers deploy:
+
+```sh
+npx wrangler pages deploy dist --project-name sitedotmoss
+```
+
+Do not use `npx wrangler deploy` for this repository.
 
 Set all environment variables from `.env.example` in Cloudflare Pages project settings.
 
