@@ -3,7 +3,7 @@ import { db, resources } from '@/lib/db';
 import { desc, eq } from 'drizzle-orm';
 import { generateId } from '@/lib/auth/utils';
 import { withAuth } from '@/lib/middleware/auth';
-import cloudinary from '@/lib/cloudinary';
+import { uploadToCloudinary } from '@/lib/cloudinary';
 
 // Public: list all resources
 export async function GET(request: NextRequest) {
@@ -40,29 +40,10 @@ async function uploadResourceHandler(
       return NextResponse.json({ error: 'File and title are required' }, { status: 400 });
     }
 
-    // Upload to Cloudinary
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    const result = await new Promise<{
-      secure_url: string;
-      public_id: string;
-    }>((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        {
-          folder: 'resources',
-          resource_type: 'auto',
-          transformation: [
-            { width: 1200, height: 1200, crop: 'limit' },
-            { quality: 'auto', fetch_format: 'auto' },
-          ],
-        },
-        (error, result) => {
-          if (error) reject(error);
-          else if (result) resolve(result);
-          else reject(new Error('Upload failed'));
-        }
-      ).end(buffer);
+    const result = await uploadToCloudinary(file, {
+      folder: 'resources',
+      resourceType: 'auto',
+      transformation: 'c_limit,h_1200,w_1200/f_auto,q_auto'
     });
 
     const resourceId = generateId();

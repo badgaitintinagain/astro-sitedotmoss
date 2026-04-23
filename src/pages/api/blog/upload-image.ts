@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import cloudinary from '@/lib/cloudinary';
+import { uploadToCloudinary } from '@/lib/cloudinary';
 
 export const POST: APIRoute = async ({ request }) => {
   try {
@@ -13,32 +13,10 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // Convert file to buffer
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-
-    // Upload to Cloudinary
-    const result = await new Promise<{
-      secure_url: string;
-      public_id: string;
-      width: number;
-      height: number;
-    }>((resolve, reject) => {
-      cloudinary.uploader.upload_stream(
-        {
-          folder: 'blog-posts',
-          resource_type: 'auto',
-          transformation: [
-            { width: 1200, height: 1200, crop: 'limit' },
-            { quality: 'auto', fetch_format: 'auto' }
-          ]
-        },
-        (error, result) => {
-          if (error) reject(error);
-          else if (result) resolve(result);
-          else reject(new Error('Upload failed - no result'));
-        }
-      ).end(buffer);
+    const result = await uploadToCloudinary(file, {
+      folder: 'blog-posts',
+      resourceType: 'auto',
+      transformation: 'c_limit,h_1200,w_1200/f_auto,q_auto'
     });
 
     return new Response(JSON.stringify({

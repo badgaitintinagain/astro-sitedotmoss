@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db, resources } from '@/lib/db';
 import { eq } from 'drizzle-orm';
 import { withAuth } from '@/lib/middleware/auth';
-import cloudinary from '@/lib/cloudinary';
+import { destroyCloudinaryAsset } from '@/lib/cloudinary';
 
 type RouteContext = { params: Promise<{ id: string }> };
 
@@ -24,7 +24,7 @@ async function deleteResourceHandler(
 
     // Delete from Cloudinary
     try {
-      await cloudinary.uploader.destroy(resource.publicId);
+      await destroyCloudinaryAsset(resource.publicId);
     } catch {
       console.error('Failed to delete from Cloudinary, continuing with DB delete');
     }

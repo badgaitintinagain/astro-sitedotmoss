@@ -1,46 +1,44 @@
-# Astro Starter Kit: Basics
+# sitedotmoss (Astro)
+
+This project is configured for server rendering on Cloudflare using the Astro Cloudflare adapter.
+
+## Local Development
 
 ```sh
-npm create astro@latest -- --template basics
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Required Environment Variables
 
-## 🚀 Project Structure
+Copy `.env.example` to `.env.local` for local development:
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```sh
+cp .env.example .env.local
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Set these values:
 
-## 🧞 Commands
+- `TURSO_DATABASE_URL`
+- `TURSO_AUTH_TOKEN`
+- `AUTH_SECRET`
+- `ADMIN_EMAIL`
+- `ADMIN_PASSWORD`
+- `CLOUDINARY_CLOUD_NAME`
+- `CLOUDINARY_API_KEY`
+- `CLOUDINARY_API_SECRET`
 
-All commands are run from the root of the project, from a terminal:
+## Deploy to Cloudflare Pages
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+Use these build settings in Cloudflare Pages:
 
-## 👀 Want to learn more?
+- Framework preset: `Astro`
+- Build command: `npm run build`
+- Build output directory: `dist`
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Set all environment variables from `.env.example` in Cloudflare Pages project settings.
+
+## Notes
+
+- Upload and delete image APIs use Cloudinary REST endpoints, which works on Cloudflare Workers runtime.
+- Do not commit real secrets to the repository.
