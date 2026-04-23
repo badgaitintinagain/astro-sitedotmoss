@@ -1,0 +1,124 @@
+---
+import LoginModal from './LoginModal';
+
+// Check if user is logged in via cookie (Server-side)
+const authCookie = Astro.cookies.get('auth_user');
+let isAdmin = false;
+try {
+    if (authCookie) {
+        const user = JSON.parse(authCookie.value);
+        isAdmin = user.role === 'admin';
+    }
+} catch (e) {}
+---
+<nav class="h-14 flex md:hidden items-center justify-between z-50 fixed top-0 left-0 w-full border-b border-stone-200/80 bg-white/65 text-stone-800 backdrop-blur-xl shadow-[0_1px_0_rgba(255,255,255,0.75)]" x-data={`{ open: false, loginOpen: false, isLoggedIn: ${isAdmin} }`}>
+    <!-- Login Modal Integration -->
+    <div class="contents">
+        <LoginModal client:load isOpen={false} onClose={() => {}} x-bind:isOpen="loginOpen" @close="loginOpen = false" />
+    </div>
+
+    <!-- Thin top line -->
+    <div class="absolute left-0 top-0 w-full h-[2px] bg-white/40 flex">
+        <div class="w-1/3 h-full bg-accent-primary/25"></div>
+    </div>
+    
+    <div class="flex items-center h-full border-r border-stone-200 px-3 md:px-6">
+        <div class="relative flex items-center justify-center w-8 h-8 mr-3 border border-stone-300 bg-white/70 shadow-inner">
+            <img src="/favicon.ico" alt="Favicon" class="w-4 h-4 object-contain">
+        </div>
+        <div class="flex flex-col">
+            <span class="font-mono font-semibold tracking-wide text-[11px] leading-none mb-0.5 text-stone-800">
+                <a href="/">SITEDOTMOSS</a>
+            </span>
+            <span class="font-mono text-[8px] font-semibold opacity-60 leading-none text-stone-600">CORE.STATUS: LIGHT_AERO</span>
+        </div>
+    </div>
+    
+    <div class="flex-1 flex justify-center h-full items-center px-4">
+        <div class="hidden md:flex space-x-12 text-[11px] tracking-wide font-semibold text-stone-700">
+            <a href="/" class="group relative flex items-center gap-2 hover:text-accent-primary transition-colors">
+                <span>DASHBOARD</span>
+            </a>
+            <a href="/blog" class="group relative flex items-center gap-2 hover:text-accent-primary transition-colors">
+                <span>ARCHIVE_LOG</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="flex items-center h-full border-l border-stone-200 pl-3 md:pl-6 pr-4 text-stone-800" @click.outside="open = false">
+        <div class="flex flex-col items-end mr-4 hidden sm:flex">
+            <span class="font-mono text-xs font-semibold opacity-80 leading-none mb-0.5" x-text="window.location.pathname.includes('blog') ? 'PORT: 025' : (window.location.pathname.includes('spotify') ? 'PORT: ANALYTIC' : 'PORT: 001')">PORT: 001</span>
+            <span class="font-mono text-[7px] font-semibold opacity-50 leading-none uppercase">Sys_Daylight</span>
+        </div>
+        <button @click="open = !open" class="relative group flex h-9 w-9 border border-stone-300 items-center justify-center bg-white/65 hover:bg-white hover:text-stone-900 transition-all shadow-[0_8px_20px_rgba(0,0,0,0.06)]">
+            <i data-lucide="settings" class="w-5 h-5 transition-all duration-500 relative z-10"></i>
+        </button>
+        <div x-show="open" x-transition class="absolute right-4 top-16 w-64 border border-stone-200 shadow-[0_24px_50px_rgba(82,62,42,0.18)] z-50 bg-white/90 backdrop-blur-xl">
+            <div class="border-b border-stone-200 px-3 py-1.5 bg-white/70 flex justify-between items-center">
+                <div class="text-[10px] font-mono font-bold tracking-widest uppercase text-stone-500">Quick_Params.sys</div>
+                <div class="flex gap-1">
+                    <div class="w-1.5 h-1.5 bg-accent-primary/35"></div>
+                    <div class="w-1.5 h-1.5 bg-stone-300"></div>
+                </div>
+            </div>
+            <div class="p-2 space-y-1 font-mono text-[10px] text-stone-800 font-bold">
+                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">System_Configuration</div>
+                <button @click="open = false" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group">
+                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">[ SYS_THEME ]</span>
+                    <span class="text-stone-500 font-bold group-hover:text-stone-800 transition-colors">LIGHT_AERO</span>
+                </button>
+                <button @click="isGrayscale = !isGrayscale; open = false" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group">
+                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">[ RENDER_MODE ]</span>
+                    <span class="text-stone-500 font-bold group-hover:text-stone-800 transition-colors" x-text="isGrayscale ? 'MONOCHROME' : 'RGB_ACTIVE'"></span>
+                </button>
+                
+                <div class="h-[1px] bg-stone-200 my-2"></div>
+                
+                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">Kernel_Status</div>
+                <div class="px-3 py-1 flex justify-between items-center text-stone-500">
+                    <span>UPTIME</span>
+                    <span class="text-stone-700">00:42:17:88</span>
+                </div>
+                <div class="px-3 py-1 flex justify-between items-center text-stone-500">
+                    <span>BUFF_LOAD</span>
+                    <div class="w-16 h-1 bg-stone-200 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-accent-primary/35 w-3/4"></div>
+                    </div>
+                </div>
+
+                <div class="h-[1px] bg-stone-200 my-2"></div>
+
+                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">Access_Terminal</div>
+                
+                <!-- IF LOGGED IN -->
+                <template x-if="isLoggedIn">
+                    <div class="space-y-1">
+                        <a href="/admin" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group no-underline text-accent-primary">
+                            <span class="transition-colors">[ GO_TO_ADMIN ]</span>
+                            <i data-lucide="layout-dashboard" class="w-3 h-3"></i>
+                        </a>
+                        <button 
+                            @click="async () => {
+                                await fetch('/api/auth/logout', { method: 'POST' });
+                                isLoggedIn = false;
+                                window.location.href = '/';
+                            }" 
+                            class="flex w-full items-center justify-between border border-transparent hover:border-red-500/20 px-3 py-1.5 transition-all hover:bg-red-500/5 group text-stone-500 hover:text-red-500"
+                        >
+                            <span class="transition-colors">[ ADMIN_LOGOUT ]</span>
+                            <i data-lucide="log-out" class="w-3 h-3"></i>
+                        </button>
+                    </div>
+                </template>
+
+                <!-- IF NOT LOGGED IN -->
+                <template x-if="!isLoggedIn">
+                    <button @click="loginOpen = true; open = false" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group no-underline">
+                        <span class="text-stone-400 group-hover:text-stone-800 transition-colors">[ ADMIN_LOGIN ]</span>
+                        <i data-lucide="lock" class="w-3 h-3 text-stone-600 group-hover:text-accent-primary transition-colors"></i>
+                    </button>
+                </template>
+            </div>
+        </div>
+    </div>
+</nav>

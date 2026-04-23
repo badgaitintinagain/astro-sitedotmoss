@@ -1,0 +1,237 @@
+---
+import "../styles/global.css";
+
+interface Props {
+	title?: string;
+}
+
+const { title = "=site(.)moss" } = Astro.props;
+const pathname = Astro.url.pathname;
+const authCookie = Astro.cookies.get('auth_user');
+let isAdmin = false;
+try {
+	if (authCookie) {
+		const user = JSON.parse(authCookie.value);
+		isAdmin = user.role === 'admin';
+	}
+} catch {}
+
+const navItems = [
+	{ href: '/', label: 'Dashboard' },
+	{ href: '/blog', label: 'Blog' },
+	{ href: '/photos', label: 'Photos' },
+	{ href: '/spotify', label: 'Spotify' },
+	{ href: '/nextwbc', label: 'NextWBC' },
+	{ href: '/shoe-demo', label: 'Shoe Demo' },
+];
+
+const blurCells = Array.from({ length: 40 }, (_, id) => {
+	const blurLevels = [2, 4, 6, 8, 10, 12];
+	const tints = [
+		'rgba(248,238,224,0.20)',
+		'rgba(230,214,191,0.18)',
+		'rgba(206,182,154,0.16)',
+		'rgba(186,170,138,0.14)',
+		'rgba(175,194,167,0.14)',
+		'rgba(196,214,198,0.12)',
+	];
+
+	return {
+		id,
+		blur: blurLevels[Math.floor(Math.random() * blurLevels.length)],
+		tint: tints[Math.floor(Math.random() * tints.length)],
+	};
+});
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+		
+		<!-- Google Fonts -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=JetBrains+Mono:wght@100..800&display=swap" rel="stylesheet" />
+		
+		<!-- Lucide Icons -->
+		<script src="https://unpkg.com/lucide@latest"></script>
+	</head>
+	<body 
+			class="font-sans text-stone-800 transition-all duration-700 relative min-h-screen text-xs selection:bg-accent-primary/20 selection:text-stone-900 bg-background"
+        :class="[
+            isGrayscale ? 'grayscale' : ''
+        ]"
+        x-data="appState()"
+	>
+			<div class="fixed inset-0 z-[-2] pointer-events-none overflow-hidden" aria-hidden="true">
+				<div class="absolute inset-0 scale-105 bg-cover bg-center" style="background-image: url('/assets/image/windows-xp.jpg');"></div>
+				<div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.78)_0%,rgba(255,255,255,0.34)_24%,transparent_56%),radial-gradient(circle_at_82%_14%,rgba(196,222,212,0.34)_0%,transparent_34%),linear-gradient(180deg,rgba(251,247,240,0.72)_0%,rgba(244,235,220,0.28)_36%,rgba(228,235,227,0.34)_100%)]"></div>
+				<div class="absolute inset-0 bg-[radial-gradient(circle_at_22%_28%,rgba(157,190,175,0.22)_0%,transparent_24%),radial-gradient(circle_at_78%_24%,rgba(108,159,186,0.20)_0%,transparent_22%),radial-gradient(circle_at_50%_82%,rgba(185,156,116,0.14)_0%,transparent_30%)] mix-blend-screen"></div>
+				<div class="absolute inset-0 bg-white/14 backdrop-blur-[1px]"></div>
+			</div>
+
+			<div class="fixed inset-0 z-[-1] pointer-events-none hidden md:grid md:grid-cols-8 md:grid-rows-5" aria-hidden="true">
+				{blurCells.map((cell) => (
+					<div
+						class="border border-white/30"
+						style={`background-color:${cell.tint};backdrop-filter:blur(${cell.blur}px);-webkit-backdrop-filter:blur(${cell.blur}px);`}
+					/>
+				))}
+			</div>
+		
+		<div class="relative z-10 md:grid md:min-h-screen md:grid-cols-[15.5rem_minmax(0,1fr)]">
+			<aside class="hidden md:flex md:h-screen md:sticky md:top-0 md:flex-col md:justify-between border-r border-white/45 bg-[linear-gradient(180deg,rgba(255,255,255,0.62)_0%,rgba(244,235,222,0.56)_48%,rgba(228,223,208,0.50)_100%)] backdrop-blur-xl px-5 py-7">
+				<div>
+					<div class="mb-8 border border-white/55 bg-white/55 px-4 py-3 shadow-[0_8px_24px_rgba(112,86,62,0.12)]">
+						<div class="text-[10px] tracking-[0.22em] font-semibold text-stone-500 uppercase">site(.)moss</div>
+						<div class="mt-2 text-[11px] tracking-wide font-bold text-stone-800 uppercase">Earth Aero Mode</div>
+					</div>
+
+					<nav class="space-y-1.5">
+						{navItems.map((item) => {
+							const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+							return (
+								<a
+									href={item.href}
+									class:list={[
+										'block border px-3.5 py-2.5 text-[11px] font-semibold tracking-wide uppercase transition-all',
+										isActive
+											? 'border-[#c9b39a] bg-[#f5eadf] text-stone-800 shadow-[0_7px_18px_rgba(112,86,62,0.12)]'
+											: 'border-white/45 bg-white/40 text-stone-600 hover:text-stone-800 hover:bg-white/60 hover:border-white/70'
+									]}
+								>
+									{item.label}
+								</a>
+							);
+						})}
+					</nav>
+				</div>
+
+				<div class="border border-white/45 bg-white/45 px-3.5 py-3 text-[10px] tracking-wide text-stone-500 uppercase">
+					<div>Palette: Clay + Cream</div>
+					<div class="mt-1 text-stone-600">Render: Frutiger Aero Grid</div>
+					<div class="mt-3 space-y-2 text-[10px] normal-case tracking-normal">
+						<button @click="quickOpen = true" class="w-full border border-stone-200 bg-white/70 px-2.5 py-1.5 text-stone-700 hover:text-stone-900">Quick settings</button>
+					</div>
+				</div>
+			</aside>
+
+			<div class="min-w-0">
+				<slot />
+			</div>
+		</div>
+
+		<button @click="quickOpen = true" class="fixed z-[60] bottom-4 right-4 h-10 px-3 border border-stone-300 bg-white/85 text-stone-700 backdrop-blur-md shadow-[0_12px_28px_rgba(90,66,46,0.2)] text-[10px] uppercase tracking-wider font-semibold hover:text-stone-900">
+			Quick
+		</button>
+
+		<div x-show="quickOpen" x-transition.opacity class="fixed inset-0 z-[90] bg-[rgba(40,30,22,0.22)] backdrop-blur-sm" @click="quickOpen = false"></div>
+		<aside
+			x-show="quickOpen"
+			x-transition
+			class="fixed z-[91] right-3 top-3 w-[92vw] max-w-sm border border-stone-200 bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,rgba(244,235,223,0.9)_100%)] text-stone-800 shadow-[0_30px_70px_rgba(89,63,42,0.26)] backdrop-blur-xl"
+		>
+			<div class="flex items-center justify-between border-b border-stone-200 px-4 py-3">
+				<div>
+					<div class="text-[10px] uppercase tracking-[0.22em] text-stone-500 font-semibold">Quick Settings</div>
+					<div class="text-xs text-stone-700 mt-1">Fast controls for theme + access</div>
+				</div>
+				<button @click="quickOpen = false" class="text-xs border border-stone-200 px-2 py-1 hover:bg-white">Close</button>
+			</div>
+
+			<div class="p-4 space-y-4 text-[11px]">
+				<div>
+					<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 mb-2">Palette</p>
+					<div class="grid grid-cols-2 gap-2">
+						<button @click="setPalette('earth-a')" :class="palette === 'earth-a' ? 'border-[#c9b39a] bg-[#f4e6d6] text-stone-900' : 'border-stone-200 bg-white/70 text-stone-700'" class="border px-2.5 py-2 font-semibold">Earth A</button>
+						<button @click="setPalette('earth-b')" :class="palette === 'earth-b' ? 'border-[#a4b292] bg-[#e6ecdf] text-stone-900' : 'border-stone-200 bg-white/70 text-stone-700'" class="border px-2.5 py-2 font-semibold">Earth B</button>
+					</div>
+				</div>
+
+				<div>
+					<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 mb-2">Accessibility</p>
+					<button @click="isGrayscale = !isGrayscale" class="w-full border border-stone-200 bg-white/70 px-3 py-2 flex items-center justify-between">
+						<span>Force grayscale</span>
+						<span x-text="isGrayscale ? 'ON' : 'OFF'" class="font-semibold"></span>
+					</button>
+				</div>
+
+				<div>
+					<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 mb-2">Navigation</p>
+					<div class="grid grid-cols-2 gap-2">
+						{navItems.map((item) => (
+							<a href={item.href} class="border border-stone-200 bg-white/70 px-2.5 py-2 text-center hover:bg-white">{item.label}</a>
+						))}
+					</div>
+				</div>
+
+				<div>
+					<p class="text-[10px] uppercase tracking-[0.2em] text-stone-500 mb-2">Admin</p>
+					{isAdmin ? (
+						<div class="grid grid-cols-2 gap-2">
+							<a href="/admin" class="border border-stone-200 bg-white/70 px-2.5 py-2 text-center hover:bg-white">Admin panel</a>
+							<button @click="logoutAdmin" class="border border-red-200 bg-red-50/80 px-2.5 py-2 text-red-700">Logout</button>
+						</div>
+					) : (
+						<a href="/admin/login" class="block border border-stone-200 bg-white/70 px-2.5 py-2 text-center hover:bg-white">Admin login</a>
+					)}
+				</div>
+			</div>
+		</aside>
+
+		<script is:inline>
+            function appState() {
+                return {
+					theme: 'light',
+                    bgType: 'color',
+					bgValue: '/assets/image/windows-xp.jpg',
+                    isGrayscale: localStorage.getItem('siteMoss_isGrayscale') === 'true',
+					palette: localStorage.getItem('siteMoss_palette') || 'earth-a',
+					quickOpen: false,
+
+                    init() {
+                        this.$watch('isGrayscale', val => localStorage.setItem('siteMoss_isGrayscale', val));
+						this.$watch('palette', val => {
+							localStorage.setItem('siteMoss_palette', val);
+							document.documentElement.setAttribute('data-palette', val);
+						});
+						document.documentElement.setAttribute('data-palette', this.palette);
+                        
+                        window.addEventListener('storage', (e) => {
+                            if (e.key === 'siteMoss_isGrayscale') this.isGrayscale = e.newValue === 'true';
+							if (e.key === 'siteMoss_palette') {
+								this.palette = e.newValue || 'earth-a';
+								document.documentElement.setAttribute('data-palette', this.palette);
+							}
+                        });
+
+                        setTimeout(() => {
+                            if (window.lucide) window.lucide.createIcons();
+                        }, 100);
+					},
+
+					setPalette(paletteId) {
+						this.palette = paletteId;
+					},
+
+					async logoutAdmin() {
+						await fetch('/api/auth/logout', { method: 'POST' });
+						window.location.href = '/';
+                    }
+                }
+            }
+
+			// Initialize Lucide icons
+			document.addEventListener('astro:page-load', () => {
+				if (window.lucide) {
+					window.lucide.createIcons();
+				}
+			});
+		</script>
+	</body>
+</html>

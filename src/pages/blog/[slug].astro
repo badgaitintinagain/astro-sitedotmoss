@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import BlogPostPage from '../../components/BlogPostPage';
+
+export const prerender = false;
+const { slug } = Astro.params;
+---
+
+<Layout title="NODE_VIEWER // site(.)moss">
+    <Header />
+    <main class="pt-20 pb-12">
+        <BlogPostPage client:load slug={slug} />
+    </main>
+</Layout>

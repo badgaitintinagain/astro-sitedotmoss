@@ -1,0 +1,23 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import AdminDashboard from '../../components/AdminDashboard';
+
+// Auth check
+const authCookie = Astro.cookies.get('auth_user');
+if (!authCookie) {
+    return Astro.redirect('/admin/login');
+}
+
+try {
+    const user = JSON.parse(authCookie.value);
+    if (user.role !== 'admin') {
+        return Astro.redirect('/');
+    }
+} catch {
+    return Astro.redirect('/admin/login');
+}
+---
+
+<Layout title="ADMIN_DASHBOARD // site(.)moss">
+    <AdminDashboard client:load />
+</Layout>

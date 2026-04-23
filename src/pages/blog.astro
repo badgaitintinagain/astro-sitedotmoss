@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import BlogListPage from '../components/BlogListPage';
+---
+
+<Layout title="ARCHIVE_LOG // BLOG - site(.)moss">
+    <Header />
+    <div class="animate-page-entry">
+        <BlogListPage client:visible />
+    </div>
+</Layout>

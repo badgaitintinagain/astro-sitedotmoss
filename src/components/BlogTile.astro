@@ -1,0 +1,33 @@
+---
+interface Props {
+	size?: '1x1' | '2x1' | '2x2' | '2x3' | '3x2';
+	accent?: 'primary' | 'secondary';
+	opacity?: number;
+}
+
+const {
+	size = '2x2',
+	accent = 'primary',
+	opacity = 40,
+} = Astro.props as Props;
+---
+
+<a class={`tile tile-${size} astro-blog`} href="/blog" style={`--tile-opacity:${opacity / 100}; --tile-accent:var(--accent-${accent});`}>
+	<div class="astro-blog__mark">Blog</div>
+</a>
+
+<style>
+	.astro-blog {
+		text-decoration: none;
+		background: color-mix(in srgb, var(--tile-accent) 18%, transparent);
+		color: var(--tile-text);
+	}
+
+	.astro-blog__mark {
+		font-size: 0.625rem;
+		text-transform: uppercase;
+		letter-spacing: 0.2em;
+		font-weight: 700;
+		opacity: 0.5;
+	}
+</style>

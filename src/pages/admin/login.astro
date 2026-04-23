@@ -1,0 +1,91 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+---
+
+<Layout title="SYSTEM_AUTH // site(.)moss">
+    <Header />
+    <div class="min-h-screen flex items-center justify-center p-4 bg-transparent">
+        <div class="w-full max-w-md border border-stone-200 p-8 relative bg-white/82 backdrop-blur-xl text-stone-800 shadow-[0_26px_70px_rgba(86,64,44,0.18)]">
+            <div class="corner-tl"></div><div class="corner-tr"></div>
+            <div class="corner-bl"></div><div class="corner-br"></div>
+            
+            <div className="mb-8">
+                <div className="font-mono text-[10px] font-bold text-stone-600 mb-2 uppercase">AUTHENTICATION_MODULE.EXE</div>
+                <h1 className="text-2xl font-bold font-mono text-stone-900 uppercase tracking-tight">ADMIN_ACCESS</h1>
+            </div>
+
+            <form id="login-form" class="space-y-6">
+                <div class="space-y-2">
+                    <label class="block font-mono text-[10px] font-bold text-stone-500 uppercase">IDENTIFIER (EMAIL)</label>
+                    <input 
+                        type="email" 
+                        name="email" 
+                        required 
+                        class="w-full bg-white/88 border border-stone-200 px-4 py-3 font-mono text-xs text-stone-800 focus:outline-none focus:border-accent-primary/50 transition-colors"
+                        placeholder="ADMIN@SITEDOTMOSS.COM"
+                    />
+                </div>
+                
+                <div class="space-y-2">
+                    <label class="block font-mono text-[10px] font-bold text-stone-500 uppercase">ACCESS_KEY (PASSWORD)</label>
+                    <input 
+                        type="password" 
+                        name="password" 
+                        required 
+                        class="w-full bg-white/88 border border-stone-200 px-4 py-3 font-mono text-xs text-stone-800 focus:outline-none focus:border-accent-primary/50 transition-colors"
+                        placeholder="••••••••"
+                    />
+                </div>
+
+                <div id="error-message" class="hidden font-mono text-[10px] font-bold text-red-500 border border-red-500/20 bg-red-500/5 p-3 uppercase">
+                </div>
+
+                <button 
+                    type="submit" 
+                    class="w-full bg-accent-primary/10 hover:bg-accent-primary/20 border border-accent-primary/30 py-3 text-accent-primary font-mono text-xs font-bold uppercase transition-all active:scale-[0.98]"
+                >
+                    INITIATE_SESSION
+                </button>
+            </form>
+        </div>
+    </div>
+</Layout>
+
+<script>
+    const form = document.getElementById('login-form') as HTMLFormElement;
+    const errorMsg = document.getElementById('error-message');
+
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (errorMsg) errorMsg.classList.add('hidden');
+
+        const formData = new FormData(form);
+        const email = formData.get('email');
+        const password = formData.get('password');
+
+        try {
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+                window.location.href = '/admin';
+            } else {
+                if (errorMsg) {
+                    errorMsg.textContent = data.error || 'AUTH_FAILURE';
+                    errorMsg.classList.remove('hidden');
+                }
+            }
+        } catch (error) {
+            if (errorMsg) {
+                errorMsg.textContent = 'SYSTEM_ERROR';
+                errorMsg.classList.remove('hidden');
+            }
+        }
+    });
+</script>

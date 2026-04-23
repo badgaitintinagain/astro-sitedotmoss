@@ -1,0 +1,12 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Dashboard from '../components/Dashboard';
+---
+
+<Layout title="=site(.)moss | Dashboard">
+    <Header />
+    <div class="animate-page-entry">
+	    <Dashboard client:only="react" />
+    </div>
+</Layout>

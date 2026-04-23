@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "JetBrains Mono", monospace;
+  --font-mono: "Space Mono", monospace;
+
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+
+  --color-hud-bg: #EBEBEB;
+  --color-hud-fg: #000000;
+  --color-hud-accent: #000000;
+  --color-hud-border: rgba(0, 0, 0, 0.25);
+  --color-hud-muted: rgba(0, 0, 0, 0.5);
+
+  /* Frutiger Aero Palette */
+    --color-aero-blue: #8fa7b2;
+    --color-aero-green: #9cab8f;
+    --color-aero-white: #f7efe2;
+  
+  /* Map CSS variables to Tailwind colors */
+  --color-void: var(--color-void);
+  --color-void-muted: var(--color-void-muted);
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-tile-bg: var(--tile-bg);
+  --color-tile-text: var(--tile-text);
+  --color-tile-border: var(--tile-border);
+}
+
+@custom-variant uw (@media (min-aspect-ratio: 21/9));
+@custom-variant suw (@media (min-aspect-ratio: 32/9));
+
+@layer base {
+    :root {
+        --cell: clamp(4rem, calc((100vh - 12rem) / 5), 5.5rem);
+
+        color-scheme: light;
+        
+        /* MICROGRAPHICS LIGHT COLORS */
+        --background: #f8f3ea;
+        --foreground: #2b241d;
+        --color-void: #f5f6fa;
+        --color-void-muted: #fbf6ef;
+        --tile-bg: rgba(251, 242, 229, 0.72);
+        --tile-text: #2f281f;
+        --tile-border: rgba(145, 112, 79, 0.18);
+        
+        --accent-primary: #9e7a58;
+        --accent-secondary: #9cab8f;
+    }
+
+    .dark, :root {
+        /* Ensuring light mode everywhere */
+        --background: #f8f3ea;
+        --foreground: #2b241d;
+        --color-void: #f5f6fa;
+        --tile-bg: rgba(251, 242, 229, 0.72);
+        --tile-text: #2f281f;
+        --tile-border: rgba(145, 112, 79, 0.18);
+        --accent-primary: #9e7a58;
+        --accent-secondary: #9cab8f;
+    }
+
+    :root[data-palette="earth-b"] {
+        --background: #eef2e8;
+        --foreground: #2a3126;
+        --color-void-muted: #f4f6ef;
+        --tile-bg: rgba(236, 242, 229, 0.78);
+        --tile-text: #2a3126;
+        --tile-border: rgba(106, 128, 94, 0.2);
+        --accent-primary: #6f8a6a;
+        --accent-secondary: #a99275;
+    }
+
+    body {
+        @apply font-sans text-foreground transition-colors duration-700 relative min-h-screen bg-background;
+    }
+
+    ::selection {
+        background-color: rgba(158, 122, 88, 0.24);
+    }
+}
+
+@keyframes tilePop {
+    0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@layer components {
+    .tile {
+        @apply relative bg-tile-bg backdrop-blur-md border border-tile-border shadow-sm hover:shadow-[0_15px_40px_rgba(118,85,57,0.14)] hover:border-accent-primary/50 hover:z-30 overflow-hidden flex items-center justify-center cursor-pointer rounded-none;
+        color: var(--tile-text);
+        transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        animation: tilePop 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    }
+    
+    .tile:hover {
+        transform: translateY(-4px) scale(1.02);
+        @apply bg-[#fff8ef]/92;
+    }
+
+    .tile-title {
+        @apply absolute bottom-1 left-1.5 text-[8px] font-bold uppercase tracking-widest text-stone-500 z-20 bg-[#fff7eb]/70 px-1 border border-[#d9c1a8]/30;
+    }
+
+    .tile-live {
+        @apply relative z-10 flex w-full h-full p-2 flex-col justify-center items-center text-center transition-transform duration-500;
+    }
+    
+    .tile:hover .tile-live {
+        transform: scale(1.02);
+    }
+
+    /* Sharp Corner Brackets back for Micrographics */
+    .corner-tl, .corner-tr, .corner-bl, .corner-br {
+        @apply absolute w-2 h-2 z-30 opacity-40 transition-all duration-300 border-accent-primary;
+    }
+    .tile:hover .corner-tl, .tile:hover .corner-tr, .tile:hover .corner-bl, .tile:hover .corner-br {
+        @apply opacity-100;
+    }
+    .corner-tl { @apply top-0 left-0 border-t border-l; }
+    .corner-tr { @apply top-0 right-0 border-t border-r; }
+    .corner-bl { @apply bottom-0 left-0 border-b border-l; }
+    .corner-br { @apply bottom-0 right-0 border-b border-r; }
+
+    /* Technical Texture Overlay */
+    .tile-texture {
+        @apply absolute inset-0 pointer-events-none opacity-[0.05] mix-blend-multiply z-5;
+        background-image: linear-gradient(to right, currentColor 1px, transparent 1px), 
+                          linear-gradient(to bottom, currentColor 1px, transparent 1px);
+        background-size: 8px 8px;
+    }
+}
+
+/* Scrollbar Micrographics Style */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 0px;
+}

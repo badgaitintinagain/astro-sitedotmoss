@@ -1,0 +1,25 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import AdminPostEditor from '../../../components/AdminPostEditor';
+
+const { id } = Astro.params;
+
+// Auth check
+const authCookie = Astro.cookies.get('auth_user');
+if (!authCookie) {
+    return Astro.redirect('/admin/login');
+}
+
+try {
+    const user = JSON.parse(authCookie.value);
+    if (user.role !== 'admin') {
+        return Astro.redirect('/');
+    }
+} catch {
+    return Astro.redirect('/admin/login');
+}
+---
+
+<Layout title="EDIT_RECORD // site(.)moss">
+    <AdminPostEditor client:load postId={id} />
+</Layout>
