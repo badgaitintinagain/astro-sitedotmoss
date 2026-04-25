@@ -28,24 +28,25 @@ Set these values:
 - `CLOUDINARY_API_KEY`
 - `CLOUDINARY_API_SECRET`
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare Workers
 
-Use these build settings in Cloudflare Pages:
+This project uses Astro 6 with `@astrojs/cloudflare` and deploys to Cloudflare Workers.
 
-- Framework preset: `Astro`
-- Build command: `npm run build`
-- Build output directory: `dist`
-- Deploy command: leave empty (recommended for Git-connected Pages)
-
-If you use a custom deploy command (CI/manual), use Pages deploy instead of Workers deploy:
+1. Authenticate Wrangler (or set `CLOUDFLARE_API_TOKEN`).
+2. Run:
 
 ```sh
-npx wrangler pages deploy dist --project-name sitedotmoss
+npm run cf:deploy
 ```
 
-Do not use `npx wrangler deploy` for this repository.
+This runs `astro build` and then `wrangler deploy`.
 
-Set all environment variables from `.env.example` in Cloudflare Pages project settings.
+If your deploy uses an API token, ensure it includes at least:
+
+- Account: Cloudflare Workers = Edit
+- Account: Account Settings = Read
+
+Then set all app secrets as Worker secrets (or environment vars) for the deployed Worker.
 
 ## Notes
 
