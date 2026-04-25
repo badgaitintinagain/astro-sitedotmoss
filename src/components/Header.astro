@@ -63,6 +63,10 @@ try {
             </div>
             <div class="p-2 space-y-1 font-mono text-[10px] text-stone-800 font-bold">
                 <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">System_Configuration</div>
+                <button @click="quickOpen = true; open = false" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group">
+                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">[ QUICK_SETTINGS ]</span>
+                    <i data-lucide="sliders-horizontal" class="w-3 h-3 text-stone-500 group-hover:text-stone-800 transition-colors"></i>
+                </button>
                 <button @click="open = false" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group">
                     <span class="text-stone-400 group-hover:text-stone-700 transition-colors">[ SYS_THEME ]</span>
                     <span class="text-stone-500 font-bold group-hover:text-stone-800 transition-colors">LIGHT_AERO</span>

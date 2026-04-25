@@ -126,10 +126,6 @@ const blurCells = Array.from({ length: 40 }, (_, id) => {
 			</div>
 		</div>
 
-		<button @click="quickOpen = true" class="fixed z-[60] bottom-4 right-4 h-10 px-3 border border-stone-300 bg-white/85 text-stone-700 backdrop-blur-md shadow-[0_12px_28px_rgba(90,66,46,0.2)] text-[10px] uppercase tracking-wider font-semibold hover:text-stone-900">
-			Quick
-		</button>
-
 		<div x-show="quickOpen" x-transition.opacity class="fixed inset-0 z-[90] bg-[rgba(40,30,22,0.22)] backdrop-blur-sm" @click="quickOpen = false"></div>
 		<aside
 			x-show="quickOpen"
