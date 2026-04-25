@@ -157,7 +157,6 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
         </div>
     </div>
   );
-  );
 };
 
 export default PhotosTile;
