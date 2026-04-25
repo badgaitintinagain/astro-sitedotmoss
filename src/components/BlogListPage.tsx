@@ -92,14 +92,14 @@ export default function BlogListPage() {
                 <div className="flex flex-col">
                     <h1 className="text-[10px] font-bold tracking-[0.2em] text-stone-800 uppercase flex items-center gap-2">
                         <Terminal size={12} className="text-accent-primary" />
-                        ARCHIVE_LOG.SYS
+                        Archive Log
                     </h1>
                 </div>
             </div>
 
             <div className="flex items-center gap-3">
               <div className="hidden sm:flex flex-col items-end mr-1">
-                 <span className="text-[8px] text-stone-500 font-bold uppercase">NODES: {posts.length.toString().padStart(3, '0')}</span>
+                 <span className="text-[8px] text-stone-500 font-bold uppercase">Posts: {posts.length}</span>
               </div>
               <div className="flex items-center gap-0.5 border border-stone-200 bg-white/70 p-0.5">
                 <button

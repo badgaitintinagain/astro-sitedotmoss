@@ -54,11 +54,11 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
         <div className="flex items-center justify-between p-4 border-b border-stone-200 bg-white/72">
             <div className="flex items-center gap-3">
                 <Images className="text-accent-primary" />
-                <h2 className="text-lg font-semibold tracking-tight text-stone-900">Image_Converter.sys</h2>
+                <h2 className="text-lg font-semibold tracking-tight text-stone-900">Image Converter</h2>
             </div>
             {photos.length > 0 && (
                 <button onClick={() => setPhotos([])} className="border border-stone-200 px-3 py-1 text-xs font-semibold hover:bg-stone-100 transition-all">
-                    [ CLEAR_QUEUE ]
+                    Clear Queue
                 </button>
             )}
         </div>

@@ -65,11 +65,11 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
         <div className="flex items-center justify-between p-4 border-b border-stone-200 bg-white/72">
             <div className="flex items-center gap-3">
                 <Microscope className="text-accent-primary" />
-                <h2 className="text-lg font-semibold tracking-tight text-stone-900">WBC_Detection.sys</h2>
+                <h2 className="text-lg font-semibold tracking-tight text-stone-900">WBC Detection</h2>
             </div>
             {(result || previewUrl) && (
                 <button onClick={() => {setResult(null); setPreviewUrl(null);}} className="border border-stone-200 px-3 py-1 text-xs font-semibold hover:bg-stone-100 transition-all">
-                    [ NEW_SCAN ]
+                    New Scan
                 </button>
             )}
         </div>

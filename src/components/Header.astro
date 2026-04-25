@@ -48,32 +48,32 @@ try {
     <div class="flex items-center h-full border-l border-stone-200 pl-3 md:pl-6 pr-4 text-stone-800" @click.outside="open = false">
         <div class="flex flex-col items-end mr-4 hidden sm:flex">
             <span class="font-mono text-xs font-semibold opacity-80 leading-none mb-0.5" x-text="window.location.pathname.includes('blog') ? 'PORT: 025' : (window.location.pathname.includes('spotify') ? 'PORT: ANALYTIC' : 'PORT: 001')">PORT: 001</span>
-            <span class="font-mono text-[7px] font-semibold opacity-50 leading-none uppercase">Sys_Daylight</span>
+            <span class="font-mono text-[7px] font-semibold opacity-50 leading-none uppercase">Daylight Status</span>
         </div>
         <button @click="open = !open" class="relative group flex h-9 w-9 border border-stone-300 items-center justify-center bg-white/65 hover:bg-white hover:text-stone-900 transition-all shadow-[0_8px_20px_rgba(0,0,0,0.06)]">
             <i data-lucide="settings" class="w-5 h-5 transition-all duration-500 relative z-10"></i>
         </button>
         <div x-show="open" x-transition class="absolute right-4 top-16 w-64 border border-stone-200 shadow-[0_24px_50px_rgba(82,62,42,0.18)] z-50 bg-white/90 backdrop-blur-xl">
             <div class="border-b border-stone-200 px-3 py-1.5 bg-white/70 flex justify-between items-center">
-                <div class="text-[10px] font-mono font-bold tracking-widest uppercase text-stone-500">Quick_Params.sys</div>
+                <div class="text-[10px] font-mono font-bold tracking-widest uppercase text-stone-500">Settings</div>
                 <div class="flex gap-1">
                     <div class="w-1.5 h-1.5 bg-accent-primary/35"></div>
                     <div class="w-1.5 h-1.5 bg-stone-300"></div>
                 </div>
             </div>
             <div class="p-2 space-y-1 font-mono text-[10px] text-stone-800 font-bold">
-                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">System_Configuration</div>
+                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">Configuration</div>
                 <button @click="quickOpen = true; open = false" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group">
-                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">[ QUICK_SETTINGS ]</span>
+                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">Quick Settings</span>
                     <i data-lucide="sliders-horizontal" class="w-3 h-3 text-stone-500 group-hover:text-stone-800 transition-colors"></i>
                 </button>
                 <button @click="open = false" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group">
-                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">[ SYS_THEME ]</span>
-                    <span class="text-stone-500 font-bold group-hover:text-stone-800 transition-colors">LIGHT_AERO</span>
+                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">System Theme</span>
+                    <span class="text-stone-500 font-bold group-hover:text-stone-800 transition-colors">Light Aero</span>
                 </button>
                 <button @click="isGrayscale = !isGrayscale; open = false" class="flex w-full items-center justify-between border border-transparent hover:border-stone-200 px-3 py-1.5 transition-all hover:bg-stone-50 group">
-                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">[ RENDER_MODE ]</span>
-                    <span class="text-stone-500 font-bold group-hover:text-stone-800 transition-colors" x-text="isGrayscale ? 'MONOCHROME' : 'RGB_ACTIVE'"></span>
+                    <span class="text-stone-400 group-hover:text-stone-700 transition-colors">Render Mode</span>
+                    <span class="text-stone-500 font-bold group-hover:text-stone-800 transition-colors" x-text="isGrayscale ? 'Monochrome' : 'RGB Active'"></span>
                 </button>
                 
                 <div class="h-[1px] bg-stone-200 my-2"></div>

@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 ---
 
-<Layout title="SYSTEM_AUTH // site(.)moss">
+<Layout title="Admin Login - site(.)moss">
     <Header />
     <div class="min-h-screen flex items-center justify-center p-4 bg-transparent">
         <div class="w-full max-w-md border border-stone-200 p-8 relative bg-white/82 backdrop-blur-xl text-stone-800 shadow-[0_26px_70px_rgba(86,64,44,0.18)]">
@@ -11,24 +11,24 @@ import Header from '../../components/Header.astro';
             <div class="corner-bl"></div><div class="corner-br"></div>
             
             <div className="mb-8">
-                <div className="font-mono text-[10px] font-bold text-stone-600 mb-2 uppercase">AUTHENTICATION_MODULE.EXE</div>
-                <h1 className="text-2xl font-bold font-mono text-stone-900 uppercase tracking-tight">ADMIN_ACCESS</h1>
+                <div className="font-mono text-[10px] font-bold text-stone-600 mb-2 uppercase">Login Required</div>
+                <h1 className="text-2xl font-bold font-mono text-stone-900 uppercase tracking-tight">Admin Access</h1>
             </div>
 
             <form id="login-form" class="space-y-6">
                 <div class="space-y-2">
-                    <label class="block font-mono text-[10px] font-bold text-stone-500 uppercase">IDENTIFIER (EMAIL)</label>
+                    <label class="block font-mono text-[10px] font-bold text-stone-500 uppercase">Email</label>
                     <input 
                         type="email" 
                         name="email" 
                         required 
                         class="w-full bg-white/88 border border-stone-200 px-4 py-3 font-mono text-xs text-stone-800 focus:outline-none focus:border-accent-primary/50 transition-colors"
-                        placeholder="ADMIN@SITEDOTMOSS.COM"
+                        placeholder="admin@sitedotmoss.com"
                     />
                 </div>
                 
                 <div class="space-y-2">
-                    <label class="block font-mono text-[10px] font-bold text-stone-500 uppercase">ACCESS_KEY (PASSWORD)</label>
+                    <label class="block font-mono text-[10px] font-bold text-stone-500 uppercase">Password</label>
                     <input 
                         type="password" 
                         name="password" 
@@ -45,7 +45,7 @@ import Header from '../../components/Header.astro';
                     type="submit" 
                     class="w-full bg-accent-primary/10 hover:bg-accent-primary/20 border border-accent-primary/30 py-3 text-accent-primary font-mono text-xs font-bold uppercase transition-all active:scale-[0.98]"
                 >
-                    INITIATE_SESSION
+                    Login
                 </button>
             </form>
         </div>
@@ -77,13 +77,13 @@ import Header from '../../components/Header.astro';
                 window.location.href = '/admin';
             } else {
                 if (errorMsg) {
-                    errorMsg.textContent = data.error || 'AUTH_FAILURE';
+                    errorMsg.textContent = data.error || 'Login failed';
                     errorMsg.classList.remove('hidden');
                 }
             }
         } catch (error) {
             if (errorMsg) {
-                errorMsg.textContent = 'SYSTEM_ERROR';
+                errorMsg.textContent = 'System error occurred';
                 errorMsg.classList.remove('hidden');
             }
         }

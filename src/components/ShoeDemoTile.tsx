@@ -77,11 +77,11 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
         <div className="flex items-center justify-between p-4 border-b border-stone-200 bg-white/75">
             <div className="flex items-center gap-3">
                 <Footprints className="text-amber-600" />
-                <h2 className="text-lg font-semibold tracking-tight">Shoe_Detection.sys</h2>
+                <h2 className="text-lg font-semibold tracking-tight">Shoe Detection</h2>
             </div>
             {(result || previewUrl) && (
                 <button onClick={resetState} className="border border-stone-300 px-3 py-1 text-xs hover:bg-stone-100 transition-all">
-                    [ RESET ]
+                    Reset
                 </button>
             )}
         </div>
