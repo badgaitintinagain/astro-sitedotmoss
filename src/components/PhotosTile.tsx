@@ -50,15 +50,15 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
   }
 
   return (
-    <div className="w-full h-full min-h-[540px] bg-[#fdfaf7]/80 text-stone-800 overflow-hidden flex flex-col font-sans border border-stone-100 backdrop-blur-md rounded-xl" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
+    <div className="w-full h-full min-h-[540px] bg-[#fdfaf7]/80 text-stone-800 overflow-hidden flex flex-col font-sans border border-stone-100 backdrop-blur-md" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
         <div className="flex items-center justify-between p-5 border-b border-stone-100 bg-white/40">
             <div className="flex items-center gap-3">
                 <div className="p-2 bg-accent-primary/10 rounded-lg">
                     <Images className="text-accent-primary" size={20} />
                 </div>
                 <div>
-                    <h2 className="text-xl font-bold tracking-tight text-stone-900">Image Converter</h2>
-                    <p className="text-[11px] text-stone-500 font-medium">Quickly format your photos</p>
+                    <h2 className="text-xl font-bold tracking-tight text-stone-900">Photos</h2>
+                    <p className="text-[11px] text-stone-500 font-medium">Easily convert and manage your images in one place</p>
                 </div>
             </div>
             {photos.length > 0 && (

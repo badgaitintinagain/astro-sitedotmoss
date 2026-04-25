@@ -30,7 +30,7 @@ try {
             <span class="font-mono font-semibold tracking-wide text-[11px] leading-none mb-0.5 text-stone-800">
                 <a href="/">SITEDOTMOSS</a>
             </span>
-            <span class="font-mono text-[8px] font-semibold opacity-60 leading-none text-stone-600">CORE.STATUS: LIGHT_AERO</span>
+            <span class="font-mono text-[8px] font-semibold opacity-60 leading-none text-stone-600">Active Theme: Light Aero</span>
         </div>
     </div>
     
@@ -40,14 +40,14 @@ try {
                 <span>DASHBOARD</span>
             </a>
             <a href="/blog" class="group relative flex items-center gap-2 hover:text-accent-primary transition-colors">
-                <span>ARCHIVE_LOG</span>
+                <span>BLOG ARCHIVE</span>
             </a>
         </div>
     </div>
     
     <div class="flex items-center h-full border-l border-stone-200 pl-3 md:pl-6 pr-4 text-stone-800" @click.outside="open = false">
         <div class="flex flex-col items-end mr-4 hidden sm:flex">
-            <span class="font-mono text-xs font-semibold opacity-80 leading-none mb-0.5" x-text="window.location.pathname.includes('blog') ? 'PORT: 025' : (window.location.pathname.includes('spotify') ? 'PORT: ANALYTIC' : 'PORT: 001')">PORT: 001</span>
+            <span class="font-mono text-xs font-semibold opacity-80 leading-none mb-0.5" x-text="window.location.pathname.includes('blog') ? 'Archive View' : (window.location.pathname.includes('spotify') ? 'Analysis View' : 'Main View')">Main View</span>
             <span class="font-mono text-[7px] font-semibold opacity-50 leading-none uppercase">Daylight Status</span>
         </div>
         <button @click="open = !open" class="relative group flex h-9 w-9 border border-stone-300 items-center justify-center bg-white/65 hover:bg-white hover:text-stone-900 transition-all shadow-[0_8px_20px_rgba(0,0,0,0.06)]">
@@ -78,13 +78,13 @@ try {
                 
                 <div class="h-[1px] bg-stone-200 my-2"></div>
                 
-                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">Kernel_Status</div>
+                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">System Info</div>
                 <div class="px-3 py-1 flex justify-between items-center text-stone-500">
-                    <span>UPTIME</span>
+                    <span>Active Time</span>
                     <span class="text-stone-700">00:42:17:88</span>
                 </div>
                 <div class="px-3 py-1 flex justify-between items-center text-stone-500">
-                    <span>BUFF_LOAD</span>
+                    <span>Performance</span>
                     <div class="w-16 h-1 bg-stone-200 relative overflow-hidden">
                         <div class="absolute inset-0 bg-accent-primary/35 w-3/4"></div>
                     </div>
@@ -92,7 +92,7 @@ try {
 
                 <div class="h-[1px] bg-stone-200 my-2"></div>
 
-                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">Access_Terminal</div>
+                <div class="px-2 py-1 text-stone-600 text-[8px] uppercase tracking-tighter">Account</div>
                 
                 <!-- IF LOGGED IN -->
                 <template x-if="isLoggedIn">
