@@ -65,7 +65,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
         <div className="relative z-10 flex flex-col gap-5 p-5 md:p-6">
             <header className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-[1.1rem] bg-[rgba(255,255,255,0.52)] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_8px_24px_rgba(109,92,71,0.08)] backdrop-blur-md">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-none bg-[rgba(255,255,255,0.52)] shadow-[inset_0_1px_0_rgba(255,255,255,0.75),0_8px_24px_rgba(109,92,71,0.08)] backdrop-blur-md">
                         <Images className="text-[#7f9778]" size={22} />
                     </div>
                     <div>
@@ -75,14 +75,14 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                 </div>
 
                 <div className="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-600">
-                    <span className="rounded-full bg-[rgba(255,255,255,0.42)] px-3 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">{photos.length} files</span>
-                    <span className="rounded-full bg-[rgba(255,255,255,0.42)] px-3 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">{targetFormat.replace('image/', '').toUpperCase()}</span>
-                    <span className="rounded-full bg-[rgba(255,255,255,0.42)] px-3 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">{Math.round(quality * 100)}% quality</span>
+                    <span className="rounded-none bg-[rgba(255,255,255,0.42)] px-3 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">{photos.length} files</span>
+                    <span className="rounded-none bg-[rgba(255,255,255,0.42)] px-3 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">{targetFormat.replace('image/', '').toUpperCase()}</span>
+                    <span className="rounded-none bg-[rgba(255,255,255,0.42)] px-3 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.65)]">{Math.round(quality * 100)}% quality</span>
                 </div>
             </header>
 
             <div className="grid gap-5 lg:grid-cols-[18rem_minmax(0,1fr)]">
-                <aside className="rounded-[2rem] bg-[rgba(255,255,255,0.40)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_18px_40px_rgba(98,81,63,0.08)] backdrop-blur-2xl">
+                <aside className="rounded-none bg-[rgba(255,255,255,0.40)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_18px_40px_rgba(98,81,63,0.08)] backdrop-blur-2xl">
                     <div className="space-y-5">
                         <div>
                             <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">Format</p>
@@ -91,7 +91,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                     <button
                                         key={opt.value}
                                         onClick={() => setTargetFormat(opt.value)}
-                                        className={`rounded-2xl px-3 py-2 text-[10px] font-semibold tracking-[0.16em] transition-all ${targetFormat === opt.value ? 'bg-[rgba(115,144,109,0.92)] text-white shadow-[0_8px_18px_rgba(111,136,104,0.26)]' : 'bg-[rgba(255,255,255,0.58)] text-stone-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] hover:bg-white/80'}`}
+                                        className={`rounded-none px-3 py-2 text-[10px] font-semibold tracking-[0.16em] transition-all ${targetFormat === opt.value ? 'bg-[rgba(115,144,109,0.92)] text-white shadow-[0_8px_18px_rgba(111,136,104,0.26)]' : 'bg-[rgba(255,255,255,0.58)] text-stone-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] hover:bg-white/80'}`}
                                     >
                                         {opt.label}
                                     </button>
@@ -102,7 +102,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                         <div>
                             <div className="mb-2 flex items-center justify-between">
                                 <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">Quality</p>
-                                <span className="rounded-full bg-[rgba(115,144,109,0.12)] px-2.5 py-0.5 text-[10px] font-bold text-[#6f8e67]">{Math.round(quality * 100)}%</span>
+                                <span className="rounded-none bg-[rgba(115,144,109,0.12)] px-2.5 py-0.5 text-[10px] font-bold text-[#6f8e67]">{Math.round(quality * 100)}%</span>
                             </div>
                             <input
                                 type="range"
@@ -121,7 +121,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                         <button
                             onClick={convertAll}
                             disabled={photos.length === 0 || isConverting}
-                            className="w-full rounded-[1.4rem] bg-[linear-gradient(180deg,rgba(120,147,113,0.96)_0%,rgba(100,129,94,0.96)_100%)] px-4 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(100,129,94,0.24)] transition-all disabled:cursor-not-allowed disabled:opacity-35"
+                            className="w-full rounded-none bg-[linear-gradient(180deg,rgba(120,147,113,0.96)_0%,rgba(100,129,94,0.96)_100%)] px-4 py-3 text-sm font-semibold text-white shadow-[0_14px_30px_rgba(100,129,94,0.24)] transition-all disabled:cursor-not-allowed disabled:opacity-35"
                         >
                             {isConverting ? 'Processing...' : 'Convert Images'}
                         </button>
@@ -129,7 +129,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                         {photos.length > 0 && (
                             <button
                                 onClick={() => setPhotos([])}
-                                className="w-full rounded-[1.4rem] bg-[rgba(255,255,255,0.42)] px-4 py-3 text-xs font-semibold text-stone-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-all hover:bg-white/70 hover:text-stone-800"
+                                className="w-full rounded-none bg-[rgba(255,255,255,0.42)] px-4 py-3 text-xs font-semibold text-stone-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.7)] transition-all hover:bg-white/70 hover:text-stone-800"
                             >
                                 Clear Queue
                             </button>
@@ -137,7 +137,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                     </div>
                 </aside>
 
-                <main className="rounded-[2rem] bg-[rgba(255,255,255,0.36)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_20px_50px_rgba(95,79,60,0.08)] backdrop-blur-2xl overflow-hidden">
+                <main className="rounded-none bg-[rgba(255,255,255,0.36)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72),0_20px_50px_rgba(95,79,60,0.08)] backdrop-blur-2xl overflow-hidden">
                     {photos.length === 0 ? (
                         <div
                             onDragEnter={() => setIsDragOver(true)}
@@ -152,10 +152,10 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                 onFiles({ target: { files: event.dataTransfer.files } } as any);
                             }}
                             onClick={() => fileInputRef.current?.click()}
-                            className={`flex min-h-[430px] cursor-pointer flex-col items-center justify-center rounded-[2rem] border border-dashed transition-all ${isDragOver ? 'border-[#7f9778] bg-[rgba(127,151,120,0.10)]' : 'border-[rgba(120,120,120,0.12)] bg-[rgba(255,255,255,0.22)]'} shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]`}
+                            className={`flex min-h-[430px] cursor-pointer flex-col items-center justify-center rounded-none border border-dashed transition-all ${isDragOver ? 'border-[#7f9778] bg-[rgba(127,151,120,0.10)]' : 'border-[rgba(120,120,120,0.12)] bg-[rgba(255,255,255,0.22)]'} shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]`}
                         >
                             <input ref={fileInputRef} type="file" multiple className="hidden" onChange={onFiles} />
-                            <div className="mb-5 flex h-18 w-18 items-center justify-center rounded-full bg-[rgba(255,255,255,0.66)] shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_10px_22px_rgba(102,89,69,0.08)]">
+                            <div className="mb-5 flex h-18 w-18 items-center justify-center rounded-none bg-[rgba(255,255,255,0.66)] shadow-[inset_0_1px_0_rgba(255,255,255,0.85),0_10px_22px_rgba(102,89,69,0.08)]">
                                 <Upload size={30} className="text-stone-500" />
                             </div>
                             <div className="text-center">
@@ -164,7 +164,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                             </div>
                             <div className="mt-8 grid grid-cols-3 gap-3 opacity-75">
                                 {['Preview', 'Convert', 'Export'].map((label) => (
-                                    <div key={label} className="rounded-2xl bg-[rgba(255,255,255,0.52)] px-4 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+                                    <div key={label} className="rounded-none bg-[rgba(255,255,255,0.52)] px-4 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-500 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
                                         {label}
                                     </div>
                                 ))}
@@ -172,8 +172,8 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                         </div>
                     ) : (
                         <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_20rem]">
-                            <div className="rounded-[1.7rem] bg-[rgba(255,255,255,0.44)] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
-                                <div className="relative overflow-hidden rounded-[1.4rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.72)_0%,rgba(245,245,242,0.44)_100%)] aspect-[4/3]">
+                            <div className="rounded-none bg-[rgba(255,255,255,0.44)] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+                                <div className="relative overflow-hidden rounded-none bg-[linear-gradient(180deg,rgba(255,255,255,0.72)_0%,rgba(245,245,242,0.44)_100%)] aspect-[4/3]">
                                     <img src={activePhoto?.preview} alt={activePhoto?.file?.name || 'Selected preview'} className="h-full w-full object-cover" />
                                     <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(17,22,17,0.68)_100%)] px-4 py-4 text-white">
                                         <div className="text-[10px] uppercase tracking-[0.24em] text-white/70">Selected file</div>
@@ -182,7 +182,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                 </div>
                             </div>
 
-                            <div className="rounded-[1.7rem] bg-[rgba(255,255,255,0.40)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+                            <div className="rounded-none bg-[rgba(255,255,255,0.40)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
                                 <div className="mb-3 flex items-center justify-between">
                                     <div>
                                         <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">Library</p>
@@ -193,16 +193,34 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                     </div>
                                 </div>
 
+                                <div className="mb-4 border border-white/40 bg-[rgba(255,255,255,0.34)] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.68)]">
+                                    <div className="mb-2 flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.22em] text-stone-500">
+                                        <span>Preview strip</span>
+                                        <span>Recent</span>
+                                    </div>
+                                    <div className="flex gap-2 overflow-x-auto pb-1 no-scrollbar">
+                                        {photos.slice(0, 8).map((photo) => (
+                                            <button
+                                                key={photo.id}
+                                                onClick={() => setActivePhotoId(photo.id)}
+                                                className={`h-16 w-20 shrink-0 overflow-hidden rounded-none border transition-all ${activePhoto?.id === photo.id ? 'border-[#7f9778] ring-1 ring-[#7f9778]/30' : 'border-white/50 hover:border-stone-300'}`}
+                                            >
+                                                <img src={photo.preview} className="h-full w-full object-cover" />
+                                            </button>
+                                        ))}
+                                    </div>
+                                </div>
+
                                 <div className="grid max-h-[340px] gap-3 overflow-y-auto pr-1 no-scrollbar">
                                     {photos.map(p => (
                                         <div
                                             key={p.id}
                                             onClick={() => setActivePhotoId(p.id)}
-                                            className={`group flex cursor-pointer items-center gap-3 rounded-[1.2rem] p-2 text-left transition-all ${activePhoto?.id === p.id ? 'bg-[rgba(126,151,120,0.16)] shadow-[0_10px_24px_rgba(95,79,60,0.08)]' : 'bg-[rgba(255,255,255,0.46)] hover:bg-white/65'}`}
+                                            className={`group flex cursor-pointer items-center gap-3 rounded-none p-2 text-left transition-all ${activePhoto?.id === p.id ? 'bg-[rgba(126,151,120,0.16)] shadow-[0_10px_24px_rgba(95,79,60,0.08)]' : 'bg-[rgba(255,255,255,0.46)] hover:bg-white/65'}`}
                                             role="button"
                                             tabIndex={0}
                                         >
-                                            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-[1rem] bg-white/60">
+                                            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-none bg-white/60">
                                                 <img src={p.preview} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                                             </div>
                                             <div className="min-w-0 flex-1">
@@ -214,7 +232,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                                     event.stopPropagation();
                                                     setPhotos(photos.filter(x => x.id !== p.id));
                                                 }}
-                                                className="rounded-full p-2 text-stone-400 transition-colors hover:bg-white/70 hover:text-red-500"
+                                                className="rounded-none p-2 text-stone-400 transition-colors hover:bg-white/70 hover:text-red-500"
                                             >
                                                 <Trash2 size={12} />
                                             </button>

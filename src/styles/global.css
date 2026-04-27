@@ -87,6 +87,14 @@
     100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
+@keyframes liquidSweep {
+    0% { transform: translate3d(-18%, 0, 0) skewX(-12deg); opacity: 0; }
+    18% { opacity: 0.28; }
+    50% { opacity: 0.14; }
+    82% { opacity: 0.24; }
+    100% { transform: translate3d(18%, 0, 0) skewX(-12deg); opacity: 0; }
+}
+
 @layer components {
     .tile {
         @apply relative bg-tile-bg backdrop-blur-2xl border border-tile-border shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_14px_34px_rgba(118,85,57,0.10)] hover:shadow-[0_18px_48px_rgba(118,85,57,0.14)] hover:border-accent-primary/45 hover:z-30 overflow-hidden flex items-center justify-center cursor-pointer rounded-[1px];
@@ -139,6 +147,13 @@
         -webkit-backdrop-filter: blur(28px) saturate(1.35);
         box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 18px 48px rgba(102, 88, 68, 0.10);
         border: 1px solid rgba(255,255,255,0.34);
+    }
+
+    .liquid-sweep {
+        background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.56) 44%, rgba(255,255,255,0.12) 54%, transparent 100%);
+        filter: blur(18px);
+        mix-blend-mode: screen;
+        animation: liquidSweep 18s ease-in-out infinite;
     }
 }
 

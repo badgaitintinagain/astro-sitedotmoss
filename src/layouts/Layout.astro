@@ -17,12 +17,12 @@ try {
 } catch {}
 
 const navItems = [
-	{ href: '/', label: 'Dashboard' },
-	{ href: '/blog', label: 'Blog' },
-	{ href: '/photos', label: 'Photos' },
-	{ href: '/spotify', label: 'Spotify' },
-	{ href: '/nextwbc', label: 'NextWBC' },
-	{ href: '/shoe-demo', label: 'Shoe Demo' },
+	{ href: '/', label: 'Dashboard', icon: 'layout-grid' },
+	{ href: '/blog', label: 'Blog', icon: 'book-open-text' },
+	{ href: '/photos', label: 'Photos', icon: 'image' },
+	{ href: '/spotify', label: 'Spotify', icon: 'music-4' },
+	{ href: '/nextwbc', label: 'NextWBC', icon: 'microscope' },
+	{ href: '/shoe-demo', label: 'Shoe Demo', icon: 'footprints' },
 ];
 
 const blurCells = Array.from({ length: 40 }, (_, id) => {
@@ -74,6 +74,7 @@ const blurCells = Array.from({ length: 40 }, (_, id) => {
 				<div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.42)_18%,transparent_42%),radial-gradient(circle_at_80%_15%,rgba(209,226,247,0.42)_0%,transparent_30%),radial-gradient(circle_at_54%_80%,rgba(205,233,219,0.24)_0%,transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.46)_0%,rgba(245,249,252,0.20)_34%,rgba(230,239,223,0.24)_100%)]"></div>
 				<div class="absolute inset-0 bg-[radial-gradient(circle_at_26%_28%,rgba(255,255,255,0.42)_0%,transparent_18%),radial-gradient(circle_at_74%_24%,rgba(122,163,214,0.16)_0%,transparent_18%),radial-gradient(circle_at_48%_78%,rgba(160,198,168,0.12)_0%,transparent_24%)] mix-blend-screen"></div>
 				<div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0.12)_28%,transparent_52%,rgba(255,255,255,0.16)_74%,rgba(255,255,255,0.36)_100%)] opacity-60"></div>
+				<div class="absolute inset-[-20%] liquid-sweep pointer-events-none"></div>
 				<div class="absolute inset-0 bg-white/6 backdrop-blur-[0.5px]"></div>
 			</div>
 
@@ -86,32 +87,39 @@ const blurCells = Array.from({ length: 40 }, (_, id) => {
 				))}
 			</div>
 		
-		<div class="relative z-10 md:grid md:min-h-screen md:grid-cols-[15.5rem_minmax(0,1fr)]">
-			<aside class="hidden md:flex md:h-screen md:sticky md:top-0 md:flex-col md:justify-between px-5 py-7 bg-[linear-gradient(180deg,rgba(252,250,246,0.34)_0%,rgba(244,240,231,0.24)_36%,rgba(223,230,215,0.20)_100%)] backdrop-blur-2xl shadow-[inset_-1px_0_0_rgba(255,255,255,0.36)] relative overflow-hidden">
+		<div class="relative z-10 md:grid md:min-h-screen" :class="sidebarCollapsed ? 'md:grid-cols-[5.5rem_minmax(0,1fr)]' : 'md:grid-cols-[15.5rem_minmax(0,1fr)]'">
+			<aside class="hidden md:flex md:h-screen md:sticky md:top-0 md:flex-col md:justify-between px-5 py-7 bg-[linear-gradient(180deg,rgba(252,250,246,0.34)_0%,rgba(244,240,231,0.24)_36%,rgba(223,230,215,0.20)_100%)] backdrop-blur-2xl shadow-[inset_-1px_0_0_rgba(255,255,255,0.36)] relative overflow-hidden transition-[width] duration-300"
+				:class="sidebarCollapsed ? 'md:w-22 px-3' : 'md:w-[15.5rem] px-5'">
 				<div class="absolute inset-0 pointer-events-none opacity-55" aria-hidden="true">
 					<div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(177,188,170,0.16)_0%,transparent_26%),radial-gradient(circle_at_72%_14%,rgba(255,255,255,0.70)_0%,transparent_24%),radial-gradient(circle_at_58%_74%,rgba(166,181,155,0.12)_0%,transparent_24%),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.10)_1px,transparent_1px)] bg-[length:auto,auto,auto,3.5rem_3.5rem,3.5rem_3.5rem] opacity-28"></div>
 					<div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.42)_0%,transparent_28%,rgba(179,205,186,0.08)_60%,transparent_100%)] mix-blend-screen"></div>
 				</div>
 				<div>
-					<div class="mb-8 px-4 py-3 bg-[rgba(255,255,255,0.42)] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_10px_30px_rgba(116,102,78,0.08)] backdrop-blur-sm">
-						<div class="text-[10px] tracking-[0.22em] font-semibold text-stone-500 uppercase">site(.)moss</div>
+					<div class="mb-8 flex items-center justify-between px-4 py-3 bg-[rgba(255,255,255,0.42)] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_10px_30px_rgba(116,102,78,0.08)] backdrop-blur-sm">
+						<div class="text-[10px] tracking-[0.22em] font-semibold text-stone-500 uppercase" x-show="!sidebarCollapsed">site(.)moss</div>
+						<div class="hidden h-6 w-6 items-center justify-center text-[10px] font-bold tracking-[0.2em] text-stone-600 uppercase" x-show="sidebarCollapsed">S</div>
+						<button @click="toggleSidebar()" class="ml-auto flex h-7 w-7 items-center justify-center border border-white/50 bg-white/60 text-stone-600 hover:bg-white hover:text-stone-900" aria-label="Toggle sidebar">
+							<i data-lucide="panel-left-close" class="h-4 w-4" x-show="!sidebarCollapsed"></i>
+							<i data-lucide="panel-left-open" class="h-4 w-4" x-show="sidebarCollapsed"></i>
+						</button>
 					</div>
 
-					<nav class="space-y-2">
+					<nav class="space-y-2" :class="sidebarCollapsed ? 'px-0' : ''">
 						{navItems.map((item) => {
 							const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
 							return (
 								<a
 									href={item.href}
 									class:list={[
-										'block px-3.5 py-3 text-[11px] font-semibold tracking-wide uppercase transition-all duration-300 backdrop-blur-sm relative overflow-hidden',
+										'flex items-center gap-3 px-3.5 py-3 text-[11px] font-semibold tracking-wide uppercase transition-all duration-300 backdrop-blur-sm relative overflow-hidden',
 										isActive
 											? 'bg-[rgba(247,232,209,0.72)] text-stone-800 shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_6px_16px_rgba(112,86,62,0.08)]'
 											: 'bg-[rgba(255,255,255,0.34)] text-stone-600 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] hover:bg-[rgba(255,255,255,0.58)] hover:text-stone-800'
 									]}
 								>
 								<span class="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.22)_0%,transparent_32%,transparent_68%,rgba(164,181,152,0.08)_100%)] opacity-60"></span>
-								<span class="relative z-10">{item.label}</span>
+								<i data-lucide={item.icon} class="relative z-10 h-4 w-4 shrink-0"></i>
+								<span class="relative z-10" x-show="!sidebarCollapsed">{item.label}</span>
 								</a>
 							);
 						})}
@@ -120,7 +128,10 @@ const blurCells = Array.from({ length: 40 }, (_, id) => {
 
 				<div class="px-3.5 py-3 text-[10px] tracking-wide text-stone-500 uppercase bg-[rgba(255,255,255,0.28)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
 					<div class="space-y-2 text-[10px] normal-case tracking-normal">
-						<button @click="quickOpen = true" class="w-full px-2.5 py-1.5 text-stone-700 bg-[rgba(255,255,255,0.58)] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] hover:bg-white/80 hover:text-stone-900">Quick settings</button>
+						<button @click="quickOpen = true" class="w-full px-2.5 py-1.5 text-stone-700 bg-[rgba(255,255,255,0.58)] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] hover:bg-white/80 hover:text-stone-900" x-show="!sidebarCollapsed">Quick settings</button>
+						<button @click="quickOpen = true" class="hidden w-full items-center justify-center px-2.5 py-1.5 text-stone-700 bg-[rgba(255,255,255,0.58)] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] hover:bg-white/80 hover:text-stone-900" x-show="sidebarCollapsed" aria-label="Quick settings">
+							<i data-lucide="sliders-horizontal" class="h-4 w-4"></i>
+						</button>
 					</div>
 				</div>
 			</aside>
@@ -192,10 +203,17 @@ const blurCells = Array.from({ length: 40 }, (_, id) => {
 					bgValue: '/assets/image/windows-xp.jpg',
                     isGrayscale: localStorage.getItem('siteMoss_isGrayscale') === 'true',
 					palette: localStorage.getItem('siteMoss_palette') || 'earth-a',
+					sidebarCollapsed: localStorage.getItem('siteMoss_sidebarCollapsed') === 'true',
 					quickOpen: false,
 
                     init() {
                         this.$watch('isGrayscale', val => localStorage.setItem('siteMoss_isGrayscale', val));
+						this.$watch('sidebarCollapsed', val => {
+							localStorage.setItem('siteMoss_sidebarCollapsed', val);
+							setTimeout(() => {
+								if (window.lucide) window.lucide.createIcons();
+							}, 50);
+						});
 						this.$watch('palette', val => {
 							localStorage.setItem('siteMoss_palette', val);
 							document.documentElement.setAttribute('data-palette', val);
@@ -218,6 +236,10 @@ const blurCells = Array.from({ length: 40 }, (_, id) => {
 					setPalette(paletteId) {
 						this.palette = paletteId;
 					},
+
+						toggleSidebar() {
+							this.sidebarCollapsed = !this.sidebarCollapsed;
+						},
 
 					async logoutAdmin() {
 						await fetch('/api/auth/logout', { method: 'POST' });
