@@ -75,8 +75,8 @@ const Tile: React.FC<TileProps> = memo(({ size, shape = 'rect', label, className
         {/* Background Image Container */}
         {bgImage && (
             <div className="absolute inset-0 z-0 pointer-events-none">
-                <img src={bgImage} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0" />
-                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors"></div>
+            <img src={bgImage} alt="" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+            <div className="absolute inset-0 bg-black/35 group-hover:bg-black/22 transition-colors"></div>
             </div>
         )}
 
@@ -88,14 +88,17 @@ const Tile: React.FC<TileProps> = memo(({ size, shape = 'rect', label, className
 
         <div className={cn(
             "tile-live relative z-10 pointer-events-none",
-            bgImage ? "text-white" : ""
+          bgImage ? "text-[#f8f9fb] drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)]" : "text-stone-800"
         )}>
             {Icon && <Icon className="w-7 h-7 mb-1" />}
             {children}
         </div>
 
         {label && (
-            <span className="tile-title z-30">{label}</span>
+          <span className={cn(
+            "tile-title z-30",
+            bgImage ? "border-white/35 bg-black/40 text-white" : ""
+          )}>{label}</span>
         )}
     </div>
   );
