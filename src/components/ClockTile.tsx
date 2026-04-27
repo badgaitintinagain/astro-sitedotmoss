@@ -18,8 +18,6 @@ const ClockTile = () => {
 
     const ticks = useMemo(() => Array.from({ length: 12 }, (_, index) => index), []);
 
-    const amPm = time.getHours() >= 12 ? 'PM' : 'AM';
-
     return (
         <div className="flex h-full w-full flex-col items-center justify-center text-stone-800 font-mono">
             <div className="relative flex h-24 w-24 items-center justify-center rounded-full border border-stone-300 bg-[radial-gradient(circle_at_50%_40%,rgba(255,255,255,0.84)_0%,rgba(244,235,222,0.95)_62%,rgba(226,219,203,0.92)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_8px_20px_rgba(110,86,60,0.1)]">
@@ -53,9 +51,8 @@ const ClockTile = () => {
             </div>
 
             <div className="mt-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-700">
-                {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })} {amPm}
+                {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}
             </div>
-            <div className="text-[8px] font-semibold uppercase opacity-70 tracking-wide mt-1 text-stone-600">Local_Time_Node</div>
         </div>
     );
 };

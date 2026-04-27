@@ -70,26 +70,27 @@ const blurCells = Array.from({ length: 40 }, (_, id) => {
         x-data="appState()"
 	>
 			<div class="fixed inset-0 z-[-2] pointer-events-none overflow-hidden" aria-hidden="true">
-				<div class="absolute inset-0 scale-105 bg-cover bg-center" style="background-image: url('/assets/image/windows-xp.jpg');"></div>
-				<div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.78)_0%,rgba(255,255,255,0.34)_24%,transparent_56%),radial-gradient(circle_at_82%_14%,rgba(196,222,212,0.34)_0%,transparent_34%),linear-gradient(180deg,rgba(251,247,240,0.72)_0%,rgba(244,235,220,0.28)_36%,rgba(228,235,227,0.34)_100%)]"></div>
-				<div class="absolute inset-0 bg-[radial-gradient(circle_at_22%_28%,rgba(157,190,175,0.22)_0%,transparent_24%),radial-gradient(circle_at_78%_24%,rgba(108,159,186,0.20)_0%,transparent_22%),radial-gradient(circle_at_50%_82%,rgba(185,156,116,0.14)_0%,transparent_30%)] mix-blend-screen"></div>
-				<div class="absolute inset-0 bg-white/14 backdrop-blur-[1px]"></div>
+				<div class="absolute inset-0 scale-110 bg-cover bg-center opacity-55 blur-[1.5px]" style="background-image: url('/assets/image/windows-xp.jpg');"></div>
+				<div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_12%,rgba(255,255,255,0.92)_0%,rgba(255,255,255,0.42)_18%,transparent_42%),radial-gradient(circle_at_80%_15%,rgba(209,226,247,0.42)_0%,transparent_30%),radial-gradient(circle_at_54%_80%,rgba(205,233,219,0.24)_0%,transparent_30%),linear-gradient(180deg,rgba(255,255,255,0.46)_0%,rgba(245,249,252,0.20)_34%,rgba(230,239,223,0.24)_100%)]"></div>
+				<div class="absolute inset-0 bg-[radial-gradient(circle_at_26%_28%,rgba(255,255,255,0.42)_0%,transparent_18%),radial-gradient(circle_at_74%_24%,rgba(122,163,214,0.16)_0%,transparent_18%),radial-gradient(circle_at_48%_78%,rgba(160,198,168,0.12)_0%,transparent_24%)] mix-blend-screen"></div>
+				<div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.56)_0%,rgba(255,255,255,0.12)_28%,transparent_52%,rgba(255,255,255,0.16)_74%,rgba(255,255,255,0.36)_100%)] opacity-60"></div>
+				<div class="absolute inset-0 bg-white/6 backdrop-blur-[0.5px]"></div>
 			</div>
 
 			<div class="fixed inset-0 z-[-1] pointer-events-none hidden md:grid md:grid-cols-8 md:grid-rows-5" aria-hidden="true">
 				{blurCells.map((cell) => (
 					<div
-						class="border border-white/30"
-						style={`background-color:${cell.tint};backdrop-filter:blur(${cell.blur}px);-webkit-backdrop-filter:blur(${cell.blur}px);`}
+						class="border border-white/20"
+						style={`background-color:${cell.tint};backdrop-filter:blur(${cell.blur}px);-webkit-backdrop-filter:blur(${cell.blur}px);box-shadow:inset 0 1px 0 rgba(255,255,255,0.3);`}
 					/>
 				))}
 			</div>
 		
 		<div class="relative z-10 md:grid md:min-h-screen md:grid-cols-[15.5rem_minmax(0,1fr)]">
-			<aside class="hidden md:flex md:h-screen md:sticky md:top-0 md:flex-col md:justify-between px-5 py-7 bg-[linear-gradient(180deg,rgba(251,248,242,0.52)_0%,rgba(242,236,223,0.42)_36%,rgba(221,227,205,0.34)_100%)] backdrop-blur-xl shadow-[inset_-1px_0_0_rgba(255,255,255,0.25)] relative overflow-hidden">
+			<aside class="hidden md:flex md:h-screen md:sticky md:top-0 md:flex-col md:justify-between px-5 py-7 bg-[linear-gradient(180deg,rgba(252,250,246,0.34)_0%,rgba(244,240,231,0.24)_36%,rgba(223,230,215,0.20)_100%)] backdrop-blur-2xl shadow-[inset_-1px_0_0_rgba(255,255,255,0.36)] relative overflow-hidden">
 				<div class="absolute inset-0 pointer-events-none opacity-55" aria-hidden="true">
-					<div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(177,188,170,0.18)_0%,transparent_26%),radial-gradient(circle_at_72%_14%,rgba(255,255,255,0.58)_0%,transparent_28%),radial-gradient(circle_at_58%_74%,rgba(166,181,155,0.14)_0%,transparent_24%),linear-gradient(90deg,rgba(255,255,255,0.18)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.18)_1px,transparent_1px)] bg-[length:auto,auto,auto,2.8rem_2.8rem,2.8rem_2.8rem] opacity-35"></div>
-					<div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(154,174,147,0.10)_0%,transparent_32%,rgba(173,155,120,0.12)_68%,transparent_100%)] mix-blend-multiply"></div>
+					<div class="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(177,188,170,0.16)_0%,transparent_26%),radial-gradient(circle_at_72%_14%,rgba(255,255,255,0.70)_0%,transparent_24%),radial-gradient(circle_at_58%_74%,rgba(166,181,155,0.12)_0%,transparent_24%),linear-gradient(90deg,rgba(255,255,255,0.10)_1px,transparent_1px),linear-gradient(180deg,rgba(255,255,255,0.10)_1px,transparent_1px)] bg-[length:auto,auto,auto,3.5rem_3.5rem,3.5rem_3.5rem] opacity-28"></div>
+					<div class="absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.42)_0%,transparent_28%,rgba(179,205,186,0.08)_60%,transparent_100%)] mix-blend-screen"></div>
 				</div>
 				<div>
 					<div class="mb-8 px-4 py-3 bg-[rgba(255,255,255,0.42)] shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_10px_30px_rgba(116,102,78,0.08)] backdrop-blur-sm">

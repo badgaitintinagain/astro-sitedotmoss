@@ -89,19 +89,20 @@
 
 @layer components {
     .tile {
-        @apply relative bg-tile-bg backdrop-blur-md border border-tile-border shadow-sm hover:shadow-[0_15px_40px_rgba(118,85,57,0.14)] hover:border-accent-primary/50 hover:z-30 overflow-hidden flex items-center justify-center cursor-pointer rounded-none;
+        @apply relative bg-tile-bg backdrop-blur-2xl border border-tile-border shadow-[inset_0_1px_0_rgba(255,255,255,0.8),0_14px_34px_rgba(118,85,57,0.10)] hover:shadow-[0_18px_48px_rgba(118,85,57,0.14)] hover:border-accent-primary/45 hover:z-30 overflow-hidden flex items-center justify-center cursor-pointer rounded-[1px];
         color: var(--tile-text);
         transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         animation: tilePop 0.6s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+        background-image: linear-gradient(135deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0.12) 24%, rgba(255,255,255,0.04) 48%, rgba(255,255,255,0.16) 76%, rgba(255,255,255,0.36) 100%);
     }
     
     .tile:hover {
         transform: translateY(-4px) scale(1.02);
-        @apply bg-[#fff8ef]/92;
+        @apply bg-[#fff8ef]/86;
     }
 
     .tile-title {
-        @apply absolute bottom-1 left-1.5 text-[8px] font-bold uppercase tracking-widest text-stone-500 z-20 bg-[#fff7eb]/70 px-1 border border-[#d9c1a8]/30;
+        @apply absolute bottom-1 left-1.5 text-[8px] font-bold uppercase tracking-widest text-stone-500 z-20 bg-[rgba(255,255,255,0.50)] px-1;
     }
 
     .tile-live {
@@ -130,6 +131,14 @@
         background-image: linear-gradient(to right, currentColor 1px, transparent 1px), 
                           linear-gradient(to bottom, currentColor 1px, transparent 1px);
         background-size: 8px 8px;
+    }
+
+    .liquid-glass {
+        background: linear-gradient(180deg, rgba(255,255,255,0.52) 0%, rgba(255,255,255,0.18) 36%, rgba(255,255,255,0.08) 100%);
+        backdrop-filter: blur(28px) saturate(1.35);
+        -webkit-backdrop-filter: blur(28px) saturate(1.35);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.72), 0 18px 48px rgba(102, 88, 68, 0.10);
+        border: 1px solid rgba(255,255,255,0.34);
     }
 }
 
