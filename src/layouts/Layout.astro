@@ -129,7 +129,7 @@ const blurCells = Array.from({ length: 40 }, (_, id) => {
 				<div class="px-3.5 py-3 text-[10px] tracking-wide text-stone-500 uppercase bg-[rgba(255,255,255,0.28)] shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-sm">
 					<div class="space-y-2 text-[10px] normal-case tracking-normal">
 						<button @click="quickOpen = true" class="w-full px-2.5 py-1.5 text-stone-700 bg-[rgba(255,255,255,0.58)] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] hover:bg-white/80 hover:text-stone-900" x-show="!sidebarCollapsed">Quick settings</button>
-						<button @click="quickOpen = true" class="hidden w-full items-center justify-center px-2.5 py-1.5 text-stone-700 bg-[rgba(255,255,255,0.58)] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] hover:bg-white/80 hover:text-stone-900" x-show="sidebarCollapsed" aria-label="Quick settings">
+						<button @click="quickOpen = true" class="flex w-full items-center justify-center px-2.5 py-1.5 text-stone-700 bg-[rgba(255,255,255,0.58)] shadow-[inset_0_1px_0_rgba(255,255,255,0.75)] hover:bg-white/80 hover:text-stone-900" x-show="sidebarCollapsed" aria-label="Quick settings">
 							<i data-lucide="sliders-horizontal" class="h-4 w-4"></i>
 						</button>
 					</div>
