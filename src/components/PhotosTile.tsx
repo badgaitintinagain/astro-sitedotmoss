@@ -69,15 +69,14 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                         <Images className="text-[#7f9778]" size={22} />
                     </div>
                     <div>
-                        <h2 className="text-2xl md:text-[2rem] font-semibold tracking-[-0.03em] text-foreground">Photos</h2>
-                        <p className="text-[12px] md:text-[13px] text-foreground/70 max-w-xl">A liquid-glass workspace for moving, sorting, and converting image sets without losing clarity.</p>
+                        <h2 className="text-xl md:text-[1.45rem] font-semibold tracking-[-0.03em] text-foreground">Photos</h2>
                     </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/80">
-                    <span className="rounded-full border border-white/25 bg-white/12 px-3 py-1">{photos.length} files</span>
-                    <span className="rounded-full border border-white/25 bg-white/12 px-3 py-1">{targetFormat.replace('image/', '').toUpperCase()}</span>
-                    <span className="rounded-full border border-white/25 bg-white/12 px-3 py-1">{Math.round(quality * 100)}% quality</span>
+                    <span className="rounded-full border border-stone-300/80 bg-white px-3 py-1 text-stone-700">{photos.length} files</span>
+                    <span className="rounded-full border border-stone-300/80 bg-white px-3 py-1 text-stone-700">{targetFormat.replace('image/', '').toUpperCase()}</span>
+                    <span className="rounded-full border border-stone-300/80 bg-white px-3 py-1 text-stone-700">{Math.round(quality * 100)}% quality</span>
                 </div>
             </header>
 
@@ -85,13 +84,13 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                 <aside className="rounded-[14px] border border-white/22 bg-white/10 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-2xl">
                     <div className="space-y-5">
                         <div>
-                            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">Format</p>
+                            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/60">Format</p>
                             <div className="grid grid-cols-3 gap-2">
                                 {FORMAT_OPTIONS.map(opt => (
                                     <button
                                         key={opt.value}
                                         onClick={() => setTargetFormat(opt.value)}
-                                        className={`rounded-[10px] border px-3 py-2 text-[10px] font-semibold tracking-[0.16em] transition-all ${targetFormat === opt.value ? 'border-white/35 bg-white/25 text-foreground shadow-[0_8px_18px_rgba(0,0,0,0.16)]' : 'border-white/20 bg-white/10 text-foreground/75 hover:bg-white/18 hover:text-foreground'}`}
+                                        className={`rounded-[10px] border px-3 py-2 text-[10px] font-semibold tracking-[0.16em] transition-all ${targetFormat === opt.value ? 'border-stone-300/90 bg-white text-stone-900 shadow-[0_8px_18px_rgba(0,0,0,0.16)]' : 'border-stone-300/70 bg-white/85 text-stone-700 hover:bg-white hover:text-stone-900'}`}
                                     >
                                         {opt.label}
                                     </button>
@@ -101,8 +100,8 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
 
                         <div>
                             <div className="mb-2 flex items-center justify-between">
-                                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">Quality</p>
-                                <span className="rounded-full border border-white/20 bg-white/12 px-2.5 py-0.5 text-[10px] font-bold text-foreground/80">{Math.round(quality * 100)}%</span>
+                                <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-foreground/60">Quality</p>
+                                <span className="rounded-full border border-stone-300/80 bg-white px-2.5 py-0.5 text-[10px] font-bold text-stone-700">{Math.round(quality * 100)}%</span>
                             </div>
                             <input
                                 type="range"
@@ -112,7 +111,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                 onChange={e => setQuality(Number(e.target.value) / 100)}
                                 className="w-full accent-[#6f8e67] h-1.5 bg-[rgba(255,255,255,0.55)] rounded-lg appearance-none cursor-pointer"
                             />
-                            <div className="mt-2 flex justify-between text-[9px] font-semibold uppercase tracking-[0.18em] text-stone-400">
+                            <div className="mt-2 flex justify-between text-[9px] font-semibold uppercase tracking-[0.18em] text-foreground/55">
                                 <span>Faster</span>
                                 <span>Better</span>
                             </div>
@@ -121,7 +120,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                         <button
                             onClick={convertAll}
                             disabled={photos.length === 0 || isConverting}
-                            className="w-full rounded-[10px] border border-white/25 bg-white/18 px-4 py-3 text-sm font-semibold text-foreground shadow-[0_14px_30px_rgba(0,0,0,0.18)] transition-all hover:bg-white/25 disabled:cursor-not-allowed disabled:opacity-35"
+                            className="w-full rounded-[10px] border border-stone-300/80 bg-white px-4 py-3 text-sm font-semibold text-stone-900 shadow-[0_14px_30px_rgba(0,0,0,0.14)] transition-all hover:bg-stone-50 disabled:cursor-not-allowed disabled:opacity-35"
                         >
                             {isConverting ? 'Processing...' : 'Convert Images'}
                         </button>
@@ -129,7 +128,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                         {photos.length > 0 && (
                             <button
                                 onClick={() => setPhotos([])}
-                                className="w-full rounded-[10px] border border-white/20 bg-white/12 px-4 py-3 text-xs font-semibold text-foreground/80 transition-all hover:bg-white/20 hover:text-foreground"
+                                className="w-full rounded-[10px] border border-stone-300/70 bg-white/85 px-4 py-3 text-xs font-semibold text-stone-700 transition-all hover:bg-white hover:text-stone-900"
                             >
                                 Clear Queue
                             </button>
@@ -152,19 +151,19 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                 onFiles({ target: { files: event.dataTransfer.files } } as any);
                             }}
                             onClick={() => fileInputRef.current?.click()}
-                            className={`flex min-h-[430px] cursor-pointer flex-col items-center justify-center rounded-[12px] border border-dashed transition-all ${isDragOver ? 'border-cyan-300/80 bg-cyan-200/12' : 'border-white/30 bg-white/10'} shadow-[inset_0_1px_0_rgba(255,255,255,0.42)]`}
+                            className={`flex min-h-[430px] cursor-pointer flex-col items-center justify-center rounded-[12px] border border-dashed transition-all ${isDragOver ? 'border-cyan-300/80 bg-cyan-200/12' : 'border-stone-300/70 bg-white/12'} shadow-[inset_0_1px_0_rgba(255,255,255,0.42)]`}
                         >
                             <input ref={fileInputRef} type="file" multiple className="hidden" onChange={onFiles} />
-                            <div className="mb-5 flex h-18 w-18 items-center justify-center rounded-[12px] border border-white/25 bg-white/15 shadow-[inset_0_1px_0_rgba(255,255,255,0.5)]">
-                                <Upload size={30} className="text-stone-500" />
+                            <div className="mb-5 flex h-18 w-18 items-center justify-center rounded-[12px] border border-stone-300/70 bg-white/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.75)]">
+                                <Upload size={30} className="text-stone-700" />
                             </div>
                             <div className="text-center">
-                                <p className="text-lg font-semibold tracking-[-0.02em] text-stone-800">Drop your photos here</p>
-                                <p className="mt-1 text-sm text-stone-500">or click to browse files</p>
+                                <p className="text-lg font-semibold tracking-[-0.02em] text-stone-900">Drop your photos here</p>
+                                <p className="mt-1 text-sm text-stone-600">or click to browse files</p>
                             </div>
                             <div className="mt-8 grid grid-cols-3 gap-3 opacity-75">
                                 {['Preview', 'Convert', 'Export'].map((label) => (
-                                    <div key={label} className="rounded-[10px] border border-white/20 bg-white/12 px-4 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/70">
+                                    <div key={label} className="rounded-[10px] border border-stone-300/70 bg-white/85 px-4 py-3 text-center text-[10px] font-semibold uppercase tracking-[0.18em] text-stone-700">
                                         {label}
                                     </div>
                                 ))}
@@ -172,29 +171,29 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                         </div>
                     ) : (
                         <div className="grid gap-4 xl:grid-cols-[minmax(0,1.2fr)_20rem]">
-                            <div className="rounded-none bg-[rgba(255,255,255,0.44)] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
-                                <div className="relative overflow-hidden rounded-none bg-[linear-gradient(180deg,rgba(255,255,255,0.72)_0%,rgba(245,245,242,0.44)_100%)] aspect-[4/3]">
+                            <div className="rounded-[14px] border border-stone-300/70 bg-white/80 p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+                                <div className="relative overflow-hidden rounded-[12px] bg-[linear-gradient(180deg,rgba(255,255,255,0.82)_0%,rgba(245,245,242,0.52)_100%)] aspect-[4/3]">
                                     <img src={activePhoto?.preview} alt={activePhoto?.file?.name || 'Selected preview'} className="h-full w-full object-cover" />
-                                    <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(17,22,17,0.68)_100%)] px-4 py-4 text-white">
-                                        <div className="text-[10px] uppercase tracking-[0.24em] text-white/70">Selected file</div>
+                                    <div className="absolute inset-x-0 bottom-0 bg-[linear-gradient(180deg,transparent_0%,rgba(17,22,17,0.72)_100%)] px-4 py-4 text-white">
+                                        <div className="text-[10px] uppercase tracking-[0.24em] text-white/75">Selected file</div>
                                         <div className="mt-1 text-sm font-semibold truncate">{activePhoto?.file?.name}</div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="rounded-none bg-[rgba(255,255,255,0.40)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+                            <div className="rounded-[14px] border border-stone-300/70 bg-white/82 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
                                 <div className="mb-3 flex items-center justify-between">
                                     <div>
-                                        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-500">Library</p>
-                                        <p className="mt-1 text-sm text-stone-600">Tap a tile to focus it.</p>
+                                        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-600">Library</p>
+                                        <p className="mt-1 text-sm text-stone-700">Tap a tile to focus it.</p>
                                     </div>
-                                    <div className="rounded-full bg-[rgba(127,151,120,0.12)] px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-[#6f8e67]">
+                                    <div className="rounded-full border border-stone-300/80 bg-white px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-stone-700">
                                         {photos.length}
                                     </div>
                                 </div>
 
-                                <div className="mb-4 border border-white/40 bg-[rgba(255,255,255,0.34)] p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.68)]">
-                                    <div className="mb-2 flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.22em] text-stone-500">
+                                <div className="mb-4 border border-stone-300/70 bg-white/84 p-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.68)]">
+                                    <div className="mb-2 flex items-center justify-between text-[9px] font-bold uppercase tracking-[0.22em] text-stone-600">
                                         <span>Preview strip</span>
                                         <span>Recent</span>
                                     </div>
@@ -203,7 +202,7 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                             <button
                                                 key={photo.id}
                                                 onClick={() => setActivePhotoId(photo.id)}
-                                                className={`h-16 w-20 shrink-0 overflow-hidden rounded-none border transition-all ${activePhoto?.id === photo.id ? 'border-[#7f9778] ring-1 ring-[#7f9778]/30' : 'border-white/50 hover:border-stone-300'}`}
+                                                className={`h-16 w-20 shrink-0 overflow-hidden rounded-[8px] border transition-all ${activePhoto?.id === photo.id ? 'border-stone-700 ring-1 ring-stone-700/20' : 'border-stone-300/70 hover:border-stone-500'}`}
                                             >
                                                 <img src={photo.preview} className="h-full w-full object-cover" />
                                             </button>
@@ -216,23 +215,23 @@ const PhotosTile: React.FC<PhotosTileProps> = ({ size = '2x1', accent = 'primary
                                         <div
                                             key={p.id}
                                             onClick={() => setActivePhotoId(p.id)}
-                                            className={`group flex cursor-pointer items-center gap-3 rounded-none p-2 text-left transition-all ${activePhoto?.id === p.id ? 'bg-[rgba(126,151,120,0.16)] shadow-[0_10px_24px_rgba(95,79,60,0.08)]' : 'bg-[rgba(255,255,255,0.46)] hover:bg-white/65'}`}
+                                            className={`group flex cursor-pointer items-center gap-3 rounded-[10px] border p-2 text-left transition-all ${activePhoto?.id === p.id ? 'border-stone-400 bg-white shadow-[0_10px_24px_rgba(95,79,60,0.08)]' : 'border-stone-300/70 bg-white/84 hover:bg-white'}`}
                                             role="button"
                                             tabIndex={0}
                                         >
-                                            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-none bg-white/60">
+                                            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-[8px] bg-white/80">
                                                 <img src={p.preview} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
                                             </div>
                                             <div className="min-w-0 flex-1">
-                                                <div className="truncate text-[12px] font-semibold text-stone-800">{p.file.name}</div>
-                                                <div className="mt-0.5 text-[10px] uppercase tracking-[0.18em] text-stone-500">{p.file.type || 'image'}</div>
+                                                <div className="truncate text-[12px] font-semibold text-stone-900">{p.file.name}</div>
+                                                <div className="mt-0.5 text-[10px] uppercase tracking-[0.18em] text-stone-600">{p.file.type || 'image'}</div>
                                             </div>
                                             <button
                                                 onClick={(event) => {
                                                     event.stopPropagation();
                                                     setPhotos(photos.filter(x => x.id !== p.id));
                                                 }}
-                                                className="rounded-none p-2 text-stone-400 transition-colors hover:bg-white/70 hover:text-red-500"
+                                                className="rounded-[8px] p-2 text-stone-500 transition-colors hover:bg-white hover:text-red-500"
                                             >
                                                 <Trash2 size={12} />
                                             </button>
