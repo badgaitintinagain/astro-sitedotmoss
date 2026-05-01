@@ -92,6 +92,7 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
     const totalPersons = result?.persons?.length ?? 0;
     const summaryLabel = result ? `${totalPersons} detected` : 'No results yet';
+    const totalShoes = result?.persons?.reduce((sum: number, p: any) => sum + (p.shoes?.length || 0), 0) ?? 0;
 
   return (
         <div className="flex h-full min-h-[540px] flex-col overflow-hidden rounded-[22px] border border-stone-300/70 bg-[#f7f2e8]/88 text-stone-900 shadow-[0_26px_100px_rgba(0,0,0,0.15)] backdrop-blur-md">
@@ -141,8 +142,9 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
                     </aside>
 
                     <div className="min-w-0 flex-1 overflow-hidden">
-                        <div className="grid h-full gap-2 overflow-y-auto pr-1 lg:grid-cols-[minmax(0,1.25fr)_290px]">
-                            <section className="space-y-2">
+                        <div className="grid h-full gap-4 overflow-y-auto pr-1 lg:grid-cols-[320px_minmax(0,1fr)_320px]">
+                            {/* Left column: upload + person grid */}
+                            <div className="space-y-2">
                                 <div className={shellCard + ' p-3'}>
                                     <div className="flex items-center justify-between gap-2">
                                         <div>
@@ -158,23 +160,12 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
                                     <div
                                         onClick={() => !loading && fileInputRef.current?.click()}
-                                        className="mt-3 flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-[12px] border border-dashed border-stone-300/80 bg-white/80 p-5 text-center transition-colors hover:bg-white"
+                                        className="mt-3 flex min-h-[160px] cursor-pointer flex-col items-center justify-center rounded-[12px] border border-dashed border-stone-300/80 bg-white/80 p-5 text-center transition-colors hover:bg-white"
                                     >
                                         {previewUrl ? (
-                                            <div className="relative w-full max-w-[520px] overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70">
-                                                        <img src={previewUrl} className="max-h-[520px] w-full object-contain" />
-                                                        {loading && (
-                                                            <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-4 text-white">
-                                                                <Loader2 className="mb-2 h-5 w-5 animate-spin" />
-                                                                <div className="text-xs font-medium">{statusText || 'Processing image'}</div>
-                                                                <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/20">
-                                                                    <div className="h-full rounded-full bg-white/85 transition-all" style={{ width: `${pipelineProgress}%` }} />
-                                                                </div>
-                                                            </div>
-                                                        )}
-
-                                                        {/* thumbnails overlay removed; menu moved back to sidebar */}
-                                                    </div>
+                                            <div className="relative w-full overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70">
+                                                <img src={previewUrl} className="max-h-[220px] w-full object-contain" />
+                                            </div>
                                         ) : (
                                             <>
                                                 <Upload size={30} className="mb-3 text-stone-500" />
@@ -191,34 +182,70 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
                                     )}
                                 </div>
 
-                                <div className={shellCard + ' p-3'}>
-                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Summary</p>
-                                    <div className="mt-2 grid gap-1.5 sm:grid-cols-3">
-                                        {[
-                                            { label: 'Persons', value: totalPersons },
-                                            { label: 'Selected', value: selectedPerson ?? '-' },
-                                            { label: 'Ready', value: result ? 'Yes' : 'No' }
-                                        ].map(item => (
-                                            <div key={item.label} className="rounded-[10px] border border-stone-300/70 bg-white/85 px-2.5 py-2">
-                                                <div className="text-[11px] text-stone-600">{item.label}</div>
-                                                <div className="mt-1 text-base font-semibold text-stone-900">{item.value}</div>
+                                {/* People grid */}
+                                {result?.persons?.length > 0 && (
+                                    <div className={shellCard + ' p-3'}>
+                                        <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">People</p>
+                                        <div className="mt-2 grid grid-cols-1 gap-2">
+                                            {result.persons.map((person: any) => (
+                                                <button
+                                                    key={person.rank}
+                                                    onClick={() => setSelectedPerson(person.rank)}
+                                                    className={`flex items-center gap-2 w-full overflow-hidden rounded-[10px] border p-1.5 text-left transition-colors ${selectedPerson === person.rank ? 'border-stone-400 bg-white text-stone-900' : 'border-stone-300/70 bg-white/85 text-stone-700 hover:bg-white'}`}
+                                                >
+                                                    <img src={person.person_crop_base64} className="h-14 w-14 rounded-md object-cover shrink-0" />
+                                                    <div>
+                                                        <div className="text-[10px] font-bold">P{person.rank}</div>
+                                                        <div className="text-[9px] text-stone-500">{(person.shoes?.length || 0)} shoe{(person.shoes?.length || 0) !== 1 ? 's' : ''}</div>
+                                                    </div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* Center column: preview + thumbnail tray */}
+                            <div className="space-y-2 relative">
+                                <div className={shellCard + ' p-3 flex flex-col items-center justify-center'}>
+                                    <div className="w-full flex-1 flex items-center justify-center">
+                                        {previewUrl ? (
+                                            <div className="relative w-full h-full flex items-center justify-center">
+                                                <img src={previewUrl} className="max-h-[520px] w-full object-contain rounded" />
+
+                                                {/* Floating thumbnail tray (center-bottom) */}
+                                                {result?.persons?.length > 0 && (
+                                                    <div className="absolute left-1/2 bottom-4 z-40 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white/90 px-2 py-2 shadow-lg">
+                                                        {result.persons.map((p: any, idx: number) => (
+                                                            <button
+                                                                key={p.rank ?? idx}
+                                                                onClick={() => setSelectedPerson(p.rank ?? idx)}
+                                                                className={`h-12 w-12 overflow-hidden rounded-[10px] border ${selectedPerson === p.rank ? 'border-amber-500 ring-2 ring-amber-200' : 'border-stone-200'}`}
+                                                            >
+                                                                <img src={p.person_crop_base64} className="h-full w-full object-cover" />
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                )}
                                             </div>
-                                        ))}
+                                        ) : (
+                                            <div className="py-12 text-center text-stone-500">No preview yet</div>
+                                        )}
                                     </div>
                                 </div>
-                            </section>
+                            </div>
 
+                            {/* Right column: annotated + depth + stats */}
                             <div className="space-y-2">
                                 <div className={shellCard + ' p-3'}>
                                     <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Results</p>
                                     {result ? (
-                                        <div className="mt-2 grid gap-2 lg:grid-cols-2">
+                                        <div className="mt-2 space-y-2">
                                             <div className="overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70 p-1">
-                                                <img src={result.annotated_image} className="h-full w-full object-contain" />
+                                                <img src={result.annotated_image} className="h-44 w-full object-contain" />
                                             </div>
-
                                             <div className="overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70 p-1">
-                                                <img src={result.depth_map} className="h-full w-full object-contain" />
+                                                <img src={result.depth_map} className="h-44 w-full object-contain" />
                                             </div>
                                         </div>
                                     ) : (
@@ -228,23 +255,23 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
                                     )}
                                 </div>
 
-                                {result?.persons?.length > 0 && (
-                                    <div className={shellCard + ' p-3'}>
-                                        <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">People</p>
-                                        <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
-                                            {result.persons.map((person: any) => (
-                                                <button
-                                                    key={person.rank}
-                                                    onClick={() => { setSelectedPerson(person.rank); }}
-                                                    className={`overflow-hidden rounded-[10px] border p-1.5 text-left transition-colors ${selectedPerson === person.rank ? 'border-stone-400 bg-white text-stone-900' : 'border-stone-300/70 bg-white/85 text-stone-700 hover:bg-white'}`}
-                                                >
-                                                    <img src={person.person_crop_base64} className="aspect-square w-full object-cover" />
-                                                    <div className="mt-1 text-[10px]">#{person.rank}</div>
-                                                </button>
-                                            ))}
+                                <div className={shellCard + ' p-3'}>
+                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Stats</p>
+                                    <div className="mt-2 grid gap-2">
+                                        <div className="rounded-[10px] border border-stone-300/70 bg-white/85 px-2.5 py-2">
+                                            <div className="text-[11px] text-stone-600">Persons</div>
+                                            <div className="mt-1 text-base font-semibold text-stone-900">{totalPersons}</div>
+                                        </div>
+                                        <div className="rounded-[10px] border border-stone-300/70 bg-white/85 px-2.5 py-2">
+                                            <div className="text-[11px] text-stone-600">Shoes</div>
+                                            <div className="mt-1 text-base font-semibold text-stone-900">{totalShoes}</div>
+                                        </div>
+                                        <div className="rounded-[10px] border border-stone-300/70 bg-white/85 px-2.5 py-2">
+                                            <div className="text-[11px] text-stone-600">Selected</div>
+                                            <div className="mt-1 text-base font-semibold text-stone-900">{selectedPerson ?? '-'}</div>
                                         </div>
                                     </div>
-                                )}
+                                </div>
                             </div>
                         </div>
                     </div>
