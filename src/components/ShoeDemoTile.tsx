@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef } from 'react';
 import Tile from './Tile';
-import { Footprints, Upload, Loader2 } from 'lucide-react';
+import { Footprints, Upload, Loader2, X, Sparkles, ScanLine, Layers3 } from 'lucide-react';
 
 interface ShoeDemoProps {
   size?: '1x1' | '2x1' | '2x2' | '2x3' | '3x2';
@@ -19,6 +19,15 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [pipelineProgress, setPipelineProgress] = useState(0);
   const [selectedPerson, setSelectedPerson] = useState<number | null>(null);
+    const [activeMenu, setActiveMenu] = useState<'upload' | 'results' | 'review'>('upload');
+
+    const MENU_ITEMS = [
+        { id: 'upload', label: 'Upload', icon: Upload },
+        { id: 'results', label: 'Results', icon: ScanLine },
+        { id: 'review', label: 'Review', icon: Layers3 },
+    ] as const;
+
+    const shellCard = 'rounded-[14px] border border-stone-300/70 bg-white/72 shadow-[0_1px_0_rgba(255,255,255,0.6)]';
 
   const resetState = () => {
     setPreviewUrl(null);
@@ -32,7 +41,8 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
   const processFile = async (file: File) => {
     setLoading(true);
-    setStatusText('INIT_PIPELINE...');
+        setStatusText('Processing image');
+        setError(null);
     const reader = new FileReader();
     reader.onload = (e) => setPreviewUrl(e.target?.result as string);
     reader.readAsDataURL(file);
@@ -46,7 +56,7 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
             if (event.type === "status") {
                 if (event.progress_data?.[0]) {
                     setPipelineProgress(Math.round(event.progress_data[0].progress * 100));
-                    setStatusText(event.progress_data[0].desc || 'PROCESSING...');
+                    setStatusText(event.progress_data[0].desc || 'Processing image');
                 }
             } else if (event.type === "data") {
                 setResult(event.data[0]);
@@ -72,69 +82,171 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
     );
   }
 
-  return (
-    <div className="w-full h-full min-h-[540px] bg-[#f8efe4]/78 text-foreground overflow-hidden flex flex-col font-mono border border-stone-200">
-        <div className="flex items-center justify-between p-4 border-b border-stone-200 bg-white/75">
-            <div className="flex items-center gap-3">
-                <Footprints className="text-amber-600" />
-                <h2 className="text-lg font-semibold tracking-tight">Shoe Detection</h2>
-            </div>
-            {(result || previewUrl) && (
-                <button onClick={resetState} className="border border-stone-300 px-3 py-1 text-xs hover:bg-stone-100 transition-all">
-                    Reset
-                </button>
-            )}
-        </div>
+    const totalPersons = result?.persons?.length ?? 0;
+    const summaryLabel = result ? `${totalPersons} detected` : 'No results yet';
 
-        <div className="flex-1 p-4 md:p-6 overflow-y-auto no-scrollbar">
-            {!result ? (
-                <div 
-                    onClick={() => !loading && fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-stone-300 p-10 md:p-20 flex flex-col items-center justify-center gap-4 cursor-pointer hover:border-stone-500 transition-all bg-white/60"
-                >
-                    <input ref={fileInputRef} type="file" className="hidden" onChange={(e) => e.target.files?.[0] && processFile(e.target.files[0])} />
-                    {previewUrl ? (
-                        <div className="relative">
-                            <img src={previewUrl} className="max-h-64 border border-stone-300" />
-                            {loading && (
-                                <div className="absolute inset-0 bg-black/60 flex flex-col items-center justify-center text-white p-4">
-                                    <Loader2 className="animate-spin mb-2" />
-                                    <div className="text-xs">{statusText.toUpperCase()}</div>
-                                    <div className="w-full bg-white/20 h-1 mt-2"><div className="bg-white h-full" style={{width: `${pipelineProgress}%`}} /></div>
-                                </div>
-                            )}
+  return (
+        <div className="flex h-full min-h-[540px] flex-col overflow-hidden rounded-[22px] border border-stone-300/70 bg-[#f7f2e8]/88 text-stone-900 shadow-[0_26px_100px_rgba(0,0,0,0.15)] backdrop-blur-md">
+            <div className="border-b border-stone-300/70 px-4 py-3 sm:px-5 sm:py-3.5">
+                <div className="flex items-center justify-between gap-3">
+                    <div>
+                        <div className="inline-flex items-center gap-2 rounded-full border border-stone-300/80 bg-white/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-700">
+                            <Sparkles className="h-3 w-3" /> Shoe Class Atlas
                         </div>
-                    ) : (
-                        <>
-                            <Upload size={32} className="opacity-20" />
-                            <div className="text-xs font-bold">DRAG_OR_CLICK_TO_UPLOAD</div>
-                        </>
+                        <p className="mt-1 text-xs text-stone-600">Pairs {result ? totalPersons : 0} • Status {summaryLabel}</p>
+                    </div>
+
+                    {(result || previewUrl) && (
+                        <button
+                            onClick={() => { resetState(); setActiveMenu('upload'); }}
+                            className="inline-flex items-center gap-2 rounded-full border border-stone-300/80 bg-white/80 px-3 py-1.5 text-xs text-stone-700 transition-colors hover:bg-white hover:text-stone-900"
+                        >
+                            <X className="h-3.5 w-3.5" /> Reset
+                        </button>
                     )}
                 </div>
-            ) : (
-                <div className="space-y-6">
-                    <div className="grid md:grid-cols-2 gap-4 h-auto md:h-64">
-                        <div className="border border-stone-300 relative p-1 bg-white/70">
-                            <div className="absolute top-0 left-0 bg-white text-stone-700 border border-stone-300 text-[7px] px-1 font-bold">DETECTION_MAP</div>
-                            <img src={result.annotated_image} className="w-full h-full object-contain" />
+            </div>
+
+            <div className="min-h-0 flex-1 overflow-hidden px-2 py-2 sm:px-3 sm:py-3">
+                <div className="flex h-full gap-2">
+                    <aside className="w-[168px] shrink-0 overflow-y-auto rounded-[14px] border border-stone-300/70 bg-white/72 p-2.5">
+                        <p className="px-1 text-[10px] uppercase tracking-[0.2em] text-stone-600">Menu</p>
+                        <div className="mt-2 space-y-1.5">
+                            {MENU_ITEMS.map(item => {
+                                const Icon = item.icon;
+                                const active = activeMenu === item.id;
+                                return (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => {
+                                            setActiveMenu(item.id);
+                                            if (item.id === 'upload') fileInputRef.current?.click();
+                                        }}
+                                        className={`flex w-full items-center gap-2 rounded-[10px] border px-2.5 py-2 text-left text-xs transition-colors ${active ? 'border-stone-300/90 bg-white text-stone-900' : 'border-stone-300/70 bg-white/80 text-stone-700 hover:bg-white hover:text-stone-900'}`}
+                                    >
+                                        <Icon className="h-3.5 w-3.5" />
+                                        <span className="truncate">{item.label}</span>
+                                    </button>
+                                );
+                            })}
                         </div>
-                        <div className="border border-stone-300 relative p-1 bg-white/70">
-                            <div className="absolute top-0 left-0 bg-white text-stone-700 border border-stone-300 text-[7px] px-1 font-bold">DEPTH_ARRAY</div>
-                            <img src={result.depth_map} className="w-full h-full object-contain" />
+                    </aside>
+
+                    <div className="min-w-0 flex-1 overflow-hidden">
+                        <div className="grid h-full gap-2 overflow-y-auto pr-1 lg:grid-cols-[minmax(0,1.25fr)_290px]">
+                            <section className="space-y-2">
+                                <div className={shellCard + ' p-3'}>
+                                    <div className="flex items-center justify-between gap-2">
+                                        <div>
+                                            <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Upload</p>
+                                            <h3 className="mt-1 text-base font-semibold text-stone-900">Shoe image</h3>
+                                        </div>
+                                        <span className="rounded-full border border-stone-300/80 bg-white/90 px-2 py-0.5 text-[10px] text-stone-700">
+                                            {loading ? `${pipelineProgress}%` : result ? 'Done' : 'Ready'}
+                                        </span>
+                                    </div>
+
+                                    <input ref={fileInputRef} type="file" className="hidden" onChange={(e) => e.target.files?.[0] && processFile(e.target.files[0])} />
+
+                                    <div
+                                        onClick={() => !loading && fileInputRef.current?.click()}
+                                        className="mt-3 flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-[12px] border border-dashed border-stone-300/80 bg-white/80 p-5 text-center transition-colors hover:bg-white"
+                                    >
+                                        {previewUrl ? (
+                                            <div className="relative w-full max-w-[520px] overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70">
+                                                <img src={previewUrl} className="max-h-[280px] w-full object-contain" />
+                                                {loading && (
+                                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-4 text-white">
+                                                        <Loader2 className="mb-2 h-5 w-5 animate-spin" />
+                                                        <div className="text-xs font-medium">{statusText || 'Processing image'}</div>
+                                                        <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/20">
+                                                            <div className="h-full rounded-full bg-white/85 transition-all" style={{ width: `${pipelineProgress}%` }} />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <Upload size={30} className="mb-3 text-stone-500" />
+                                                <div className="text-xs uppercase tracking-[0.18em] text-stone-600">Upload image</div>
+                                                <div className="mt-1 text-xs text-stone-500">Drop or click to open a shoe photo.</div>
+                                            </>
+                                        )}
+                                    </div>
+
+                                    {error && (
+                                        <div className="mt-3 rounded-[10px] border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700">
+                                            {error}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className={shellCard + ' p-3'}>
+                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Summary</p>
+                                    <div className="mt-2 grid gap-1.5 sm:grid-cols-3">
+                                        {[
+                                            { label: 'Persons', value: totalPersons },
+                                            { label: 'Selected', value: selectedPerson ?? '-' },
+                                            { label: 'Ready', value: result ? 'Yes' : 'No' }
+                                        ].map(item => (
+                                            <div key={item.label} className="rounded-[10px] border border-stone-300/70 bg-white/85 px-2.5 py-2">
+                                                <div className="text-[11px] text-stone-600">{item.label}</div>
+                                                <div className="mt-1 text-base font-semibold text-stone-900">{item.value}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
+                            <div className="space-y-2">
+                                <div className={shellCard + ' p-3'}>
+                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Results</p>
+                                    {result ? (
+                                        <div className="mt-2 grid gap-2 lg:grid-cols-2">
+                                            <div className="overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70 p-1">
+                                                <img src={result.annotated_image} className="h-full w-full object-contain" />
+                                            </div>
+                                            <div className="overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70 p-1">
+                                                <img src={result.depth_map} className="h-full w-full object-contain" />
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="mt-2 rounded-[12px] border border-stone-300/70 bg-white/80 p-4 text-sm text-stone-600">
+                                            Upload an image to review the model output.
+                                        </div>
+                                    )}
+                                </div>
+
+                                {result?.persons?.length > 0 && (
+                                    <div className={shellCard + ' p-3'}>
+                                        <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">People</p>
+                                        <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+                                            {result.persons.map((person: any) => (
+                                                <button
+                                                    key={person.rank}
+                                                    onClick={() => setSelectedPerson(person.rank)}
+                                                    className={`overflow-hidden rounded-[10px] border p-1.5 text-left transition-colors ${selectedPerson === person.rank ? 'border-stone-400 bg-white text-stone-900' : 'border-stone-300/70 bg-white/85 text-stone-700 hover:bg-white'}`}
+                                                >
+                                                    <img src={person.person_crop_base64} className="aspect-square w-full object-cover" />
+                                                    <div className="mt-1 text-[10px]">#{person.rank}</div>
+                                                </button>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                    <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-8 gap-2">
-                        {result.persons?.map((p: any) => (
-                            <button key={p.rank} onClick={() => setSelectedPerson(p.rank)} className={`border p-1 transition-all ${selectedPerson === p.rank ? 'border-stone-400 bg-stone-800 text-white' : 'border-stone-200 hover:border-stone-400 bg-white/70 text-stone-700'}`}>
-                                <img src={p.person_crop_base64} className="w-full aspect-square object-cover" />
-                                <div className="text-[8px] mt-1">P.{p.rank}</div>
-                            </button>
-                        ))}
                     </div>
                 </div>
-            )}
+            </div>
+
+            <div className="border-t border-stone-300/70 px-4 py-2.5 text-[11px] text-stone-500 sm:px-5 sm:text-xs">
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                    <p>Upload a shoe photo and review the detected regions.</p>
+                    <p className="sm:text-right">Results update after each model run.</p>
+                </div>
+            </div>
         </div>
-    </div>
   );
 };
 

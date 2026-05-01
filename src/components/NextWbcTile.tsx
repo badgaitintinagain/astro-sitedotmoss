@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef } from 'react';
 import Tile from './Tile';
-import { Microscope, Upload, Loader2 } from 'lucide-react';
+import { Microscope, Upload, Loader2, X, Sparkles, ScanLine, Shapes } from 'lucide-react';
 
 interface NextWbcProps {
   size?: '1x1' | '2x1' | '2x2' | '2x3' | '3x2';
@@ -16,6 +16,14 @@ const CLASS_COLORS: Record<string, string> = {
   lymphocyte:  '#00C8FF', monocyte:    '#00FF00', thrombocyte: '#C8C8C8',
 };
 
+const MENU_ITEMS = [
+    { id: 'upload', label: 'Upload', icon: Upload },
+    { id: 'scan', label: 'Scan', icon: ScanLine },
+    { id: 'classes', label: 'Classes', icon: Shapes },
+] as const;
+
+const shellCard = 'rounded-[14px] border border-stone-300/70 bg-white/72 shadow-[0_1px_0_rgba(255,255,255,0.6)]';
+
 const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary', opacity = 40, isFullPage = false }) => {
   const [loading, setLoading] = useState(false);
   const [statusText, setStatusText] = useState('');
@@ -23,11 +31,13 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const [progress, setProgress] = useState(0);
+    const [activeMenu, setActiveMenu] = useState<'upload' | 'scan' | 'classes'>('upload');
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const processFile = async (file: File) => {
     setLoading(true);
-    setStatusText('INIT_ANALYSIS...');
+        setStatusText('Scanning image');
+        setError(null);
     const reader = new FileReader();
     reader.onload = (e) => setPreviewUrl(e.target?.result as string);
     reader.readAsDataURL(file);
@@ -41,7 +51,7 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
             if (event.type === "status") {
                 if (event.progress_data?.[0]) {
                     setProgress(Math.round(event.progress_data[0].progress * 100));
-                    setStatusText(event.progress_data[0].desc || 'SCANNING...');
+                    setStatusText(event.progress_data[0].desc || 'Scanning image');
                 }
             } else if (event.type === "data") {
                 setResult(event.data[0]);
@@ -60,80 +70,199 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
     );
   }
 
-  return (
-    <div className="w-full h-full min-h-[540px] bg-[#f7efe4]/78 text-stone-800 overflow-hidden flex flex-col font-mono border border-stone-200 backdrop-blur-md">
-        <div className="flex items-center justify-between p-4 border-b border-stone-200 bg-white/72">
-            <div className="flex items-center gap-3">
-                <Microscope className="text-accent-primary" />
-                <h2 className="text-lg font-semibold tracking-tight text-stone-900">WBC Detection</h2>
-            </div>
-            {(result || previewUrl) && (
-                <button onClick={() => {setResult(null); setPreviewUrl(null);}} className="border border-stone-200 px-3 py-1 text-xs font-semibold hover:bg-stone-100 transition-all">
-                    New Scan
-                </button>
-            )}
-        </div>
+    const totalCells = result?.total_cells ?? 0;
+    const classCounts = result?.class_counts ?? {};
+    const detectedClasses = CLASSES.filter(cls => (classCounts[cls] ?? 0) > 0).length;
 
-        <div className="flex-1 p-4 md:p-6 overflow-y-auto no-scrollbar">
-            {!result ? (
-                <div 
-                    onClick={() => !loading && fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-stone-200 p-10 md:p-20 flex flex-col items-center justify-center gap-4 cursor-pointer hover:border-stone-300 transition-all bg-white/55"
-                >
-                    <input ref={fileInputRef} type="file" className="hidden" onChange={(e) => e.target.files?.[0] && processFile(e.target.files[0])} />
-                    {previewUrl ? (
-                        <div className="relative">
-                            <img src={previewUrl} className="max-h-64 border border-white/10" />
-                            {loading && (
-                                <div className="absolute inset-0 bg-black/80 flex flex-col items-center justify-center text-white p-4">
-                                    <Loader2 className="animate-spin mb-2" />
-                                    <div className="text-xs font-semibold">{statusText || 'PROCESSING...'}</div>
-                                    <div className="w-full bg-white/20 h-1 mt-2"><div className="bg-white/80 h-full" style={{width: `${progress}%`}} /></div>
-                                </div>
-                            )}
+    const resultSummary = [
+        { label: 'Cells', value: totalCells },
+        { label: 'Classes', value: detectedClasses },
+        { label: 'Ready', value: result ? 'Yes' : 'No' }
+    ];
+
+  return (
+        <div className="flex h-full min-h-[540px] flex-col overflow-hidden rounded-[22px] border border-stone-300/70 bg-[#f7f2e8]/88 text-stone-900 shadow-[0_26px_100px_rgba(0,0,0,0.15)] backdrop-blur-md">
+            <div className="border-b border-stone-300/70 px-4 py-3 sm:px-5 sm:py-3.5">
+                <div className="flex items-center justify-between gap-3">
+                    <div>
+                        <div className="inline-flex items-center gap-2 rounded-full border border-stone-300/80 bg-white/80 px-2.5 py-1 text-[10px] uppercase tracking-[0.2em] text-stone-700">
+                            <Sparkles className="h-3 w-3" /> Cell Scan Atlas
                         </div>
-                    ) : (
-                        <div className="text-center">
-                            <Upload size={32} className="opacity-35 mx-auto mb-4 text-stone-500" />
-                            <div className="text-xs font-semibold text-stone-600">Upload_Blood_Smear_Image</div>
-                        </div>
+                        <p className="mt-1 text-xs text-stone-600">Uploads {previewUrl ? 1 : 0} • Cells {totalCells} • Classes {detectedClasses}</p>
+                    </div>
+
+                    {(result || previewUrl) && (
+                        <button
+                            onClick={() => { setResult(null); setPreviewUrl(null); setError(null); setStatusText(''); setProgress(0); setActiveMenu('upload'); }}
+                            className="inline-flex items-center gap-2 rounded-full border border-stone-300/80 bg-white/80 px-3 py-1.5 text-xs text-stone-700 transition-colors hover:bg-white hover:text-stone-900"
+                        >
+                            <X className="h-3.5 w-3.5" /> Reset
+                        </button>
                     )}
                 </div>
-            ) : (
-                <div className="space-y-8">
-                    <div className="grid md:grid-cols-[1fr_300px] gap-4 md:gap-6">
-                        <div className="border border-stone-200 relative p-1 bg-white/70 aspect-video overflow-hidden">
-                            <div className="absolute top-0 left-0 bg-white text-stone-700 border border-stone-200 text-[7px] px-1 font-bold z-10">Detection_Result</div>
-                            <img src={result.annotated_image} className="w-full h-full object-contain" />
+            </div>
+
+            <div className="min-h-0 flex-1 overflow-hidden px-2 py-2 sm:px-3 sm:py-3">
+                <div className="flex h-full gap-2">
+                    <aside className="w-[168px] shrink-0 overflow-y-auto rounded-[14px] border border-stone-300/70 bg-white/72 p-2.5">
+                        <p className="px-1 text-[10px] uppercase tracking-[0.2em] text-stone-600">Menu</p>
+                        <div className="mt-2 space-y-1.5">
+                            {MENU_ITEMS.map(item => {
+                                const Icon = item.icon;
+                                const active = activeMenu === item.id;
+                                return (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => {
+                                            setActiveMenu(item.id);
+                                            if (item.id === 'upload') fileInputRef.current?.click();
+                                        }}
+                                        className={`flex w-full items-center gap-2 rounded-[10px] border px-2.5 py-2 text-left text-xs transition-colors ${active ? 'border-stone-300/90 bg-white text-stone-900' : 'border-stone-300/70 bg-white/80 text-stone-700 hover:bg-white hover:text-stone-900'}`}
+                                    >
+                                        <Icon className="h-3.5 w-3.5" />
+                                        <span className="truncate">{item.label}</span>
+                                    </button>
+                                );
+                            })}
                         </div>
-                        <div className="border border-stone-200 p-4 md:p-6 bg-white/70 flex flex-col gap-4">
-                             <div className="text-center py-4 border-b border-stone-200">
-                                 <div className="text-4xl font-semibold text-stone-900">{result.total_cells}</div>
-                                 <div className="text-xs font-semibold text-stone-500">Total_Nodes_Found</div>
-                             </div>
-                             <div className="space-y-3">
-                                 {CLASSES.map(cls => (
-                                     <div key={cls} className="flex items-center gap-3">
-                                         <div className="w-2 h-2" style={{backgroundColor: CLASS_COLORS[cls]}} />
-                                         <span className="text-xs font-semibold flex-1 text-stone-600">{cls}</span>
-                                         <span className="text-xs font-semibold text-stone-900">{result.class_counts[cls] || 0}</span>
-                                     </div>
-                                 ))}
-                             </div>
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-2">
-                        {result.cells?.map((c: any) => (
-                            <div key={c.id} className="border border-stone-200 p-1 bg-white/70">
-                                <img src={c.crop_base64} className="w-full aspect-square object-contain" />
-                                <div className="text-[7px] font-semibold mt-1 truncate" style={{color: CLASS_COLORS[c.class]}}>{c.class}</div>
+                    </aside>
+
+                    <div className="min-w-0 flex-1 overflow-hidden">
+                        <div className="grid h-full gap-2 overflow-y-auto pr-1 lg:grid-cols-[minmax(0,1.25fr)_290px]">
+                            <section className="space-y-2">
+                                <div className={shellCard + ' p-3'}>
+                                    <div className="flex items-center justify-between gap-2">
+                                        <div>
+                                            <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Upload</p>
+                                            <h3 className="mt-1 text-base font-semibold text-stone-900">Blood smear scan</h3>
+                                        </div>
+                                        <span className="rounded-full border border-stone-300/80 bg-white/90 px-2 py-0.5 text-[10px] text-stone-700">
+                                            {loading ? `${progress}%` : result ? 'Done' : 'Ready'}
+                                        </span>
+                                    </div>
+
+                                    <input ref={fileInputRef} type="file" className="hidden" onChange={(e) => e.target.files?.[0] && processFile(e.target.files[0])} />
+
+                                    <div
+                                        onClick={() => !loading && fileInputRef.current?.click()}
+                                        className="mt-3 flex min-h-[220px] cursor-pointer flex-col items-center justify-center rounded-[12px] border border-dashed border-stone-300/80 bg-white/80 p-5 text-center transition-colors hover:bg-white"
+                                    >
+                                        {previewUrl ? (
+                                            <div className="relative w-full max-w-[520px] overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70">
+                                                <img src={previewUrl} className="max-h-[280px] w-full object-contain" />
+                                                {loading && (
+                                                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-4 text-white">
+                                                        <Loader2 className="mb-2 h-5 w-5 animate-spin" />
+                                                        <div className="text-xs font-medium">{statusText || 'Scanning image'}</div>
+                                                        <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-white/20">
+                                                            <div className="h-full rounded-full bg-white/85 transition-all" style={{ width: `${progress}%` }} />
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <Upload size={30} className="mb-3 text-stone-500" />
+                                                <div className="text-xs uppercase tracking-[0.18em] text-stone-600">Upload image</div>
+                                                <div className="mt-1 text-xs text-stone-500">Drop or click to open a smear image.</div>
+                                            </>
+                                        )}
+                                    </div>
+
+                                    {error && (
+                                        <div className="mt-3 rounded-[10px] border border-rose-200 bg-rose-50 px-3 py-2 text-xs text-rose-700">
+                                            {error}
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div className={shellCard + ' p-3'}>
+                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Summary</p>
+                                    <div className="mt-2 grid gap-1.5 sm:grid-cols-3">
+                                        {resultSummary.map(item => (
+                                            <div key={item.label} className="rounded-[10px] border border-stone-300/70 bg-white/85 px-2.5 py-2">
+                                                <div className="text-[11px] text-stone-600">{item.label}</div>
+                                                <div className="mt-1 text-base font-semibold text-stone-900">{item.value}</div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </section>
+
+                            <div className="space-y-2">
+                                <div className={shellCard + ' p-3'}>
+                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Results</p>
+                                    {result ? (
+                                        <div className="mt-2 grid gap-2 lg:grid-cols-[minmax(0,1fr)_240px]">
+                                            <div className="overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70 p-1">
+                                                <img src={result.annotated_image} className="h-full w-full object-contain" />
+                                            </div>
+
+                                            <div className="rounded-[12px] border border-stone-300/70 bg-white/85 p-3">
+                                                <div className="flex items-center justify-between gap-2">
+                                                    <div>
+                                                        <div className="text-xs text-stone-600">Cell count</div>
+                                                        <div className="text-3xl font-semibold text-stone-900">{result.total_cells}</div>
+                                                    </div>
+                                                    <span className="rounded-full border border-stone-300/80 bg-white px-2 py-0.5 text-[10px] text-stone-700">Detected</span>
+                                                </div>
+
+                                                <div className="mt-3 space-y-2">
+                                                    {CLASSES.map(cls => (
+                                                        <div key={cls} className="rounded-[10px] border border-stone-300/70 bg-white/80 px-2.5 py-2">
+                                                            <div className="mb-1 flex items-center justify-between text-xs text-stone-700">
+                                                                <span className="inline-flex items-center gap-2">
+                                                                    <span className="h-2 w-2 rounded-full" style={{ backgroundColor: CLASS_COLORS[cls] }} />
+                                                                    {cls}
+                                                                </span>
+                                                                <span className="text-stone-900">{classCounts[cls] || 0}</span>
+                                                            </div>
+                                                            <div className="h-1.5 overflow-hidden rounded-full bg-stone-200/80">
+                                                                <div
+                                                                    className="h-full rounded-full transition-all duration-500"
+                                                                    style={{ width: `${totalCells > 0 ? ((classCounts[cls] || 0) / totalCells) * 100 : 0}%`, backgroundColor: CLASS_COLORS[cls] }}
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="mt-2 rounded-[12px] border border-stone-300/70 bg-white/80 p-4 text-sm text-stone-600">
+                                            Upload an image to view the scan.
+                                        </div>
+                                    )}
+                                </div>
+
+                                {result?.cells?.length > 0 && (
+                                    <div className={shellCard + ' p-3'}>
+                                        <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Crops</p>
+                                        <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+                                            {result.cells.map((cell: any) => (
+                                                <div key={cell.id} className="rounded-[10px] border border-stone-300/70 bg-white/85 p-1.5">
+                                                    <img src={cell.crop_base64} className="aspect-square w-full object-contain" />
+                                                    <div className="mt-1 truncate text-[10px] text-stone-600" style={{ color: CLASS_COLORS[cell.class] }}>
+                                                        {cell.class}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
-            )}
+            </div>
+
+            <div className="border-t border-stone-300/70 px-4 py-2.5 text-[11px] text-stone-500 sm:px-5 sm:text-xs">
+                <div className="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                    <p>Upload a smear image and review the detected classes.</p>
+                    <p className="sm:text-right">Model output updates after each scan.</p>
+                </div>
+            </div>
         </div>
-    </div>
   );
 };
 
