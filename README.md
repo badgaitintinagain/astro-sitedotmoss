@@ -55,8 +55,8 @@ Then set all app secrets as Worker secrets (or environment vars) for the deploye
 
 ## Shoe Demo Integration
 
-The `Shoe Demo` page can talk to either a local Gradio app or the hosted Hugging Face Space.
+The `Shoe Demo` page now posts uploads to the site backend at `/api/shoe-demo`, which proxies the Hugging Face inference call server-side.
 
-- Local mode: run the Space app on `http://localhost:7860` and the front-end will try that first.
-- Hosted mode: it falls back to `badgaitintin/shoedetclss` and the public HF URL if local is unavailable.
+- The proxy route forwards the uploaded image to `badgaitintin/shoedetclss` using the Gradio API `/predict` endpoint.
+- If the Hugging Face Space is gated, set an HF token on the server with one of `HF_TOKEN`, `HUGGINGFACE_TOKEN`, or `HF_SPACE_TOKEN`.
 - The current pipeline uses Grounding DINO for person/shoe detection, Depth-Anything V2 for depth, and a single Swin classifier (`swin-mix-8560.pth`) for brand prediction.

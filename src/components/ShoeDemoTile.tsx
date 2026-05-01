@@ -28,58 +28,6 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
     ] as const;
 
     const shellCard = 'rounded-[14px] border border-stone-300/70 bg-white/72 shadow-[0_1px_0_rgba(255,255,255,0.6)]';
-        const HF_SPACE_LOCAL = 'http://localhost:7860';
-        const HF_SPACE_ID = 'badgaitintin/shoedetclss';
-        const HF_SPACE_URL = 'https://badgaitintin-shoedetclss.hf.space';
-
-        type SpaceStatus = {
-            status?: string;
-            stage?: string;
-            message?: string;
-            queue_size?: number;
-            eta?: number;
-        };
-
-        const connectToSpace = async () => {
-            const { Client } = await import('@gradio/client');
-
-            const status_callback = (status: SpaceStatus) => {
-                if (status.status === 'pending') {
-                    setStatusText('Waking Hugging Face Space...');
-                } else if (status.status === 'generating') {
-                    setStatusText('Loading model...');
-                } else if (status.status === 'error') {
-                    setStatusText('Connection failed');
-                }
-            };
-
-            // Try local Gradio first (useful when running the Space locally)
-            try {
-                return await Client.connect(HF_SPACE_LOCAL, {
-                    events: ['status', 'data'],
-                    status_callback,
-                    timeout: 10
-                } as any);
-            } catch (localErr) {
-                try {
-                    return await Client.connect(HF_SPACE_ID, {
-                        events: ['status', 'data'],
-                        status_callback,
-                        timeout: 90
-                    } as any);
-                } catch (primaryError) {
-                    try {
-                        return await Client.connect(HF_SPACE_URL, {
-                            events: ['status', 'data'],
-                            timeout: 90
-                        } as any);
-                    } catch {
-                        throw primaryError;
-                    }
-                }
-            }
-        };
-
   const resetState = () => {
     setPreviewUrl(null);
     setResult(null);
@@ -92,33 +40,37 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
   const processFile = async (file: File) => {
     setLoading(true);
-        setStatusText('Processing image');
-        setError(null);
+    setStatusText('Processing image');
+    setError(null);
+    setPipelineProgress(5);
     const reader = new FileReader();
     reader.onload = (e) => setPreviewUrl(e.target?.result as string);
     reader.readAsDataURL(file);
 
     try {
-        const client = await connectToSpace();
-        const job = client.submit("/predict", [file]);
+        const formData = new FormData();
+        formData.append('input_image', file);
 
-        for await (const event of job) {
-            if (event.type === "status") {
-                const progressData = event.progress_data?.[0];
-                if (progressData) {
-                    setPipelineProgress(Math.round(Number(progressData.progress ?? 0) * 100));
-                    setStatusText(progressData.desc || 'Processing image');
-                }
-            } else if (event.type === "data") {
-                setResult(event.data[0]);
-                setLoading(false);
-            }
+        const response = await fetch('/api/shoe-demo', {
+            method: 'POST',
+            body: formData,
+        });
+
+        const payload = await response.json();
+
+        if (!response.ok || !payload.ok) {
+            throw new Error(payload.error || 'Connection failed');
         }
+
+        setPipelineProgress(100);
+        setStatusText('Done');
+        setResult(payload.data);
+        setLoading(false);
     } catch (err: any) {
                                 const message = err?.message || 'Unknown error';
                                 setError(
                                     message.includes('Space metadata could not be loaded') || message.includes('Could not resolve app config')
-                                        ? 'Cannot load the Shoe Space right now. The Hugging Face app may be asleep or unavailable.'
+                                        ? 'Cannot load the shoe API right now. The Hugging Face app may be asleep, unavailable, or requires access.'
                                         : message
                                 );
         setLoading(false);
