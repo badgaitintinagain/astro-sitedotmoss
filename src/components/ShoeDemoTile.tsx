@@ -18,8 +18,7 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [pipelineProgress, setPipelineProgress] = useState(0);
-  const [selectedPerson, setSelectedPerson] = useState<number | null>(null);
-    const [selectedResult, setSelectedResult] = useState<any | null>(null);
+    const [selectedPerson, setSelectedPerson] = useState<number | null>(null);
     const [activeMenu, setActiveMenu] = useState<'upload' | 'results' | 'review'>('upload');
 
     const MENU_ITEMS = [
@@ -118,7 +117,28 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
             <div className="min-h-0 flex-1 overflow-hidden px-2 py-2 sm:px-3 sm:py-3">
                 <div className="flex h-full gap-2">
-                    {/* Left menu collapsed — thumbnails overlayed on preview instead */}
+                    <aside className="w-[168px] shrink-0 overflow-y-auto rounded-[14px] border border-stone-300/70 bg-white/72 p-2.5">
+                        <p className="px-1 text-[10px] uppercase tracking-[0.2em] text-stone-600">Menu</p>
+                        <div className="mt-2 space-y-1.5">
+                            {MENU_ITEMS.map(item => {
+                                const Icon = item.icon;
+                                const active = activeMenu === item.id;
+                                return (
+                                    <button
+                                        key={item.id}
+                                        onClick={() => {
+                                            setActiveMenu(item.id);
+                                            if (item.id === 'upload') fileInputRef.current?.click();
+                                        }}
+                                        className={`flex w-full items-center gap-2 rounded-[10px] border px-2.5 py-2 text-left text-xs transition-colors ${active ? 'border-stone-300/90 bg-white text-stone-900' : 'border-stone-300/70 bg-white/80 text-stone-700 hover:bg-white hover:text-stone-900'}`}
+                                    >
+                                        <Icon className="h-3.5 w-3.5" />
+                                        <span className="truncate">{item.label}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </aside>
 
                     <div className="min-w-0 flex-1 overflow-hidden">
                         <div className="grid h-full gap-2 overflow-y-auto pr-1 lg:grid-cols-[minmax(0,1.25fr)_290px]">
@@ -153,20 +173,7 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
                                                             </div>
                                                         )}
 
-                                                        {/* Floating thumbnail tray (center-bottom) */}
-                                                        {result?.persons?.length > 0 && (
-                                                            <div className="absolute left-1/2 bottom-4 z-40 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white/90 px-2 py-2 shadow-lg">
-                                                                {result.persons.map((p: any, idx: number) => (
-                                                                    <button
-                                                                        key={p.rank ?? idx}
-                                                                        onClick={() => { setSelectedPerson(p.rank ?? idx); setSelectedResult(p); setActiveMenu('results'); }}
-                                                                        className={`h-12 w-12 overflow-hidden rounded-[10px] border ${selectedResult?.rank === p.rank ? 'border-amber-500 ring-2 ring-amber-200' : 'border-stone-200'}`}
-                                                                    >
-                                                                        <img src={p.person_crop_base64 || p.shoe_crop_base64 || p.crop_base64} className="h-full w-full object-cover" />
-                                                                    </button>
-                                                                ))}
-                                                            </div>
-                                                        )}
+                                                        {/* thumbnails overlay removed; menu moved back to sidebar */}
                                                     </div>
                                         ) : (
                                             <>
@@ -210,41 +217,8 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
                                                 <img src={result.annotated_image} className="h-full w-full object-contain" />
                                             </div>
 
-                                            {/* Right pane: either depth or selected comparison */}
-                                            <div className="overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70 p-3">
-                                                {selectedResult ? (
-                                                    <div className="flex flex-col gap-2">
-                                                        <div className="grid grid-cols-2 gap-2">
-                                                            <div className="rounded-[8px] border p-1 bg-white/80">
-                                                                <div className="text-[10px] text-stone-600">Original</div>
-                                                                <img src={result.annotated_image} className="h-48 w-full object-contain" />
-                                                            </div>
-                                                            <div className="rounded-[8px] border p-1 bg-white/80">
-                                                                <div className="text-[10px] text-stone-600">Selected</div>
-                                                                <img src={selectedResult.person_crop_base64 || selectedResult.shoe_crop_base64 || selectedResult.crop_base64} className="h-48 w-full object-contain" />
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="mt-2 rounded-[8px] border bg-white/90 p-3 text-sm">
-                                                            <div className="mb-2 text-xs text-stone-600">Detection details</div>
-                                                            <div className="grid grid-cols-2 gap-2">
-                                                                <div><strong>Person</strong><div>#{selectedResult.rank ?? '-'}</div></div>
-                                                                <div><strong>Side</strong><div>{selectedResult.side || selectedResult.left_right || '-'}</div></div>
-                                                                <div><strong>Brand</strong><div>{selectedResult.brand || selectedResult.predicted_label || '-'}</div></div>
-                                                                <div><strong>Confidence</strong><div>{typeof selectedResult.confidence !== 'undefined' ? `${Math.round((selectedResult.confidence||selectedResult.conf||0)*100)}%` : '-'}</div></div>
-                                                                <div><strong>Relabeled</strong><div>{selectedResult.relabel ? 'Yes' : 'No'}</div></div>
-                                                                <div><strong>Notes</strong><div className="text-xs text-stone-500">{selectedResult.notes || '-'}</div></div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                ) : (
-                                                    <div className="grid grid-cols-1 gap-2">
-                                                        <div className="rounded-[8px] border p-1 bg-white/80">
-                                                            <div className="text-[10px] text-stone-600">Depth</div>
-                                                            <img src={result.depth_map} className="h-48 w-full object-contain" />
-                                                        </div>
-                                                    </div>
-                                                )}
+                                            <div className="overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70 p-1">
+                                                <img src={result.depth_map} className="h-full w-full object-contain" />
                                             </div>
                                         </div>
                                     ) : (
@@ -261,10 +235,10 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
                                             {result.persons.map((person: any) => (
                                                 <button
                                                     key={person.rank}
-                                                    onClick={() => { setSelectedPerson(person.rank); setSelectedResult(person); }}
-                                                    className={`overflow-hidden rounded-[10px] border p-1.5 text-left transition-colors ${selectedResult?.rank === person.rank ? 'border-stone-400 bg-white text-stone-900' : 'border-stone-300/70 bg-white/85 text-stone-700 hover:bg-white'}`}
+                                                    onClick={() => { setSelectedPerson(person.rank); }}
+                                                    className={`overflow-hidden rounded-[10px] border p-1.5 text-left transition-colors ${selectedPerson === person.rank ? 'border-stone-400 bg-white text-stone-900' : 'border-stone-300/70 bg-white/85 text-stone-700 hover:bg-white'}`}
                                                 >
-                                                    <img src={person.person_crop_base64 || person.shoe_crop_base64 || person.crop_base64} className="aspect-square w-full object-cover" />
+                                                    <img src={person.person_crop_base64} className="aspect-square w-full object-cover" />
                                                     <div className="mt-1 text-[10px]">#{person.rank}</div>
                                                 </button>
                                             ))}
