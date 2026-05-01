@@ -49,7 +49,7 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
     try {
         const { Client } = await import("@gradio/client");
-        const client = await Client.connect("badgaitintin/shoedetclss");
+        const client = await Client.connect("https://badgaitintin-shoedetclss.hf.space");
         const job = client.submit("/predict", [file]);
 
         for await (const event of job) {
@@ -64,7 +64,10 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
             }
         }
     } catch (err: any) {
-        setError(err.message);
+                const message = err?.message || 'Unknown error';
+                setError(message.includes('Space metadata could not be loaded')
+                    ? 'Cannot load the Shoe Space right now. The Hugging Face app may be asleep or unavailable.'
+                    : message);
         setLoading(false);
     }
   };
