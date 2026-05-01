@@ -28,6 +28,7 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
     ] as const;
 
     const shellCard = 'rounded-[14px] border border-stone-300/70 bg-white/72 shadow-[0_1px_0_rgba(255,255,255,0.6)]';
+        const HF_SPACE_LOCAL = 'http://localhost:7860';
         const HF_SPACE_ID = 'badgaitintin/shoedetclss';
         const HF_SPACE_URL = 'https://badgaitintin-shoedetclss.hf.space';
 
@@ -52,20 +53,29 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
                 }
             };
 
+            // Try local Gradio first (useful when running the Space locally)
             try {
-                return await Client.connect(HF_SPACE_ID, {
+                return await Client.connect(HF_SPACE_LOCAL, {
                     events: ['status', 'data'],
                     status_callback,
-                    timeout: 90
+                    timeout: 10
                 } as any);
-            } catch (primaryError) {
+            } catch (localErr) {
                 try {
-                    return await Client.connect(HF_SPACE_URL, {
+                    return await Client.connect(HF_SPACE_ID, {
                         events: ['status', 'data'],
+                        status_callback,
                         timeout: 90
                     } as any);
-                } catch {
-                    throw primaryError;
+                } catch (primaryError) {
+                    try {
+                        return await Client.connect(HF_SPACE_URL, {
+                            events: ['status', 'data'],
+                            timeout: 90
+                        } as any);
+                    } catch {
+                        throw primaryError;
+                    }
                 }
             }
         };
@@ -94,9 +104,10 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
         for await (const event of job) {
             if (event.type === "status") {
-                if (event.progress_data?.[0]) {
-                    setPipelineProgress(Math.round(event.progress_data[0].progress * 100));
-                    setStatusText(event.progress_data[0].desc || 'Processing image');
+                const progressData = event.progress_data?.[0];
+                if (progressData) {
+                    setPipelineProgress(Math.round(Number(progressData.progress ?? 0) * 100));
+                    setStatusText(progressData.desc || 'Processing image');
                 }
             } else if (event.type === "data") {
                 setResult(event.data[0]);

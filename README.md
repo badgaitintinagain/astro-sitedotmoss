@@ -52,3 +52,11 @@ Then set all app secrets as Worker secrets (or environment vars) for the deploye
 
 - Upload and delete image APIs use Cloudinary REST endpoints, which works on Cloudflare Workers runtime.
 - Do not commit real secrets to the repository.
+
+## Shoe Demo Integration
+
+The `Shoe Demo` page can talk to either a local Gradio app or the hosted Hugging Face Space.
+
+- Local mode: run the Space app on `http://localhost:7860` and the front-end will try that first.
+- Hosted mode: it falls back to `badgaitintin/shoedetclss` and the public HF URL if local is unavailable.
+- The current pipeline uses Grounding DINO for person/shoe detection, Depth-Anything V2 for depth, and a single Swin classifier (`swin-mix-8560.pth`) for brand prediction.
