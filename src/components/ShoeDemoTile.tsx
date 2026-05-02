@@ -16,18 +16,16 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [pipelineProgress, setPipelineProgress] = useState(0);
   const [selectedPerson, setSelectedPerson] = useState<number | null>(null);
   const [viewMode, setViewMode] = useState<'original' | 'annotated' | 'depth'>('original');
 
-  const shellCard = 'rounded-[20px] border border-stone-300/70 bg-white/72 shadow-[0_2px_8px_rgba(0,0,0,0.04)]';
+  const shellCard = 'rounded-sm border border-black/10 bg-white/40 shadow-sm';
 
   const resetState = () => {
     setPreviewUrl(null);
     setResult(null);
     setError(null);
     setLoading(false);
-    setPipelineProgress(0);
     setSelectedPerson(null);
     setViewMode('original');
   };
@@ -42,7 +40,6 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
   const processFile = async (file: File) => {
     setLoading(true);
     setError(null);
-    setPipelineProgress(5);
     const reader = new FileReader();
     reader.onload = (e) => setPreviewUrl(e.target?.result as string);
     reader.readAsDataURL(file);
@@ -78,67 +75,62 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
   const totalPersons = result?.persons?.length ?? 0;
 
   return (
-    <div className="flex h-full min-h-[600px] flex-col overflow-hidden rounded-[24px] border border-stone-300/70 bg-[#f7f2e8]/90 text-stone-900 shadow-[0_30px_120px_rgba(0,0,0,0.18)] backdrop-blur-xl">
-      {/* Header */}
-      <div className="border-b border-stone-300/70 px-6 py-4 bg-white/40">
+    <div className="flex h-full flex-col overflow-hidden bg-[#f8f3ea] text-[#2b241d] font-sans selection:bg-black/10">
+      {/* Header - Spotify Analysis Style: Clean, Mono labels, Minimal borders */}
+      <div className="border-b border-black/[0.08] px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-stone-300/80 bg-white shadow-sm">
-              <Footprints className="h-6 w-6 text-amber-600" />
-            </div>
-            <div>
-              <h1 className="text-xl font-black tracking-tight text-stone-900 leading-none">Shoe Atlas ML</h1>
-              <p className="mt-1.5 text-[10px] font-bold uppercase tracking-widest text-stone-500">Vision Analysis Engine v2.4</p>
+            <Footprints className="h-5 w-5 opacity-40" />
+            <div className="flex flex-col">
+              <h1 className="text-sm font-medium tracking-tight opacity-90 leading-none uppercase font-mono">Vision Atlas</h1>
+              <span className="mt-1 text-[10px] opacity-30 uppercase tracking-[0.2em] font-mono">Analysis Engine 2.4</span>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
             {(result || previewUrl) && (
-              <button onClick={resetState} className="flex h-10 items-center gap-2 rounded-full border border-stone-300 bg-white px-5 text-xs font-bold text-stone-700 hover:bg-stone-50 transition-all shadow-sm">
-                <X size={16} /> New Analysis
+              <button 
+                onClick={resetState} 
+                className="text-[10px] font-mono uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity flex items-center gap-2"
+              >
+                <X size={12} /> Clear
               </button>
             )}
           </div>
         </div>
       </div>
 
-      <div className="flex-1 overflow-hidden p-4">
-        <div className="grid h-full gap-4 lg:grid-cols-[280px_1fr_360px]">
+      <div className="flex-1 overflow-hidden p-6">
+        <div className="grid h-full gap-6 lg:grid-cols-[240px_1fr_320px]">
           
           {/* LEFT: Subjects */}
           <div className="flex flex-col gap-4 overflow-hidden">
-            <div className={shellCard + ' flex flex-1 flex-col overflow-hidden p-4'}>
-              <div className="mb-4 flex items-center justify-between border-b border-stone-200 pb-3">
-                <h3 className="text-[11px] font-black uppercase tracking-widest text-stone-400">Subjects ({totalPersons})</h3>
-                {loading && <Loader2 className="h-3 w-3 animate-spin text-amber-500" />}
-              </div>
+            <div className="flex flex-col h-full">
+              <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] opacity-30">Subjects {totalPersons > 0 && `(${totalPersons})`}</div>
               
-              <div className="flex-1 space-y-2 overflow-y-auto pr-1 custom-scrollbar">
+              <div className="flex-1 space-y-1 overflow-y-auto pr-2 custom-scrollbar">
                 {!result && !loading && (
-                  <div className="py-20 text-center opacity-30">
-                    <Search className="mx-auto mb-2 h-8 w-8" />
-                    <p className="text-[10px] font-bold uppercase tracking-widest">Awaiting Input</p>
+                  <div className="py-20 text-center opacity-10">
+                    <Search className="mx-auto mb-2 h-5 w-5" />
+                    <p className="text-[10px] font-mono uppercase tracking-widest">Idle</p>
                   </div>
                 )}
                 {result?.persons?.map((person: any) => (
                   <button
                     key={person.rank}
                     onClick={() => setSelectedPerson(person.rank)}
-                    className={`group relative flex w-full items-center gap-3 rounded-[16px] border p-2 transition-all ${selectedPerson === person.rank ? 'border-amber-500 bg-white shadow-md ring-1 ring-amber-500/10' : 'border-stone-200 bg-white/50 hover:border-stone-300 hover:bg-white'}`}
+                    className={`group relative flex w-full items-center gap-3 border p-2 transition-all duration-300 ${selectedPerson === person.rank ? 'border-black/10 bg-black/[0.02]' : 'border-transparent hover:bg-black/[0.01]'}`}
                   >
-                    <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-[12px] border border-stone-100">
-                      <img src={person.person_crop_base64} className="h-full w-full object-cover" />
-                      <div className={`absolute inset-0 bg-amber-500/20 transition-opacity ${selectedPerson === person.rank ? 'opacity-100' : 'opacity-0'}`} />
+                    <div className="h-12 w-12 shrink-0 overflow-hidden bg-black/[0.03]">
+                      <img src={person.person_crop_base64} className="h-full w-full object-cover opacity-80" />
                     </div>
                     <div className="min-w-0 flex-1 text-left">
-                      <div className="text-xs font-black text-stone-900">Subject #{person.rank}</div>
-                      <div className="mt-1 flex items-center gap-2">
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-stone-500">
-                           <Activity size={10} className="text-amber-500" /> {person.shoes?.length || 0} Shoes
-                        </span>
+                      <div className="text-[11px] font-medium opacity-70">P-{person.rank}</div>
+                      <div className="mt-0.5 text-[9px] font-mono opacity-30 uppercase tracking-tighter">
+                         {person.shoes?.length || 0} detections
                       </div>
                     </div>
-                    <ChevronRight size={14} className={`transition-all ${selectedPerson === person.rank ? 'translate-x-0 text-amber-500' : '-translate-x-2 opacity-0 group-hover:opacity-100'}`} />
+                    {selectedPerson === person.rank && <div className="h-1 w-1 rounded-full bg-black/40" />}
                   </button>
                 ))}
               </div>
@@ -147,58 +139,53 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
           {/* CENTER: Main View */}
           <div className="flex flex-col gap-4 min-w-0">
-            <div className={shellCard + ' flex shrink-0 items-center justify-between p-2'}>
-              <div className="flex gap-1">
+            <div className="flex shrink-0 items-center justify-between border-b border-black/[0.05] pb-3">
+              <div className="flex gap-4">
                 {(['original', 'annotated', 'depth'] as const).map((m) => (
                   <button
                     key={m}
                     disabled={!result && m !== 'original'}
                     onClick={() => setViewMode(m)}
-                    className={`rounded-xl px-4 py-2 text-[11px] font-black uppercase tracking-widest transition-all ${viewMode === m ? 'bg-stone-900 text-white shadow-lg' : 'text-stone-500 hover:bg-stone-100 disabled:opacity-30'}`}
+                    className={`text-[10px] font-mono uppercase tracking-[0.2em] transition-all ${viewMode === m ? 'opacity-100' : 'opacity-20 hover:opacity-40 disabled:opacity-5'}`}
                   >
                     {m}
                   </button>
                 ))}
               </div>
-              {result && (
-                <div className="flex items-center gap-2 rounded-lg bg-emerald-50 px-3 py-1.5 text-[10px] font-black text-emerald-700 uppercase tracking-tighter">
-                  <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" /> Analyzed Successfully
-                </div>
-              )}
             </div>
 
-            <div className={shellCard + ' relative flex flex-1 items-center justify-center overflow-hidden bg-stone-100/30'}>
+            <div className="relative flex flex-1 items-center justify-center overflow-hidden border border-black/[0.05] bg-black/[0.01]">
               {!previewUrl && !loading && (
                 <div 
                   onClick={() => fileInputRef.current?.click()}
-                  className="group flex max-w-xs cursor-pointer flex-col items-center p-12 text-center"
+                  className="group flex flex-col items-center p-12 text-center cursor-pointer"
                 >
-                  <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-white shadow-xl transition-transform group-hover:scale-110 group-hover:rotate-3">
-                    <Upload size={32} className="text-amber-500" />
-                  </div>
-                  <h3 className="text-sm font-black text-stone-900 uppercase tracking-widest">Load Visual Source</h3>
-                  <p className="mt-2 text-xs font-medium text-stone-500">Optimized for vertical full-body shots and high-res footwear crops.</p>
+                  <Upload size={20} className="mb-4 opacity-10 group-hover:opacity-30 transition-opacity" />
+                  <p className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-20">Import Source</p>
                   <input ref={fileInputRef} type="file" className="hidden" onChange={(e) => e.target.files?.[0] && processFile(e.target.files[0])} />
                 </div>
               )}
 
+              {loading && (
+                <div className="flex flex-col items-center animate-pulse">
+                  <div className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-20">Analyzing...</div>
+                </div>
+              )}
+
               {previewUrl && (
-                <div className="relative flex h-full w-full items-center justify-center p-4">
-                  {/* Highlight Effect Layer */}
+                <div className="relative flex h-full w-full items-center justify-center p-8">
                   <div className="relative h-full w-full flex items-center justify-center">
                     <img 
                       src={viewMode === 'depth' ? result?.depth_map : viewMode === 'annotated' ? result?.annotated_image : previewUrl} 
-                      className={`max-h-full max-w-full rounded-xl object-contain shadow-2xl transition-all duration-500 ${selectedPerson !== null ? 'brightness-[0.4] saturate-[0.5]' : ''}`}
+                      className={`max-h-full max-w-full object-contain grayscale-[0.5] mix-blend-multiply opacity-90 transition-all duration-700 ${selectedPerson !== null ? 'opacity-20 blur-sm' : ''}`}
                     />
                     
-                    {/* Selected Subject Highlight Overlay */}
                     {selectedPersonData && (viewMode === 'original' || viewMode === 'annotated') && (
                       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                         <div className="relative h-full w-full flex items-center justify-center">
+                         <div className="relative h-full w-full flex items-center justify-center p-8">
                             <img 
                               src={selectedPersonData.person_crop_base64} 
-                              className="max-h-full max-w-full object-contain rounded-xl shadow-[0_0_50px_rgba(245,158,11,0.5)] animate-in zoom-in-95 duration-300" 
-                              style={{ border: '3px solid #f59e0b' }}
+                              className="max-h-full max-w-full object-contain mix-blend-normal shadow-2xl animate-in fade-in zoom-in-95 duration-500" 
                             />
                          </div>
                       </div>
@@ -211,89 +198,65 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
 
           {/* RIGHT: Detailed Analysis */}
           <div className="flex flex-col gap-4 overflow-hidden">
-            <div className={shellCard + ' flex flex-1 flex-col overflow-hidden p-5'}>
-              <div className="mb-6 flex items-center gap-4 border-b border-stone-200 pb-5">
-                 {selectedPersonData ? (
-                   <div className="h-14 w-14 overflow-hidden rounded-xl border-2 border-amber-500 shadow-sm">
-                      <img src={selectedPersonData.person_crop_base64} className="h-full w-full object-cover" />
-                   </div>
-                 ) : (
-                   <div className="h-14 w-14 rounded-xl bg-stone-100" />
-                 )}
-                 <div>
-                    <h2 className="text-base font-black text-stone-900 uppercase tracking-tight">
-                      {selectedPersonData ? `Subject #${selectedPersonData.rank}` : 'Select Subject'}
-                    </h2>
-                    <p className="text-[10px] font-bold text-stone-500 uppercase tracking-widest">Footwear Diagnostics</p>
-                 </div>
-              </div>
+            <div className="flex flex-col h-full">
+              <div className="mb-3 text-[10px] font-mono uppercase tracking-[0.2em] opacity-30">Diagnostic Data</div>
 
-              <div className="flex-1 space-y-6 overflow-y-auto pr-1 custom-scrollbar">
+              <div className="flex-1 space-y-12 overflow-y-auto pr-2 custom-scrollbar">
                 {selectedPersonData ? (
                   <>
                     {(['Left', 'Right'] as const).map(side => {
                       const shoe = selectedPersonData.shoes?.find((s: any) => s.side === side);
                       return (
-                        <div key={side} className={`rounded-2xl border p-4 transition-all ${shoe ? 'border-stone-200 bg-white shadow-sm' : 'border-dashed border-stone-200 bg-stone-50 opacity-50'}`}>
-                           <div className="mb-3 flex items-center justify-between">
-                              <span className={`rounded-full px-3 py-1 text-[10px] font-black uppercase tracking-widest ${side === 'Left' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'}`}>
-                                {side} Foot
+                        <div key={side} className="flex flex-col gap-4">
+                           <div className="flex items-center justify-between border-b border-black/[0.05] pb-2">
+                              <span className="text-[10px] font-mono uppercase tracking-[0.2em] opacity-40">
+                                Axis_{side.toUpperCase()}
                               </span>
-                              {shoe && (
-                                <span className="text-[10px] font-black text-emerald-600 uppercase tracking-tighter">
-                                   Match {Math.round(shoe.confidence * 100)}%
-                                </span>
-                              )}
                            </div>
                            
                            {shoe ? (
-                             <div className="flex gap-4">
-                               <div className="h-24 w-24 shrink-0 overflow-hidden rounded-xl bg-stone-50 border border-stone-100 p-1">
-                                  <img src={shoe.crop_base64} className="h-full w-full object-contain" />
+                             <div className="flex flex-col gap-6">
+                               <div className="h-32 w-full overflow-hidden bg-black/[0.02] p-2 flex items-center justify-center border border-black/[0.03]">
+                                  <img src={shoe.crop_base64} className="max-h-full max-w-full object-contain grayscale-[0.3]" />
                                </div>
-                               <div className="flex flex-1 flex-col justify-center">
-                                  <div className="text-[9px] font-black uppercase tracking-widest text-stone-400">Classification</div>
-                                  <div className="mt-0.5 text-lg font-black text-stone-900 uppercase tracking-tight">{shoe.brand || 'No Data'}</div>
-                                  
-                                  <div className="mt-3 grid grid-cols-2 gap-2">
-                                     <div className="rounded-lg bg-stone-50 p-2 border border-stone-100">
-                                        <div className="text-[8px] font-black text-stone-400 uppercase tracking-tighter">Blur</div>
-                                        <div className="text-[11px] font-bold text-stone-700">{shoe.blur_score?.toFixed(3)}</div>
+                               
+                               <div className="space-y-4">
+                                  <div>
+                                    <div className="text-[9px] font-mono opacity-20 uppercase tracking-widest">Classification</div>
+                                    <div className="mt-1 text-sm font-medium tracking-tight opacity-80 uppercase">{shoe.brand || '---'}</div>
+                                  </div>
+
+                                  <div className="grid grid-cols-2 gap-8">
+                                     <div className="space-y-1">
+                                        <div className="text-[9px] font-mono opacity-20 uppercase tracking-widest">Confidence</div>
+                                        <div className="text-[11px] font-mono opacity-60">{(shoe.confidence * 100).toFixed(2)}%</div>
                                      </div>
-                                     <div className="rounded-lg bg-stone-50 p-2 border border-stone-100">
-                                        <div className="text-[8px] font-black text-stone-400 uppercase tracking-tighter">Depth</div>
-                                        <div className="text-[11px] font-bold text-stone-700">{shoe.depth_score?.toFixed(3)}</div>
+                                     <div className="space-y-1">
+                                        <div className="text-[9px] font-mono opacity-20 uppercase tracking-widest">Depth_Z</div>
+                                        <div className="text-[11px] font-mono opacity-60">{shoe.depth_score?.toFixed(4)}</div>
                                      </div>
                                   </div>
-                                </div>
+
+                                  <div className="space-y-1">
+                                    <div className="text-[9px] font-mono opacity-20 uppercase tracking-widest">Visual_Clearance</div>
+                                    <div className="h-0.5 w-full bg-black/[0.05]">
+                                       <div className="h-full bg-black/20" style={{ width: `${(shoe.blur_score || 0) * 100}%` }} />
+                                    </div>
+                                  </div>
+                               </div>
                              </div>
                            ) : (
-                             <div className="py-8 text-center text-[10px] font-bold text-stone-400 uppercase tracking-widest">No {side} Shoe Detected</div>
+                             <div className="py-4 text-[9px] font-mono opacity-10 uppercase tracking-widest">Null_Detection</div>
                            )}
                         </div>
                       );
                     })}
                   </>
                 ) : (
-                  <div className="flex flex-col items-center justify-center py-20 opacity-20">
-                    <Box size={40} className="mb-3" />
-                    <p className="text-xs font-black uppercase tracking-widest">No Selection</p>
+                  <div className="flex flex-col items-center justify-center py-20 opacity-5">
+                    <Box size={24} />
                   </div>
                 )}
-              </div>
-            </div>
-
-            {/* Quick Engine Stats */}
-            <div className={shellCard + ' p-4'}>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center">
-                  <div className="text-[9px] font-black text-stone-400 uppercase tracking-widest">Precise Acc</div>
-                  <div className="text-lg font-black text-stone-900">99.4%</div>
-                </div>
-                <div className="text-center border-l border-stone-200">
-                  <div className="text-[9px] font-black text-stone-400 uppercase tracking-widest">Inference</div>
-                  <div className="text-lg font-black text-stone-900">84ms</div>
-                </div>
               </div>
             </div>
           </div>
@@ -302,9 +265,9 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
       </div>
 
       <style>{`
-        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 2px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.1); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.05); }
       `}</style>
     </div>
   );
