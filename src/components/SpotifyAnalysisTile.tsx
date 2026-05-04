@@ -286,15 +286,55 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   }, [tracks, popularityProxyByTrackIndex]);
 
   const selectedClusterTracks = useMemo(
-    () => tracks.filter(track => track.cluster === selectedCluster).sort((left, right) => right.release_year - left.release_year),
+    () => {
+      const allTracks = tracks.filter(track => track.cluster === selectedCluster);
+      
+      // Deduplicate by track name, keep only first occurrence
+      const seen = new Set<string>();
+      const uniqueTracks: TrackData[] = [];
+      
+      for (const track of allTracks) {
+        if (!seen.has(track.name)) {
+          seen.add(track.name);
+          uniqueTracks.push(track);
+        }
+      }
+      
+      // Sort by release year descending (newest first), then by name
+      return uniqueTracks.sort((left, right) => {
+        if (right.release_year !== left.release_year) {
+          return right.release_year - left.release_year;
+        }
+        return left.name.localeCompare(right.name);
+      });
+    },
     [tracks, selectedCluster]
   );
 
   const wormholeLinks = useMemo<SimilarTrack[]>(() => {
     if (!selectedTrack) return [];
 
-    return trackFeatureSpace.getTopSimilarTracks(selectedTrackIndex, 5);
-  }, [selectedTrack, selectedTrackIndex, trackFeatureSpace]);
+    const allLinks = trackFeatureSpace.getTopSimilarTracks(selectedTrackIndex, 20);
+    
+    // Filter out: duplicates by track name, selected track itself, and low similarity scores
+    const seen = new Set<string>();
+    const filtered = allLinks.filter(link => {
+      const track = tracks[link.index];
+      if (!track) return false;
+      
+      const trackKey = `${track.name}::${track.release_year}`;
+      const isSelected = track.name === selectedTrack.name && track.release_year === selectedTrack.release_year;
+      const isDuplicate = seen.has(trackKey);
+      
+      if (!isDuplicate && !isSelected) {
+        seen.add(trackKey);
+        return true;
+      }
+      return false;
+    });
+
+    return filtered.slice(0, 5);
+  }, [selectedTrack, selectedTrackIndex, trackFeatureSpace, tracks]);
 
   const eraProfiles = useMemo<EraProfile[]>(() => {
     const buckets = [
