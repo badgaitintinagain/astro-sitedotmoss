@@ -220,12 +220,22 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
     []
   );
   const divas = divaDnaData as DivaData[];
+  const computedDivas = useMemo(() => {
+    return divas.map(d => {
+      if ((d.speechiness ?? 0) > 0) return d;
+      const matching = tracks.filter(t => String(t.artists).includes(d.artists));
+      if (!matching.length) return { ...d, speechiness: 0 };
+      const avg = matching.reduce((s, t) => s + (t.speechiness ?? 0), 0) / matching.length;
+      return { ...d, speechiness: Number.isFinite(avg) ? avg : 0 };
+    });
+  }, [divas, tracks]);
+
   useEffect(() => {
-    if (!compareDiva && divas.length) {
-      const firstNonMadonna = divas.find(d => d.artists !== 'Madonna') ?? divas[0];
+    if (!compareDiva && computedDivas.length) {
+      const firstNonMadonna = computedDivas.find(d => d.artists !== 'Madonna') ?? computedDivas[0];
       setCompareDiva(firstNonMadonna?.artists ?? '');
     }
-  }, [divas, compareDiva]);
+  }, [computedDivas, compareDiva]);
   const trackFeatureSpace = useMemo(() => new TrackFeatureSpace(tracks), [tracks]);
   const trackIndexByKey = useMemo(() => {
     const map = new Map<string, number>();
@@ -340,7 +350,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
         return left.name.localeCompare(right.name);
       });
     },
-    [tracks, selectedCluster]
+    [tracks, selectedCluster, searchQuery]
   );
 
   const wormholeLinks = useMemo<SimilarTrack[]>(() => {
@@ -411,14 +421,14 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   const safeSelectedEraIndex = clamp(selectedEraIndex, 0, Math.max(eraProfiles.length - 1, 0));
   const selectedEra = eraProfiles[safeSelectedEraIndex] ?? eraProfiles[0];
 
-  const diva = useMemo(() => divas.find(item => item.artists === 'Madonna') ?? divas[0], [divas]);
-  const selectedCompareDiva = useMemo(() => divas.find(item => item.artists === compareDiva) ?? divas.find(d => d.artists !== 'Madonna') ?? divas[0], [divas, compareDiva]);
+  const diva = useMemo(() => computedDivas.find(item => item.artists === 'Madonna') ?? computedDivas[0], [computedDivas]);
+  const selectedCompareDiva = useMemo(() => computedDivas.find(item => item.artists === compareDiva) ?? computedDivas.find(d => d.artists !== 'Madonna') ?? computedDivas[0], [computedDivas, compareDiva]);
   const closestDivaNeighbors = useMemo(
-    () => divas
+    () => computedDivas
       .filter(item => item.artists !== selectedCompareDiva?.artists)
       .sort((left, right) => Math.abs(left.energy - (selectedCompareDiva?.energy ?? 0)) - Math.abs(right.energy - (selectedCompareDiva?.energy ?? 0)))
       .slice(0, 6),
-    [selectedCompareDiva, divas]
+    [selectedCompareDiva, computedDivas]
   );
 
   const handleClusterSelect = useCallback((cluster: number) => {
@@ -767,7 +777,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
         )}
 
         {activeTab === 'comparison' && (
-          <section className="grid h-full gap-4 overflow-y-auto pr-1 lg:grid-cols-[1fr_420px]">
+          <section className="grid h-full gap-4 overflow-y-auto pr-1 lg:grid-cols-[1fr_360px]">
             {/* Left: Radar + era controls */}
             <div className="space-y-3">
               <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-4">
@@ -779,7 +789,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                   </div>
                   <div className="ml-auto">
                     <select value={compareDiva} onChange={e => setCompareDiva(e.target.value)} className="rounded px-3 py-1 text-sm border border-stone-300 bg-white">
-                      {divas.map(d => (
+                      {computedDivas.map(d => (
                         <option key={d.artists} value={d.artists}>{d.artists}</option>
                       ))}
                     </select>
@@ -788,7 +798,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
                 <div className="mt-4 flex flex-col lg:flex-row lg:items-center lg:gap-6">
                   <div className="flex-1 flex items-center justify-center">
-                    <svg width="260" height="260" viewBox="0 0 260 260" className="rounded">
+                    <svg width="100%" height="auto" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet" className="rounded" style={{ maxWidth: 320 }}>
                       <defs>
                         <linearGradient id="radarGrad" x1="0" x2="1">
                           <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.18" />
