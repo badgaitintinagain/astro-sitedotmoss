@@ -192,6 +192,9 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   const [selectedTrackIndex, setSelectedTrackIndex] = useState(0);
   const [selectedEraIndex, setSelectedEraIndex] = useState(0);
   const [discoImageIndex, setDiscoImageIndex] = useState(() => Math.floor(Math.random() * DISCO_DYNAMO_IMAGES.length));
+  const [searchQuery, setSearchQuery] = useState('');
+  const [hoveredTrack, setHoveredTrack] = useState<{ index: number; x: number; y: number } | null>(null);
+  const [compareDiva, setCompareDiva] = useState('');
 
   const clusters = clusterSummaryData as ClusterData[];
   const tracks = useMemo(
@@ -199,6 +202,12 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
     []
   );
   const divas = divaDnaData as DivaData[];
+  useEffect(() => {
+    if (!compareDiva && divas.length) {
+      const firstNonMadonna = divas.find(d => d.artists !== 'Madonna') ?? divas[0];
+      setCompareDiva(firstNonMadonna?.artists ?? '');
+    }
+  }, [divas, compareDiva]);
   const trackFeatureSpace = useMemo(() => new TrackFeatureSpace(tracks), [tracks]);
   const trackIndexByKey = useMemo(() => {
     const map = new Map<string, number>();
@@ -300,8 +309,13 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
         }
       }
       
+      // Optionally filter by search query (case-insensitive)
+      const filteredBySearch = searchQuery.trim()
+        ? uniqueTracks.filter(t => t.name.toLowerCase().includes(searchQuery.trim().toLowerCase()))
+        : uniqueTracks;
+
       // Sort by release year descending (newest first), then by name
-      return uniqueTracks.sort((left, right) => {
+      return filteredBySearch.sort((left, right) => {
         if (right.release_year !== left.release_year) {
           return right.release_year - left.release_year;
         }
@@ -380,12 +394,13 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   const selectedEra = eraProfiles[safeSelectedEraIndex] ?? eraProfiles[0];
 
   const diva = useMemo(() => divas.find(item => item.artists === 'Madonna') ?? divas[0], [divas]);
+  const selectedCompareDiva = useMemo(() => divas.find(item => item.artists === compareDiva) ?? divas.find(d => d.artists !== 'Madonna') ?? divas[0], [divas, compareDiva]);
   const closestDivaNeighbors = useMemo(
     () => divas
-      .filter(item => item.artists !== 'Madonna')
-      .sort((left, right) => Math.abs(left.energy - (diva?.energy ?? 0)) - Math.abs(right.energy - (diva?.energy ?? 0)))
+      .filter(item => item.artists !== selectedCompareDiva?.artists)
+      .sort((left, right) => Math.abs(left.energy - (selectedCompareDiva?.energy ?? 0)) - Math.abs(right.energy - (selectedCompareDiva?.energy ?? 0)))
       .slice(0, 6),
-    [diva, divas]
+    [selectedCompareDiva, divas]
   );
 
   const handleClusterSelect = useCallback((cluster: number) => {
@@ -527,7 +542,16 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
             <div className="col-span-1 row-span-2 rounded-[14px] border border-stone-300/70 bg-white/72 p-3 flex flex-col">
               <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600 font-semibold mb-3">Top Tracks</p>
               <div className="flex-1 overflow-y-auto space-y-1.5">
-                {selectedClusterTracks.slice(0, 8).map(track => (
+                <div className="mb-2">
+                  <input
+                    aria-label="ค้นหาเพลง"
+                    placeholder="ค้นหา Top Tracks..."
+                    value={searchQuery}
+                    onChange={e => setSearchQuery(e.target.value)}
+                    className="w-full mb-2 rounded-[8px] border border-stone-300/70 bg-white/90 px-2 py-1 text-xs"
+                  />
+                </div>
+                  {selectedClusterTracks.slice(0, 8).map(track => (
                   <button
                     key={`${track.name}-${track.release_year}`}
                     onClick={() => {
@@ -616,7 +640,9 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                       <g
                         key={`${track.name}-${index}`}
                         className="cursor-pointer"
-                        onMouseEnter={() => setSelectedTrackIndex(index)}
+                        onMouseEnter={(e) => { setSelectedTrackIndex(index); setHoveredTrack({ index, x: e.clientX, y: e.clientY }); }}
+                        onMouseMove={(e) => setHoveredTrack(prev => prev ? { index, x: e.clientX, y: e.clientY } : { index, x: e.clientX, y: e.clientY })}
+                        onMouseLeave={() => setHoveredTrack(null)}
                         onClick={() => setSelectedTrackIndex(index)}
                         style={{ opacity: isDimmed ? 0.7 : 1 }}
                       >
@@ -627,6 +653,19 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                       </g>
                     );
                   })}
+                  {hoveredTrack && (() => {
+                    const ht = hoveredTrack;
+                    const track = tracks[ht.index];
+                    if (!track) return null;
+                    return (
+                      <foreignObject x={0} y={0} width={1} height={1} style={{ pointerEvents: 'none' }}>
+                        <div style={{ position: 'fixed', left: ht.x + 12, top: ht.y + 12, background: 'rgba(17,24,39,0.95)', color: 'white', padding: '6px 8px', borderRadius: 8, fontSize: 12, zIndex: 9999, pointerEvents: 'none' }}>
+                          <div style={{ fontWeight: 700 }}>{track.name}</div>
+                          <div style={{ fontSize: 11, opacity: 0.9 }}>{track.artists} • {track.release_year}</div>
+                        </div>
+                      </foreignObject>
+                    );
+                  })()}
                 </svg>
               </div>
 
@@ -776,7 +815,14 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
               <div className="rounded-[14px] border border-white/22 bg-white/10 p-3">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-foreground/45">Diva DNA baseline</p>
-                <h3 className="mt-1 text-sm font-semibold text-foreground">Closest pop neighbors</h3>
+                  <div className="mt-1 flex items-center justify-between gap-2">
+                    <h3 className="text-sm font-semibold text-foreground">Closest pop neighbors</h3>
+                    <select value={compareDiva} onChange={e => setCompareDiva(e.target.value)} className="rounded px-2 py-1 text-xs bg-white/12 border border-white/20">
+                      {divas.map(d => (
+                        <option key={d.artists} value={d.artists}>{d.artists}</option>
+                      ))}
+                    </select>
+                  </div>
                 <div className="mt-2 grid gap-1.5 sm:grid-cols-2">
                   {closestDivaNeighbors.map(item => (
                     <div key={item.artists} className="rounded-[10px] border border-white/22 bg-white/12 p-2.5 transition-colors hover:bg-white/18">
