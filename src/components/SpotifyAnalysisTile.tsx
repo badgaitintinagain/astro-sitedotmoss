@@ -76,10 +76,10 @@ interface SpotifyAnalysisTileProps {
 type TrackIdentity = Pick<TrackData, 'name' | 'release_year'>;
 
 const CLUSTER_NAMES: Record<number, { name: string; description: string; color: string }> = {
-  0: { name: 'Energetic and Danceable', description: 'High energy, upbeat tracks with strong danceability', color: '#FF4D8D' },
-  1: { name: 'Acoustic and Mellow', description: 'Warm, acoustic-rich songs with emotional depth', color: '#22C55E' },
-  2: { name: 'Bold and Uplifting', description: 'Adventurous, experimental, and uplifting tracks', color: '#FACC15' },
-  3: { name: 'Smooth and Sophisticated', description: 'Refined, polished tracks with strong presence', color: '#38BDF8' }
+  0: { name: 'Energetic and Danceable', description: 'High energy, upbeat tracks with strong danceability', color: '#D8A7A0' },
+  1: { name: 'Acoustic and Mellow', description: 'Warm, acoustic-rich songs with emotional depth', color: '#A8C3A0' },
+  2: { name: 'Bold and Uplifting', description: 'Adventurous, experimental, and uplifting tracks', color: '#D7C29E' },
+  3: { name: 'Smooth and Sophisticated', description: 'Refined, polished tracks with strong presence', color: '#A9B9C9' }
 };
 
 const TAB_META = {
@@ -550,44 +550,51 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                     <Disc3 className="h-4 w-4" />
                     <p className="text-xs font-semibold">Sonic Personas</p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsClusterMenuOpen(open => !open)}
-                    className="rounded-full border border-stone-300/70 bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-stone-700 shadow-sm hover:bg-white"
-                  >
-                    Choose cluster
-                  </button>
-                </div>
-                {isClusterMenuOpen && (
-                  <div className="absolute left-4 top-12 z-20 w-[360px] max-w-[90%] rounded-[16px] border border-white/40 bg-white/35 p-3 shadow-[0_18px_45px_rgba(15,23,42,0.25)] backdrop-blur-xl">
-                    <div className="mb-2 flex items-center justify-between">
-                      <p className="text-xs font-semibold text-stone-700">Choose a cluster</p>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2">
-                      {clusters.map(cluster => {
-                        const meta = CLUSTER_NAMES[cluster.cluster];
-                        const active = selectedCluster === cluster.cluster;
-                        const trackCount = clusterTrackCounts[cluster.cluster] ?? 0;
-                        return (
-                          <button
-                            key={cluster.cluster}
-                            onClick={() => {
-                              handleClusterSelect(cluster.cluster);
-                              setIsClusterMenuOpen(false);
-                            }}
-                            className={`flex items-center justify-between rounded-[12px] border px-3 py-2 text-left text-xs transition-colors ${active ? 'border-stone-300/90 bg-stone-50 text-stone-900' : 'border-stone-300/70 bg-white text-stone-700 hover:bg-stone-50'}`}
-                          >
-                            <span className="flex items-center gap-2">
-                              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
-                              <span className="font-semibold">{meta.name}</span>
-                            </span>
-                            <span className="text-[11px] text-stone-600">{trackCount}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
+                  <div className="relative">
+                    <button
+                      type="button"
+                      onClick={() => setIsClusterMenuOpen(open => !open)}
+                      className="rounded-full border border-stone-300/70 bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-stone-700 shadow-sm hover:bg-white"
+                    >
+                      Choose cluster
+                    </button>
+                    {isClusterMenuOpen && (
+                      <div className="absolute right-0 top-full mt-2 z-20 w-[320px] max-w-[90vw] rounded-[16px] border border-white/40 bg-white/45 p-3 shadow-[0_18px_45px_rgba(15,23,42,0.22)] backdrop-blur-xl">
+                        <div className="mb-2 flex items-center justify-between">
+                          <p className="text-xs font-semibold text-stone-700">Choose a cluster</p>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2">
+                          {clusters.map(cluster => {
+                            const meta = CLUSTER_NAMES[cluster.cluster];
+                            const active = selectedCluster === cluster.cluster;
+                            const trackCount = clusterTrackCounts[cluster.cluster] ?? 0;
+                            return (
+                              <button
+                                key={cluster.cluster}
+                                onClick={() => {
+                                  handleClusterSelect(cluster.cluster);
+                                  setIsClusterMenuOpen(false);
+                                }}
+                                className={`flex items-center justify-between rounded-[12px] border px-3 py-2 text-left text-xs transition-all ${active ? 'text-stone-900' : 'text-stone-700 hover:text-stone-900'}`}
+                                style={{
+                                  borderColor: active ? meta.color : 'rgba(120,113,108,0.35)',
+                                  backgroundImage: `linear-gradient(120deg, rgba(255,255,255,0.82), ${meta.color}22)`,
+                                  boxShadow: active ? `0 8px 18px ${meta.color}3a` : 'none'
+                                }}
+                              >
+                                <span className="flex items-center gap-2">
+                                  <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
+                                  <span className="font-semibold">{meta.name}</span>
+                                </span>
+                                <span className="text-[11px] text-stone-600">{trackCount}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
+                </div>
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <span className="h-4 w-4 rounded-full" style={{ backgroundColor: selectedClusterMeta.color }} />
