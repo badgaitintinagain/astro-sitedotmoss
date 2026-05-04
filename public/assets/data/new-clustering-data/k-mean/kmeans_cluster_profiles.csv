@@ -1,0 +1,5 @@
+Cluster,Style,Count,Percentage,Danceability,Energy,Valence,Acousticness,Loudness,Popularity,Year_Min,Year_Max
+0,Energetic and Danceable,60,30.3%,0.642,0.693,0.384,0.085,-8.86 dB,47.1,1989,2015
+1,Acoustic and Mellow,61,30.8%,0.743,0.674,0.804,0.204,-11.05 dB,41.7,1983,2003
+2,Bold and Uplifting,33,16.7%,0.557,0.359,0.371,0.655,-12.71 dB,40.5,1984,2009
+3,Smooth and Sophisticated,44,22.2%,0.769,0.824,0.826,0.106,-5.70 dB,45.3,1983,2012

@@ -1,0 +1,83 @@
+K-MEANS CLUSTERING RESULTS SUMMARY
+================================================================================
+
+Total tracks: 198
+Number of clusters: 4
+Features used: danceability, energy, valence, acousticness, loudness
+
+
+CLUSTER 0: Energetic and Danceable
+--------------------------------------------------------------------------------
+Tracks: 60 (30.3%)
+Year range: 1989 - 2015
+Danceability: 0.642 +/- 0.079
+Energy: 0.693 +/- 0.116
+Valence: 0.384 +/- 0.152
+Acousticness: 0.085 +/- 0.136
+Loudness: -8.86 +/- 2.55 dB
+Popularity: 47.1
+
+Top 5 tracks:
+  1. Hung Up (2005) - Popularity: 75
+  2. Like a Prayer (2009) - Popularity: 73
+  3. Vogue (2009) - Popularity: 68
+  4. Like a Prayer (1989) - Popularity: 66
+  5. Crazy for You (2009) - Popularity: 65
+
+
+CLUSTER 1: Acoustic and Mellow
+--------------------------------------------------------------------------------
+Tracks: 61 (30.8%)
+Year range: 1983 - 2003
+Danceability: 0.743 +/- 0.070
+Energy: 0.674 +/- 0.104
+Valence: 0.804 +/- 0.155
+Acousticness: 0.204 +/- 0.164
+Loudness: -11.05 +/- 1.77 dB
+Popularity: 41.7
+
+Top 5 tracks:
+  1. Like a Virgin (1984) - Popularity: 73
+  2. La Isla Bonita (1986) - Popularity: 72
+  3. Holiday (1983) - Popularity: 61
+  4. Holiday (1983) - Popularity: 60
+  5. True Blue (1986) - Popularity: 60
+
+
+CLUSTER 2: Bold and Uplifting
+--------------------------------------------------------------------------------
+Tracks: 33 (16.7%)
+Year range: 1984 - 2009
+Danceability: 0.557 +/- 0.126
+Energy: 0.359 +/- 0.155
+Valence: 0.371 +/- 0.207
+Acousticness: 0.655 +/- 0.187
+Loudness: -12.71 +/- 2.93 dB
+Popularity: 40.5
+
+Top 5 tracks:
+  1. Frozen (1998) - Popularity: 63
+  2. Live to Tell (1986) - Popularity: 59
+  3. Don't Cry for Me Argentina (1996) - Popularity: 56
+  4. Take a Bow (2009) - Popularity: 56
+  5. Take a Bow (1994) - Popularity: 55
+
+
+CLUSTER 3: Smooth and Sophisticated
+--------------------------------------------------------------------------------
+Tracks: 44 (22.2%)
+Year range: 1983 - 2012
+Danceability: 0.769 +/- 0.077
+Energy: 0.824 +/- 0.077
+Valence: 0.826 +/- 0.166
+Acousticness: 0.106 +/- 0.119
+Loudness: -5.70 +/- 1.79 dB
+Popularity: 45.3
+
+Top 5 tracks:
+  1. Material Girl (2009) - Popularity: 74
+  2. 4 Minutes (feat. Justin Timberlake & Timbaland) (2009) - Popularity: 71
+  3. Papa Don't Preach (1986) - Popularity: 66
+  4. La Isla Bonita (2009) - Popularity: 66
+  5. Into the Groove (2009) - Popularity: 64
+

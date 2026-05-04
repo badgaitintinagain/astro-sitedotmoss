@@ -17,7 +17,10 @@ interface ClusterData {
   energy: number;
   valence: number;
   acousticness: number;
-  speechiness: number;
+  loudness: number;
+  description: string;
+  count: number;
+  popularity: number;
 }
 
 interface TrackData {
@@ -69,10 +72,10 @@ interface SpotifyAnalysisTileProps {
 type TrackIdentity = Pick<TrackData, 'name' | 'release_year'>;
 
 const CLUSTER_NAMES: Record<number, { name: string; description: string; color: string }> = {
-  0: { name: 'The Disco Dynamo', description: 'High energy, danceable pop hits', color: '#FF4D8D' },
-  1: { name: 'The Vulnerable Soul', description: 'Emotional ballads with acoustic warmth', color: '#22C55E' },
-  2: { name: 'The Modern Rebel', description: 'Electronic, bold, experimental tracks', color: '#FACC15' },
-  3: { name: 'The Intimate Whisper', description: 'Acoustic, introspective, vulnerable', color: '#38BDF8' }
+  0: { name: 'Energetic and Danceable', description: 'High energy, upbeat tracks with strong danceability', color: '#FF4D8D' },
+  1: { name: 'Acoustic and Mellow', description: 'Warm, acoustic-rich songs with emotional depth', color: '#22C55E' },
+  2: { name: 'Bold and Uplifting', description: 'Adventurous, experimental, and uplifting tracks', color: '#FACC15' },
+  3: { name: 'Smooth and Sophisticated', description: 'Refined, polished tracks with strong presence', color: '#38BDF8' }
 };
 
 const TAB_META = {

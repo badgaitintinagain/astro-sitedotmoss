@@ -1,1 +1,46 @@
-[{"cluster":0,"danceability":0.7452325581,"energy":0.7246046512,"valence":0.863372093,"acousticness":0.1681506977,"speechiness":0.0461255814},{"cluster":1,"danceability":0.6345217391,"energy":0.4963913043,"valence":0.5425652174,"acousticness":0.580173913,"speechiness":0.0654565217},{"cluster":2,"danceability":0.6522,"energy":0.69675,"valence":0.430115,"acousticness":0.053995025,"speechiness":0.05799},{"cluster":3,"danceability":0.4533333333,"energy":0.248825,"valence":0.2187083333,"acousticness":0.8049166667,"speechiness":0.0361916667}]
+[
+  {
+    "cluster": 0,
+    "danceability": 0.642,
+    "energy": 0.693,
+    "valence": 0.384,
+    "acousticness": 0.085,
+    "loudness": -8.86,
+    "description": "Energetic and Danceable",
+    "count": 60,
+    "popularity": 47.1
+  },
+  {
+    "cluster": 1,
+    "danceability": 0.743,
+    "energy": 0.674,
+    "valence": 0.804,
+    "acousticness": 0.204,
+    "loudness": -11.05,
+    "description": "Acoustic and Mellow",
+    "count": 61,
+    "popularity": 41.7
+  },
+  {
+    "cluster": 2,
+    "danceability": 0.557,
+    "energy": 0.359,
+    "valence": 0.371,
+    "acousticness": 0.655,
+    "loudness": -12.71,
+    "description": "Bold and Uplifting",
+    "count": 33,
+    "popularity": 40.5
+  },
+  {
+    "cluster": 3,
+    "danceability": 0.769,
+    "energy": 0.824,
+    "valence": 0.826,
+    "acousticness": 0.106,
+    "loudness": -5.7,
+    "description": "Smooth and Sophisticated",
+    "count": 44,
+    "popularity": 45.3
+  }
+]

@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "total_tracks": 198,
+    "total_clusters": 4,
+    "pca_2d_variance": 75.14344082776509,
+    "pca_3d_variance": 87.82226909017858
+  },
+  "clusters": {
+    "0": {
+      "name": "Energetic and Danceable",
+      "count": 60,
+      "avg_danceability": 0.6422333333333332,
+      "avg_energy": 0.6933333333333335,
+      "avg_valence": 0.3842266666666667,
+      "avg_acousticness": 0.0853532,
+      "avg_loudness": -8.8586,
+      "avg_popularity": 47.1
+    },
+    "1": {
+      "name": "Acoustic and Mellow",
+      "count": 61,
+      "avg_danceability": 0.7428196721311475,
+      "avg_energy": 0.6738688524590162,
+      "avg_valence": 0.8044590163934424,
+      "avg_acousticness": 0.20445852459016395,
+      "avg_loudness": -11.053491803278687,
+      "avg_popularity": 41.704918032786885
+    },
+    "2": {
+      "name": "Bold and Uplifting",
+      "count": 33,
+      "avg_danceability": 0.557030303030303,
+      "avg_energy": 0.35942121212121214,
+      "avg_valence": 0.3708939393939394,
+      "avg_acousticness": 0.6545151515151516,
+      "avg_loudness": -12.713545454545454,
+      "avg_popularity": 40.45454545454545
+    },
+    "3": {
+      "name": "Smooth and Sophisticated",
+      "count": 44,
+      "avg_danceability": 0.7690227272727271,
+      "avg_energy": 0.8244545454545456,
+      "avg_valence": 0.8255,
+      "avg_acousticness": 0.10569863636363636,
+      "avg_loudness": -5.703840909090908,
+      "avg_popularity": 45.34090909090909
+    }
+  }
+}
