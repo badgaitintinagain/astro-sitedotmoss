@@ -998,7 +998,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               <div className="mt-4">
                 <div className="flex items-center justify-center">
                   <div
-                    className="relative pr-44 pb-28"
+                    className="relative pr-52 pb-32"
                     onMouseMove={event => {
                       const rect = event.currentTarget.getBoundingClientRect();
                       setRadarHoverPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
@@ -1083,7 +1083,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         </div>
                       </div>
                     )}
-                    <div className="absolute bottom-2 right-2 w-40 rounded-[12px] border border-white/60 bg-white/85 p-2 shadow-sm backdrop-blur">
+                    <div className="absolute bottom-3 right-3 w-40 rounded-[12px] border border-white/60 bg-white/85 p-2 shadow-sm backdrop-blur">
                       <p className="text-[9px] uppercase tracking-[0.2em] text-stone-500">Mini Map</p>
                       <svg viewBox="0 0 220 140" className="mt-1 h-16 w-full">
                         <rect x="0" y="0" width="220" height="140" fill="transparent" />
@@ -1105,12 +1105,12 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         })}
                       </svg>
                     </div>
-                    <div className="absolute bottom-2 left-2 w-44 rounded-[12px] border border-white/60 bg-white/85 px-2.5 py-2 text-[11px] text-stone-700 shadow-sm backdrop-blur">
+                    <div className="absolute bottom-3 left-3 w-48 rounded-[12px] border border-white/60 bg-white/85 px-3 py-2.5 text-[11px] text-stone-700 shadow-sm backdrop-blur">
                       <div className="flex items-center justify-between">
                         <span className="text-[9px] uppercase tracking-[0.2em] text-stone-500">Selected</span>
                         <span className="font-semibold text-stone-900 truncate">{selectedCompareDiva?.artists}</span>
                       </div>
-                      <div className="mt-2 grid grid-cols-2 gap-x-2 gap-y-1">
+                      <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1.5">
                         {RADAR_KEYS.map(k => (
                           <div key={k} className="flex items-center justify-between">
                             <span className="text-[10px] text-stone-600">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
