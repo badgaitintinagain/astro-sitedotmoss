@@ -1,0 +1,58 @@
+{
+  "0": {
+    "name": "Energetic and Danceable",
+    "persona": "The Disco Dynamo",
+    "count": 60,
+    "percentage": 30.303030303030305,
+    "danceability": 0.6422333333333332,
+    "energy": 0.6933333333333335,
+    "valence": 0.3842266666666667,
+    "acousticness": 0.0853532,
+    "loudness": -8.8586,
+    "popularity": 47.1,
+    "year_min": 1989,
+    "year_max": 2015
+  },
+  "1": {
+    "name": "Acoustic and Mellow",
+    "persona": "The Vulnerable Soul",
+    "count": 61,
+    "percentage": 30.808080808080806,
+    "danceability": 0.7428196721311475,
+    "energy": 0.6738688524590162,
+    "valence": 0.8044590163934424,
+    "acousticness": 0.20445852459016395,
+    "loudness": -11.053491803278687,
+    "popularity": 41.704918032786885,
+    "year_min": 1983,
+    "year_max": 2003
+  },
+  "2": {
+    "name": "Bold and Uplifting",
+    "persona": "The Modern Rebel",
+    "count": 33,
+    "percentage": 16.666666666666664,
+    "danceability": 0.557030303030303,
+    "energy": 0.35942121212121214,
+    "valence": 0.3708939393939394,
+    "acousticness": 0.6545151515151516,
+    "loudness": -12.713545454545454,
+    "popularity": 40.45454545454545,
+    "year_min": 1984,
+    "year_max": 2009
+  },
+  "3": {
+    "name": "Smooth and Sophisticated",
+    "persona": "The Intimate Whisper",
+    "count": 44,
+    "percentage": 22.22222222222222,
+    "danceability": 0.7690227272727271,
+    "energy": 0.8244545454545456,
+    "valence": 0.8255,
+    "acousticness": 0.10569863636363636,
+    "loudness": -5.703840909090908,
+    "popularity": 45.34090909090909,
+    "year_min": 1983,
+    "year_max": 2012
+  }
+}

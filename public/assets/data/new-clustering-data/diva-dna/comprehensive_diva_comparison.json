@@ -1,0 +1,1064 @@
+{
+  "Adele": {
+    "track_count": 78,
+    "year_range": {
+      "min": 1929,
+      "max": 2015
+    },
+    "profile": {
+      "danceability": 0.5517333333333333,
+      "energy": 0.45380000000000004,
+      "valence": 0.33550833333333335,
+      "acousticness": 0.49712566666666663,
+      "loudness": -7.093983333333333,
+      "popularity": 63.45
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.5517333333333333,
+        "delta": -0.13546363636363634,
+        "percentage": -19.71249035387499
+      },
+      "energy": {
+        "value": 0.45380000000000004,
+        "delta": -0.20702272727272714,
+        "percentage": -31.328027734023
+      },
+      "valence": {
+        "value": 0.33550833333333335,
+        "delta": -0.2740224747474747,
+        "percentage": -44.956296074725465
+      },
+      "acousticness": {
+        "value": 0.49712566666666663,
+        "delta": 0.2756968686868686,
+        "percentage": 124.5081358893624
+      },
+      "popularity": {
+        "value": 63.45,
+        "delta": 19.510606060606065,
+        "percentage": 44.40344827586209
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Someone Like You",
+        "year": 2011,
+        "popularity": 80
+      },
+      {
+        "name": "Someone Like You",
+        "year": 2011,
+        "popularity": 79
+      },
+      {
+        "name": "Rolling in the Deep",
+        "year": 2011,
+        "popularity": 78
+      }
+    ]
+  },
+  "Alanis Morissette": {
+    "track_count": 45,
+    "year_range": {
+      "min": 1995,
+      "max": 2005
+    },
+    "profile": {
+      "danceability": 0.4728636363636364,
+      "energy": 0.6559318181818182,
+      "valence": 0.3437909090909091,
+      "acousticness": 0.17263363636363638,
+      "loudness": -7.926590909090908,
+      "popularity": 50.61363636363637
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.4728636363636364,
+        "delta": -0.21433333333333326,
+        "percentage": -31.189505015985
+      },
+      "energy": {
+        "value": 0.6559318181818182,
+        "delta": -0.004890909090908946,
+        "percentage": -0.7401242253114004
+      },
+      "valence": {
+        "value": 0.3437909090909091,
+        "delta": -0.26573989898989897,
+        "percentage": -43.59745159176084
+      },
+      "acousticness": {
+        "value": 0.17263363636363638,
+        "delta": -0.048795161616161625,
+        "percentage": -22.036502054540097
+      },
+      "popularity": {
+        "value": 50.61363636363637,
+        "delta": 6.674242424242429,
+        "percentage": 15.189655172413797
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Ironic - 2015 Remaster",
+        "year": 1995,
+        "popularity": 71
+      },
+      {
+        "name": "You Oughta Know - 2015 Remaster",
+        "year": 1995,
+        "popularity": 68
+      },
+      {
+        "name": "Hand in My Pocket - 2015 Remaster",
+        "year": 1995,
+        "popularity": 67
+      }
+    ]
+  },
+  "Ariana Grande": {
+    "track_count": 134,
+    "year_range": {
+      "min": 2011,
+      "max": 2021
+    },
+    "profile": {
+      "danceability": 0.6346176470588235,
+      "energy": 0.5850147058823529,
+      "valence": 0.4031029411764706,
+      "acousticness": 0.23443529411764705,
+      "loudness": -5.698205882352942,
+      "popularity": 63.30882352941177
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6346176470588235,
+        "delta": -0.05257932263814613,
+        "percentage": -7.651273936980807
+      },
+      "energy": {
+        "value": 0.5850147058823529,
+        "delta": -0.07580802139037424,
+        "percentage": -11.471763645787503
+      },
+      "valence": {
+        "value": 0.4031029411764706,
+        "delta": -0.20642786690433745,
+        "percentage": -33.86668305648144
+      },
+      "acousticness": {
+        "value": 0.23443529411764705,
+        "delta": 0.013006496137849044,
+        "percentage": 5.873895471823709
+      },
+      "popularity": {
+        "value": 63.30882352941177,
+        "delta": 19.36942959001783,
+        "percentage": 44.08215010141989
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "positions",
+        "year": 2020,
+        "popularity": 92
+      },
+      {
+        "name": "34+35",
+        "year": 2020,
+        "popularity": 91
+      },
+      {
+        "name": "7 rings",
+        "year": 2019,
+        "popularity": 87
+      }
+    ]
+  },
+  "Britney Spears": {
+    "track_count": 68,
+    "year_range": {
+      "min": 1999,
+      "max": 2020
+    },
+    "profile": {
+      "danceability": 0.7014482758620689,
+      "energy": 0.7538620689655172,
+      "valence": 0.7016206896551724,
+      "acousticness": 0.20012053448275863,
+      "loudness": -5.405655172413794,
+      "popularity": 51.258620689655174
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.7014482758620689,
+        "delta": 0.014251306165099287,
+        "percentage": 2.0738313458197544
+      },
+      "energy": {
+        "value": 0.7538620689655172,
+        "delta": 0.09303934169279005,
+        "percentage": 14.079319286848913
+      },
+      "valence": {
+        "value": 0.7016206896551724,
+        "delta": 0.09208988157436437,
+        "percentage": 15.1083227219182
+      },
+      "acousticness": {
+        "value": 0.20012053448275863,
+        "delta": -0.021308263497039376,
+        "percentage": -9.623076894895766
+      },
+      "popularity": {
+        "value": 51.258620689655174,
+        "delta": 7.319226750261237,
+        "percentage": 16.65755053507729
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Toxic",
+        "year": 2003,
+        "popularity": 83
+      },
+      {
+        "name": "Oops!...I Did It Again",
+        "year": 2000,
+        "popularity": 81
+      },
+      {
+        "name": "...Baby One More Time",
+        "year": 1999,
+        "popularity": 80
+      }
+    ]
+  },
+  "Christina Aguilera": {
+    "track_count": 74,
+    "year_range": {
+      "min": 1990,
+      "max": 2021
+    },
+    "profile": {
+      "danceability": 0.6016052631578948,
+      "energy": 0.6439473684210526,
+      "valence": 0.4534315789473684,
+      "acousticness": 0.31381123684210527,
+      "loudness": -6.040921052631579,
+      "popularity": 55.13157894736842
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6016052631578948,
+        "delta": -0.08559170653907489,
+        "percentage": -12.455192661402148
+      },
+      "energy": {
+        "value": 0.6439473684210526,
+        "delta": -0.01687535885167457,
+        "percentage": -2.5536892354354412
+      },
+      "valence": {
+        "value": 0.4534315789473684,
+        "delta": -0.15609922913343965,
+        "percentage": -25.609735728525294
+      },
+      "acousticness": {
+        "value": 0.31381123684210527,
+        "delta": 0.09238243886230726,
+        "percentage": 41.721058735429594
+      },
+      "popularity": {
+        "value": 55.13157894736842,
+        "delta": 11.19218500797448,
+        "percentage": 25.471869328493636
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Moves Like Jagger - Studio Recording From The Voice Performance",
+        "year": 2010,
+        "popularity": 78
+      },
+      {
+        "name": "Feel This Moment (feat. Christina Aguilera)",
+        "year": 2012,
+        "popularity": 77
+      },
+      {
+        "name": "Say Something",
+        "year": 2014,
+        "popularity": 77
+      }
+    ]
+  },
+  "Cyndi Lauper": {
+    "track_count": 41,
+    "year_range": {
+      "min": 1983,
+      "max": 2014
+    },
+    "profile": {
+      "danceability": 0.6293333333333333,
+      "energy": 0.6461897435897436,
+      "valence": 0.5812358974358974,
+      "acousticness": 0.3175956153846154,
+      "loudness": -8.912179487179486,
+      "popularity": 45.64102564102564
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6293333333333333,
+        "delta": -0.05786363636363634,
+        "percentage": -8.420240326314621
+      },
+      "energy": {
+        "value": 0.6461897435897436,
+        "delta": -0.014632983682983602,
+        "percentage": -2.2143584170258745
+      },
+      "valence": {
+        "value": 0.5812358974358974,
+        "delta": -0.02829491064491063,
+        "percentage": -4.642080477277444
+      },
+      "acousticness": {
+        "value": 0.3175956153846154,
+        "delta": 0.09616681740481739,
+        "percentage": 43.43013116730694
+      },
+      "popularity": {
+        "value": 45.64102564102564,
+        "delta": 1.7016317016317046,
+        "percentage": 3.8726790450928528
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Girls Just Want to Have Fun",
+        "year": 1983,
+        "popularity": 79
+      },
+      {
+        "name": "Time After Time",
+        "year": 1983,
+        "popularity": 74
+      },
+      {
+        "name": "True Colors",
+        "year": 1986,
+        "popularity": 72
+      }
+    ]
+  },
+  "Janet Jackson": {
+    "track_count": 72,
+    "year_range": {
+      "min": 1982,
+      "max": 2010
+    },
+    "profile": {
+      "danceability": 0.7271147540983607,
+      "energy": 0.7020000000000001,
+      "valence": 0.6266704918032787,
+      "acousticness": 0.2333028163934426,
+      "loudness": -8.983245901639343,
+      "popularity": 45.459016393442624
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.7271147540983607,
+        "delta": 0.03991778440139104,
+        "percentage": 5.808783531014905
+      },
+      "energy": {
+        "value": 0.7020000000000001,
+        "delta": 0.041177272727272896,
+        "percentage": 6.231213157152604
+      },
+      "valence": {
+        "value": 0.6266704918032787,
+        "delta": 0.017139683722470656,
+        "percentage": 2.811947073920229
+      },
+      "acousticness": {
+        "value": 0.2333028163934426,
+        "delta": 0.011874018413644605,
+        "percentage": 5.362454442230202
+      },
+      "popularity": {
+        "value": 45.459016393442624,
+        "delta": 1.5196224540486867,
+        "percentage": 3.4584511023177056
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Together Again",
+        "year": 1997,
+        "popularity": 69
+      },
+      {
+        "name": "That's The Way Love Goes",
+        "year": 1993,
+        "popularity": 67
+      },
+      {
+        "name": "Got 'Til It's Gone",
+        "year": 1997,
+        "popularity": 66
+      }
+    ]
+  },
+  "Katy Perry": {
+    "track_count": 89,
+    "year_range": {
+      "min": 2008,
+      "max": 2020
+    },
+    "profile": {
+      "danceability": 0.6301142857142856,
+      "energy": 0.7873857142857144,
+      "valence": 0.6336571428571429,
+      "acousticness": 0.04958302857142857,
+      "loudness": -4.613671428571428,
+      "popularity": 58.91428571428571
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6301142857142856,
+        "delta": -0.05708268398268401,
+        "percentage": -8.30659716207065
+      },
+      "energy": {
+        "value": 0.7873857142857144,
+        "delta": 0.12656298701298718,
+        "percentage": 19.152335685445276
+      },
+      "valence": {
+        "value": 0.6336571428571429,
+        "delta": 0.024126334776334857,
+        "percentage": 3.9581813513741793
+      },
+      "acousticness": {
+        "value": 0.04958302857142857,
+        "delta": -0.17184576940836943,
+        "percentage": -77.60768742647817
+      },
+      "popularity": {
+        "value": 58.91428571428571,
+        "delta": 14.974891774891773,
+        "percentage": 34.080788177339905
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Dark Horse",
+        "year": 2013,
+        "popularity": 78
+      },
+      {
+        "name": "Never Really Over",
+        "year": 2019,
+        "popularity": 78
+      },
+      {
+        "name": "Last Friday Night (T.G.I.F.)",
+        "year": 2012,
+        "popularity": 76
+      }
+    ]
+  },
+  "Kylie Minogue": {
+    "track_count": 86,
+    "year_range": {
+      "min": 1987,
+      "max": 2012
+    },
+    "profile": {
+      "danceability": 0.6617464788732395,
+      "energy": 0.8490281690140845,
+      "valence": 0.7079154929577465,
+      "acousticness": 0.10672832394366197,
+      "loudness": -6.232830985915493,
+      "popularity": 39.08450704225352
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6617464788732395,
+        "delta": -0.025450490823730187,
+        "percentage": -3.7035219807434516
+      },
+      "energy": {
+        "value": 0.8490281690140845,
+        "delta": 0.18820544174135734,
+        "percentage": 28.480473502795146
+      },
+      "valence": {
+        "value": 0.7079154929577465,
+        "delta": 0.09838468487693841,
+        "percentage": 16.141052030941005
+      },
+      "acousticness": {
+        "value": 0.10672832394366197,
+        "delta": -0.11470047403613604,
+        "percentage": -51.80016108230001
+      },
+      "popularity": {
+        "value": 39.08450704225352,
+        "delta": -4.8548868971404175,
+        "percentage": -11.04905293831957
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Can't Get You out of My Head",
+        "year": 2001,
+        "popularity": 75
+      },
+      {
+        "name": "In Your Eyes",
+        "year": 2001,
+        "popularity": 63
+      },
+      {
+        "name": "Higher",
+        "year": 2010,
+        "popularity": 62
+      }
+    ]
+  },
+  "Lady Gaga": {
+    "track_count": 102,
+    "year_range": {
+      "min": 2008,
+      "max": 2021
+    },
+    "profile": {
+      "danceability": 0.6642207792207793,
+      "energy": 0.7658441558441559,
+      "valence": 0.5298571428571428,
+      "acousticness": 0.09791696883116884,
+      "loudness": -5.093831168831169,
+      "popularity": 52.36363636363637
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6642207792207793,
+        "delta": -0.022976190476190372,
+        "percentage": -3.343465045592686
+      },
+      "energy": {
+        "value": 0.7658441558441559,
+        "delta": 0.10502142857142871,
+        "percentage": 15.892526730256584
+      },
+      "valence": {
+        "value": 0.5298571428571428,
+        "delta": -0.07967366522366526,
+        "percentage": -13.071310615870068
+      },
+      "acousticness": {
+        "value": 0.09791696883116884,
+        "delta": -0.12351182914862917,
+        "percentage": -55.77947867462918
+      },
+      "popularity": {
+        "value": 52.36363636363637,
+        "delta": 8.42424242424243,
+        "percentage": 19.17241379310346
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Shallow",
+        "year": 2018,
+        "popularity": 86
+      },
+      {
+        "name": "Bad Romance",
+        "year": 2009,
+        "popularity": 83
+      },
+      {
+        "name": "Rain On Me (with Ariana Grande)",
+        "year": 2020,
+        "popularity": 83
+      }
+    ]
+  },
+  "Madonna": {
+    "track_count": 199,
+    "year_range": {
+      "min": 1983,
+      "max": 2021
+    },
+    "profile": {
+      "danceability": 0.6854252873563218,
+      "energy": 0.6515683908045977,
+      "valence": 0.5956844827586207,
+      "acousticness": 0.2250940344827586,
+      "loudness": -9.556063218390806,
+      "popularity": 44.666666666666664
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6854252873563218,
+        "delta": -0.00177168234064784,
+        "percentage": -0.2578128860825868
+      },
+      "energy": {
+        "value": 0.6515683908045977,
+        "delta": -0.009254336468129454,
+        "percentage": -1.4004264814442613
+      },
+      "valence": {
+        "value": 0.5956844827586207,
+        "delta": -0.013846325322187325,
+        "percentage": -2.2716366652219544
+      },
+      "acousticness": {
+        "value": 0.2250940344827586,
+        "delta": 0.003665236502960606,
+        "percentage": 1.655266404550959
+      },
+      "popularity": {
+        "value": 44.666666666666664,
+        "delta": 0.7272727272727266,
+        "percentage": 1.6551724137930934
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Hung Up",
+        "year": 2005,
+        "popularity": 75
+      },
+      {
+        "name": "Material Girl",
+        "year": 2009,
+        "popularity": 74
+      },
+      {
+        "name": "Like a Virgin",
+        "year": 1984,
+        "popularity": 73
+      }
+    ]
+  },
+  "Mariah Carey": {
+    "track_count": 161,
+    "year_range": {
+      "min": 1990,
+      "max": 2014
+    },
+    "profile": {
+      "danceability": 0.5517589285714285,
+      "energy": 0.5106875000000001,
+      "valence": 0.36697232142857145,
+      "acousticness": 0.41686669642857144,
+      "loudness": -8.906410714285714,
+      "popularity": 45.63392857142857
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.5517589285714285,
+        "delta": -0.13543804112554114,
+        "percentage": -19.70876576846151
+      },
+      "energy": {
+        "value": 0.5106875000000001,
+        "delta": -0.1501352272727271,
+        "percentage": -22.719440642174682
+      },
+      "valence": {
+        "value": 0.36697232142857145,
+        "delta": -0.24255848665223662,
+        "percentage": -39.79429479798823
+      },
+      "acousticness": {
+        "value": 0.41686669642857144,
+        "delta": 0.19543789844877343,
+        "percentage": 88.26218641470662
+      },
+      "popularity": {
+        "value": 45.63392857142857,
+        "delta": 1.6945346320346317,
+        "percentage": 3.8565270935960516
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Always Be My Baby",
+        "year": 1995,
+        "popularity": 74
+      },
+      {
+        "name": "Fantasy",
+        "year": 1995,
+        "popularity": 73
+      },
+      {
+        "name": "Hero",
+        "year": 1993,
+        "popularity": 72
+      }
+    ]
+  },
+  "Pink": {
+    "track_count": 720,
+    "year_range": {
+      "min": 1967,
+      "max": 2021
+    },
+    "profile": {
+      "danceability": 0.5835,
+      "energy": 0.692,
+      "valence": 0.55875,
+      "acousticness": 0.21507500000000002,
+      "loudness": -7.43725,
+      "popularity": 26.75
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.5835,
+        "delta": -0.10369696969696962,
+        "percentage": -15.08984676441406
+      },
+      "energy": {
+        "value": 0.692,
+        "delta": 0.031177272727272776,
+        "percentage": 4.717948012463813
+      },
+      "valence": {
+        "value": 0.55875,
+        "delta": -0.05078080808080809,
+        "percentage": -8.331130667652143
+      },
+      "acousticness": {
+        "value": 0.21507500000000002,
+        "delta": -0.006353797979797987,
+        "percentage": -2.869454216329026
+      },
+      "popularity": {
+        "value": 26.75,
+        "delta": -17.189393939393938,
+        "percentage": -39.12068965517241
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "At My Worst",
+        "year": 2020,
+        "popularity": 86
+      },
+      {
+        "name": "At My Worst",
+        "year": 2021,
+        "popularity": 78
+      },
+      {
+        "name": "Wish You Were Here",
+        "year": 1975,
+        "popularity": 77
+      }
+    ]
+  },
+  "Rihanna": {
+    "track_count": 168,
+    "year_range": {
+      "min": 2005,
+      "max": 2020
+    },
+    "profile": {
+      "danceability": 0.6414505494505495,
+      "energy": 0.673989010989011,
+      "valence": 0.5248681318681319,
+      "acousticness": 0.1376850769230769,
+      "loudness": -5.772285714285714,
+      "popularity": 60.9010989010989
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6414505494505495,
+        "delta": -0.04574642024642017,
+        "percentage": -6.656958959902393
+      },
+      "energy": {
+        "value": 0.673989010989011,
+        "delta": 0.013166283716283811,
+        "percentage": 1.9924078232935738
+      },
+      "valence": {
+        "value": 0.5248681318681319,
+        "delta": -0.0846626762126762,
+        "percentage": -13.889810833228978
+      },
+      "acousticness": {
+        "value": 0.1376850769230769,
+        "delta": -0.0837437210567211,
+        "percentage": -37.81970629870891
+      },
+      "popularity": {
+        "value": 60.9010989010989,
+        "delta": 16.96170496170496,
+        "percentage": 38.60250094732854
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "Umbrella",
+        "year": 2008,
+        "popularity": 83
+      },
+      {
+        "name": "Love The Way You Lie",
+        "year": 2010,
+        "popularity": 83
+      },
+      {
+        "name": "Love On The Brain",
+        "year": 2016,
+        "popularity": 81
+      }
+    ]
+  },
+  "Shakira": {
+    "track_count": 117,
+    "year_range": {
+      "min": 1995,
+      "max": 2020
+    },
+    "profile": {
+      "danceability": 0.7000384615384616,
+      "energy": 0.6657192307692308,
+      "valence": 0.5887564102564102,
+      "acousticness": 0.27130179487179484,
+      "loudness": -6.919666666666667,
+      "popularity": 56.717948717948715
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.7000384615384616,
+        "delta": 0.01284149184149197,
+        "percentage": 1.8686770180541767
+      },
+      "energy": {
+        "value": 0.6657192307692308,
+        "delta": 0.0048965034965036125,
+        "percentage": 0.7409708072105614
+      },
+      "valence": {
+        "value": 0.5887564102564102,
+        "delta": -0.020774397824397828,
+        "percentage": -3.40826050939228
+      },
+      "acousticness": {
+        "value": 0.27130179487179484,
+        "delta": 0.04987299689199684,
+        "percentage": 22.523265874634333
+      },
+      "popularity": {
+        "value": 56.717948717948715,
+        "delta": 12.778554778554778,
+        "percentage": 29.082228116710883
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "GIRL LIKE ME",
+        "year": 2020,
+        "popularity": 89
+      },
+      {
+        "name": "Hips Don't Lie (feat. Wyclef Jean)",
+        "year": 2005,
+        "popularity": 84
+      },
+      {
+        "name": "Waka Waka (This Time for Africa) [The Official 2010 FIFA World Cup (TM) Song] (feat. Freshlyground)",
+        "year": 2010,
+        "popularity": 79
+      }
+    ]
+  },
+  "Shania Twain": {
+    "track_count": 57,
+    "year_range": {
+      "min": 1993,
+      "max": 2020
+    },
+    "profile": {
+      "danceability": 0.6399803921568628,
+      "energy": 0.6733725490196079,
+      "valence": 0.6998823529411765,
+      "acousticness": 0.2605058823529412,
+      "loudness": -6.616607843137255,
+      "popularity": 50.31372549019608
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6399803921568628,
+        "delta": -0.047216577540106885,
+        "percentage": -6.870894317378584
+      },
+      "energy": {
+        "value": 0.6733725490196079,
+        "delta": 0.012549821746880685,
+        "percentage": 1.89912078216119
+      },
+      "valence": {
+        "value": 0.6998823529411765,
+        "delta": 0.09035154486036845,
+        "percentage": 14.823130129361761
+      },
+      "acousticness": {
+        "value": 0.2605058823529412,
+        "delta": 0.039077084373143195,
+        "percentage": 17.64769746738559
+      },
+      "popularity": {
+        "value": 50.31372549019608,
+        "delta": 6.37433155080214,
+        "percentage": 14.507099391480738
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "You're Still The One",
+        "year": 1997,
+        "popularity": 75
+      },
+      {
+        "name": "Man! I Feel Like A Woman!",
+        "year": 1997,
+        "popularity": 74
+      },
+      {
+        "name": "Any Man Of Mine",
+        "year": 1995,
+        "popularity": 71
+      }
+    ]
+  },
+  "Taylor Swift": {
+    "track_count": 390,
+    "year_range": {
+      "min": 2006,
+      "max": 2021
+    },
+    "profile": {
+      "danceability": 0.5912729805013928,
+      "energy": 0.637707520891365,
+      "valence": 0.44217047353760447,
+      "acousticness": 0.20994356824512536,
+      "loudness": -6.0949610027855154,
+      "popularity": 60.729805013927574
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.5912729805013928,
+        "delta": -0.09592398919557688,
+        "percentage": -13.958732856152734
+      },
+      "energy": {
+        "value": 0.637707520891365,
+        "delta": -0.02311520638136222,
+        "percentage": -3.497943612920318
+      },
+      "valence": {
+        "value": 0.44217047353760447,
+        "delta": -0.1673603345432036,
+        "percentage": -27.457239621760998
+      },
+      "acousticness": {
+        "value": 0.20994356824512536,
+        "delta": -0.011485229734672642,
+        "percentage": -5.18687263782216
+      },
+      "popularity": {
+        "value": 60.729805013927574,
+        "delta": 16.790411074533637,
+        "percentage": 38.212659686869664
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "willow",
+        "year": 2020,
+        "popularity": 85
+      },
+      {
+        "name": "Love Story (Taylor\u2019s Version)",
+        "year": 2021,
+        "popularity": 85
+      },
+      {
+        "name": "You All Over Me (feat. Maren Morris) (Taylor\u2019s Version) (From The Vault)",
+        "year": 2021,
+        "popularity": 84
+      }
+    ]
+  },
+  "Whitney Houston": {
+    "track_count": 103,
+    "year_range": {
+      "min": 1983,
+      "max": 2019
+    },
+    "profile": {
+      "danceability": 0.6046666666666667,
+      "energy": 0.5309710144927536,
+      "valence": 0.4349608695652174,
+      "acousticness": 0.414775884057971,
+      "loudness": -9.68750724637681,
+      "popularity": 47.82608695652174
+    },
+    "vs_madonna": {
+      "danceability": {
+        "value": 0.6046666666666667,
+        "delta": -0.08253030303030295,
+        "percentage": -12.009701245728133
+      },
+      "energy": {
+        "value": 0.5309710144927536,
+        "delta": -0.12985171277997354,
+        "percentage": -19.650007092807297
+      },
+      "valence": {
+        "value": 0.4349608695652174,
+        "delta": -0.17456993851559066,
+        "percentage": -28.640051692423597
+      },
+      "acousticness": {
+        "value": 0.414775884057971,
+        "delta": 0.193347086078173,
+        "percentage": 87.31794953600071
+      },
+      "popularity": {
+        "value": 47.82608695652174,
+        "delta": 3.8866930171278042,
+        "percentage": 8.845577211394318
+      }
+    },
+    "top_tracks": [
+      {
+        "name": "I Wanna Dance with Somebody (Who Loves Me)",
+        "year": 1987,
+        "popularity": 83
+      },
+      {
+        "name": "Higher Love",
+        "year": 2019,
+        "popularity": 82
+      },
+      {
+        "name": "I Will Always Love You",
+        "year": 1992,
+        "popularity": 78
+      }
+    ]
+  }
+}

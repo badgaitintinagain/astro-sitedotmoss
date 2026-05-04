@@ -1,0 +1,1928 @@
+{
+  "Madonna": {
+    "1983": {
+      "danceability": 0.846625,
+      "energy": 0.6989375,
+      "valence": 0.8061875,
+      "acousticness": 0.09569375000000001,
+      "popularity": 41.3125
+    },
+    "1984": {
+      "danceability": 0.7132727272727273,
+      "energy": 0.6193636363636363,
+      "valence": 0.8261818181818181,
+      "acousticness": 0.29979090909090905,
+      "popularity": 44.72727272727273
+    },
+    "1986": {
+      "danceability": 0.7300909090909091,
+      "energy": 0.6998181818181819,
+      "valence": 0.84,
+      "acousticness": 0.25070909090909094,
+      "popularity": 50.36363636363637
+    },
+    "1987": {
+      "danceability": 0.7202,
+      "energy": 0.6752,
+      "valence": 0.8172,
+      "acousticness": 0.22474,
+      "popularity": 35.7
+    },
+    "1989": {
+      "danceability": 0.6467272727272727,
+      "energy": 0.5474454545454546,
+      "valence": 0.6201818181818182,
+      "acousticness": 0.41291818181818185,
+      "popularity": 43.18181818181818
+    },
+    "1990": {
+      "danceability": 0.6888157894736843,
+      "energy": 0.6229210526315789,
+      "valence": 0.5708947368421052,
+      "acousticness": 0.23796894736842109,
+      "popularity": 35.76315789473684
+    },
+    "1992": {
+      "danceability": 0.68,
+      "energy": 0.6620555555555555,
+      "valence": 0.43131111111111115,
+      "acousticness": 0.033647333333333335,
+      "popularity": 37.27777777777778
+    },
+    "1994": {
+      "danceability": 0.7057142857142856,
+      "energy": 0.6020000000000001,
+      "valence": 0.5911428571428571,
+      "acousticness": 0.30193857142857145,
+      "popularity": 43.57142857142857
+    },
+    "1995": {
+      "danceability": 0.6128571428571429,
+      "energy": 0.4985714285714286,
+      "valence": 0.34682857142857143,
+      "acousticness": 0.41418571428571427,
+      "popularity": 45.57142857142857
+    },
+    "1996": {
+      "danceability": 0.4835,
+      "energy": 0.3915,
+      "valence": 0.3890875,
+      "acousticness": 0.725375,
+      "popularity": 39.625
+    },
+    "1998": {
+      "danceability": 0.5854,
+      "energy": 0.625,
+      "valence": 0.34940000000000004,
+      "acousticness": 0.326328,
+      "popularity": 49.2
+    },
+    "2000": {
+      "danceability": 0.6725,
+      "energy": 0.7374999999999999,
+      "valence": 0.6673333333333332,
+      "acousticness": 0.10097666666666666,
+      "popularity": 51.5
+    },
+    "2001": {
+      "danceability": 0.534,
+      "energy": 0.561,
+      "valence": 0.219,
+      "acousticness": 0.0442,
+      "popularity": 35.0
+    },
+    "2003": {
+      "danceability": 0.7362500000000001,
+      "energy": 0.672,
+      "valence": 0.6625,
+      "acousticness": 0.1691,
+      "popularity": 53.5
+    },
+    "2005": {
+      "danceability": 0.5706,
+      "energy": 0.7565999999999999,
+      "valence": 0.44020000000000004,
+      "acousticness": 0.002896,
+      "popularity": 61.0
+    },
+    "2006": {
+      "danceability": 0.603,
+      "energy": 0.846,
+      "valence": 0.438,
+      "acousticness": 0.00118,
+      "popularity": 52.0
+    },
+    "2008": {
+      "danceability": 0.75725,
+      "energy": 0.8714999999999999,
+      "valence": 0.835,
+      "acousticness": 0.03746,
+      "popularity": 52.75
+    },
+    "2009": {
+      "danceability": 0.7049230769230769,
+      "energy": 0.8161153846153847,
+      "valence": 0.6387692307692308,
+      "acousticness": 0.15991115384615384,
+      "popularity": 52.03846153846154
+    },
+    "2012": {
+      "danceability": 0.6366666666666667,
+      "energy": 0.6876666666666665,
+      "valence": 0.619,
+      "acousticness": 0.013676666666666665,
+      "popularity": 52.333333333333336
+    },
+    "2015": {
+      "danceability": 0.722,
+      "energy": 0.63,
+      "valence": 0.519,
+      "acousticness": 0.0485,
+      "popularity": 62.0
+    }
+  },
+  "Britney Spears": {
+    "1999": {
+      "danceability": 0.6942222222222223,
+      "energy": 0.7945555555555556,
+      "valence": 0.780888888888889,
+      "acousticness": 0.21792222222222224,
+      "popularity": 55.55555555555556
+    },
+    "2000": {
+      "danceability": 0.7048,
+      "energy": 0.8294,
+      "valence": 0.8234,
+      "acousticness": 0.2036,
+      "popularity": 65.4
+    },
+    "2001": {
+      "danceability": 0.6978,
+      "energy": 0.7769999999999999,
+      "valence": 0.7183999999999999,
+      "acousticness": 0.2093022,
+      "popularity": 61.8
+    },
+    "2003": {
+      "danceability": 0.7294999999999999,
+      "energy": 0.6758333333333333,
+      "valence": 0.6905,
+      "acousticness": 0.24523166666666665,
+      "popularity": 62.666666666666664
+    },
+    "2004": {
+      "danceability": 0.74225,
+      "energy": 0.788625,
+      "valence": 0.76325,
+      "acousticness": 0.2117875,
+      "popularity": 53.625
+    },
+    "2006": {
+      "danceability": 0.661,
+      "energy": 0.677,
+      "valence": 0.711,
+      "acousticness": 0.169,
+      "popularity": 0.0
+    },
+    "2007": {
+      "danceability": 0.705875,
+      "energy": 0.7645,
+      "valence": 0.65325,
+      "acousticness": 0.24054999999999999,
+      "popularity": 41.25
+    },
+    "2008": {
+      "danceability": 0.7515000000000001,
+      "energy": 0.6595,
+      "valence": 0.5845,
+      "acousticness": 0.079075,
+      "popularity": 56.75
+    },
+    "2009": {
+      "danceability": 0.673,
+      "energy": 0.5843333333333334,
+      "valence": 0.6016666666666667,
+      "acousticness": 0.40573333333333333,
+      "popularity": 48.0
+    },
+    "2011": {
+      "danceability": 0.7114,
+      "energy": 0.7026,
+      "valence": 0.6462,
+      "acousticness": 0.027198,
+      "popularity": 66.0
+    },
+    "2013": {
+      "danceability": 0.7246666666666667,
+      "energy": 0.7313333333333333,
+      "valence": 0.618,
+      "acousticness": 0.06433333333333333,
+      "popularity": 63.666666666666664
+    },
+    "2017": {
+      "danceability": 0.697,
+      "energy": 0.7,
+      "valence": 0.577,
+      "acousticness": 0.157,
+      "popularity": 13.0
+    },
+    "2018": {
+      "danceability": 0.67,
+      "energy": 0.84,
+      "valence": 0.69,
+      "acousticness": 0.177,
+      "popularity": 14.0
+    },
+    "2019": {
+      "danceability": 0.67,
+      "energy": 0.806,
+      "valence": 0.689,
+      "acousticness": 0.219,
+      "popularity": 3.0
+    },
+    "2020": {
+      "danceability": 0.8135,
+      "energy": 0.6565000000000001,
+      "valence": 0.7529999999999999,
+      "acousticness": 0.13205,
+      "popularity": 37.25
+    }
+  },
+  "Mariah Carey": {
+    "1990": {
+      "danceability": 0.5805833333333333,
+      "energy": 0.6305,
+      "valence": 0.5583333333333333,
+      "acousticness": 0.30464166666666664,
+      "popularity": 42.75
+    },
+    "1991": {
+      "danceability": 0.5601,
+      "energy": 0.5265,
+      "valence": 0.40685000000000004,
+      "acousticness": 0.316847,
+      "popularity": 42.7
+    },
+    "1992": {
+      "danceability": 0.5171250000000001,
+      "energy": 0.6475,
+      "valence": 0.459875,
+      "acousticness": 0.5450375,
+      "popularity": 36.25
+    },
+    "1993": {
+      "danceability": 0.5504,
+      "energy": 0.5391,
+      "valence": 0.32642,
+      "acousticness": 0.4627,
+      "popularity": 50.4
+    },
+    "1994": {
+      "danceability": 0.3761111111111111,
+      "energy": 0.5273333333333334,
+      "valence": 0.31122222222222223,
+      "acousticness": 0.4556555555555556,
+      "popularity": 48.111111111111114
+    },
+    "1995": {
+      "danceability": 0.5415333333333333,
+      "energy": 0.4816666666666667,
+      "valence": 0.40609333333333336,
+      "acousticness": 0.42485999999999996,
+      "popularity": 48.86666666666667
+    },
+    "1997": {
+      "danceability": 0.5932307692307692,
+      "energy": 0.5139230769230769,
+      "valence": 0.3085615384615385,
+      "acousticness": 0.3619692307692307,
+      "popularity": 47.53846153846154
+    },
+    "1998": {
+      "danceability": 0.5344117647058823,
+      "energy": 0.4738235294117647,
+      "valence": 0.3269529411764706,
+      "acousticness": 0.4190823529411765,
+      "popularity": 39.23529411764706
+    },
+    "1999": {
+      "danceability": 0.4699166666666667,
+      "energy": 0.5255833333333334,
+      "valence": 0.3030333333333333,
+      "acousticness": 0.5526666666666666,
+      "popularity": 47.0
+    },
+    "2000": {
+      "danceability": 0.575,
+      "energy": 0.629,
+      "valence": 0.292,
+      "acousticness": 0.25145,
+      "popularity": 60.0
+    },
+    "2001": {
+      "danceability": 0.49465000000000003,
+      "energy": 0.4586,
+      "valence": 0.23527499999999998,
+      "acousticness": 0.5231,
+      "popularity": 38.85
+    },
+    "2002": {
+      "danceability": 0.5772,
+      "energy": 0.5833999999999999,
+      "valence": 0.36019999999999996,
+      "acousticness": 0.31226000000000004,
+      "popularity": 58.6
+    },
+    "2003": {
+      "danceability": 0.755,
+      "energy": 0.5775,
+      "valence": 0.6735,
+      "acousticness": 0.02985,
+      "popularity": 56.0
+    },
+    "2004": {
+      "danceability": 0.686,
+      "energy": 0.818,
+      "valence": 0.633,
+      "acousticness": 0.0374,
+      "popularity": 55.0
+    },
+    "2005": {
+      "danceability": 0.7895714285714286,
+      "energy": 0.5318571428571428,
+      "valence": 0.7555714285714286,
+      "acousticness": 0.08788571428571428,
+      "popularity": 53.285714285714285
+    },
+    "2008": {
+      "danceability": 0.7586666666666666,
+      "energy": 0.6213333333333333,
+      "valence": 0.6253333333333333,
+      "acousticness": 0.21620000000000003,
+      "popularity": 61.333333333333336
+    },
+    "2009": {
+      "danceability": 0.6258333333333334,
+      "energy": 0.4375,
+      "valence": 0.301,
+      "acousticness": 0.10564999999999998,
+      "popularity": 52.5
+    },
+    "2010": {
+      "danceability": 0.368,
+      "energy": 0.53,
+      "valence": 0.325,
+      "acousticness": 0.0814,
+      "popularity": 54.0
+    },
+    "2014": {
+      "danceability": 0.677,
+      "energy": 0.756,
+      "valence": 0.4385,
+      "acousticness": 0.307,
+      "popularity": 52.0
+    }
+  },
+  "Kylie Minogue": {
+    "1987": {
+      "danceability": 0.696,
+      "energy": 0.9624999999999999,
+      "valence": 0.903,
+      "acousticness": 0.29660000000000003,
+      "popularity": 38.0
+    },
+    "1988": {
+      "danceability": 0.6977222222222221,
+      "energy": 0.8928333333333334,
+      "valence": 0.7308888888888889,
+      "acousticness": 0.17702777777777778,
+      "popularity": 30.5
+    },
+    "1989": {
+      "danceability": 0.604,
+      "energy": 0.8602222222222222,
+      "valence": 0.6446666666666666,
+      "acousticness": 0.19655555555555554,
+      "popularity": 34.77777777777778
+    },
+    "1990": {
+      "danceability": 0.6106666666666666,
+      "energy": 0.9744999999999999,
+      "valence": 0.8005,
+      "acousticness": 0.05925,
+      "popularity": 40.666666666666664
+    },
+    "1991": {
+      "danceability": 0.7185,
+      "energy": 0.8975,
+      "valence": 0.6855,
+      "acousticness": 0.261,
+      "popularity": 32.5
+    },
+    "1992": {
+      "danceability": 0.697,
+      "energy": 0.874,
+      "valence": 0.576,
+      "acousticness": 0.0469,
+      "popularity": 42.0
+    },
+    "1994": {
+      "danceability": 0.55325,
+      "energy": 0.73475,
+      "valence": 0.5894999999999999,
+      "acousticness": 0.030825,
+      "popularity": 32.0
+    },
+    "1997": {
+      "danceability": 0.634,
+      "energy": 0.859,
+      "valence": 0.6673333333333332,
+      "acousticness": 0.060623333333333335,
+      "popularity": 32.333333333333336
+    },
+    "1998": {
+      "danceability": 0.6205,
+      "energy": 0.8075,
+      "valence": 0.7090000000000001,
+      "acousticness": 0.05633,
+      "popularity": 26.0
+    },
+    "2000": {
+      "danceability": 0.6793750000000001,
+      "energy": 0.80675,
+      "valence": 0.525375,
+      "acousticness": 0.11031375,
+      "popularity": 49.0
+    },
+    "2001": {
+      "danceability": 0.6814545454545454,
+      "energy": 0.7242727272727273,
+      "valence": 0.7562727272727272,
+      "acousticness": 0.04958181818181818,
+      "popularity": 51.36363636363637
+    },
+    "2003": {
+      "danceability": 0.7053333333333334,
+      "energy": 0.7919999999999999,
+      "valence": 0.6436666666666667,
+      "acousticness": 0.026606666666666667,
+      "popularity": 48.666666666666664
+    },
+    "2004": {
+      "danceability": 0.548,
+      "energy": 0.785,
+      "valence": 0.418,
+      "acousticness": 0.00277,
+      "popularity": 49.0
+    },
+    "2007": {
+      "danceability": 0.5536666666666666,
+      "energy": 0.9279999999999999,
+      "valence": 0.6426666666666666,
+      "acousticness": 0.05073366666666667,
+      "popularity": 50.333333333333336
+    },
+    "2009": {
+      "danceability": 0.501,
+      "energy": 0.69,
+      "valence": 0.641,
+      "acousticness": 0.263,
+      "popularity": 47.0
+    },
+    "2010": {
+      "danceability": 0.6173333333333333,
+      "energy": 0.8450000000000001,
+      "valence": 0.622,
+      "acousticness": 0.008883333333333333,
+      "popularity": 58.666666666666664
+    },
+    "2011": {
+      "danceability": 0.603,
+      "energy": 0.92,
+      "valence": 0.791,
+      "acousticness": 0.000887,
+      "popularity": 45.0
+    },
+    "2012": {
+      "danceability": 0.6799999999999999,
+      "energy": 0.7525,
+      "valence": 0.575,
+      "acousticness": 0.15589999999999998,
+      "popularity": 43.0
+    }
+  },
+  "Whitney Houston": {
+    "1983": {
+      "danceability": 0.71,
+      "energy": 0.295,
+      "valence": 0.249,
+      "acousticness": 0.459,
+      "popularity": 27.0
+    },
+    "1984": {
+      "danceability": 0.528,
+      "energy": 0.286,
+      "valence": 0.228,
+      "acousticness": 0.4,
+      "popularity": 32.0
+    },
+    "1985": {
+      "danceability": 0.6039,
+      "energy": 0.41370000000000007,
+      "valence": 0.45565,
+      "acousticness": 0.476485,
+      "popularity": 45.7
+    },
+    "1986": {
+      "danceability": 0.69975,
+      "energy": 0.51325,
+      "valence": 0.5125,
+      "acousticness": 0.40865,
+      "popularity": 19.25
+    },
+    "1987": {
+      "danceability": 0.5766363636363636,
+      "energy": 0.5613636363636364,
+      "valence": 0.5549090909090909,
+      "acousticness": 0.48030909090909096,
+      "popularity": 51.72727272727273
+    },
+    "1988": {
+      "danceability": 0.764,
+      "energy": 0.661,
+      "valence": 0.837,
+      "acousticness": 0.425,
+      "popularity": 22.0
+    },
+    "1990": {
+      "danceability": 0.649125,
+      "energy": 0.66675,
+      "valence": 0.546375,
+      "acousticness": 0.412125,
+      "popularity": 41.75
+    },
+    "1992": {
+      "danceability": 0.5657142857142857,
+      "energy": 0.5524285714285714,
+      "valence": 0.38785714285714284,
+      "acousticness": 0.38537942857142854,
+      "popularity": 58.42857142857143
+    },
+    "1995": {
+      "danceability": 0.6598333333333334,
+      "energy": 0.5363333333333333,
+      "valence": 0.3786666666666667,
+      "acousticness": 0.33916666666666667,
+      "popularity": 43.833333333333336
+    },
+    "1996": {
+      "danceability": 0.545125,
+      "energy": 0.509,
+      "valence": 0.2928625,
+      "acousticness": 0.5037625,
+      "popularity": 40.0
+    },
+    "1998": {
+      "danceability": 0.6176,
+      "energy": 0.5229,
+      "valence": 0.3464,
+      "acousticness": 0.18879800000000002,
+      "popularity": 49.7
+    },
+    "1999": {
+      "danceability": 0.481,
+      "energy": 0.884,
+      "valence": 0.47550000000000003,
+      "acousticness": 0.003565,
+      "popularity": 53.5
+    },
+    "2000": {
+      "danceability": 0.5883333333333334,
+      "energy": 0.5630000000000001,
+      "valence": 0.33749999999999997,
+      "acousticness": 0.3771333333333333,
+      "popularity": 39.666666666666664
+    },
+    "2001": {
+      "danceability": 0.4155,
+      "energy": 0.3765,
+      "valence": 0.132,
+      "acousticness": 0.34,
+      "popularity": 39.5
+    },
+    "2002": {
+      "danceability": 0.6115,
+      "energy": 0.6505,
+      "valence": 0.4795,
+      "acousticness": 0.46199999999999997,
+      "popularity": 49.0
+    },
+    "2004": {
+      "danceability": 0.671,
+      "energy": 0.59,
+      "valence": 0.241,
+      "acousticness": 0.528,
+      "popularity": 45.0
+    },
+    "2006": {
+      "danceability": 0.7236666666666668,
+      "energy": 0.7513333333333333,
+      "valence": 0.5436666666666666,
+      "acousticness": 0.024633333333333337,
+      "popularity": 49.0
+    },
+    "2007": {
+      "danceability": 0.269,
+      "energy": 0.58,
+      "valence": 0.281,
+      "acousticness": 0.474,
+      "popularity": 63.0
+    },
+    "2009": {
+      "danceability": 0.5953333333333334,
+      "energy": 0.561,
+      "valence": 0.38305000000000006,
+      "acousticness": 0.377975,
+      "popularity": 52.333333333333336
+    },
+    "2012": {
+      "danceability": 0.395,
+      "energy": 0.486,
+      "valence": 0.23399999999999999,
+      "acousticness": 0.40549999999999997,
+      "popularity": 47.5
+    },
+    "2019": {
+      "danceability": 0.693,
+      "energy": 0.678,
+      "valence": 0.404,
+      "acousticness": 0.0154,
+      "popularity": 82.0
+    }
+  },
+  "Lady Gaga": {
+    "2008": {
+      "danceability": 0.8158461538461539,
+      "energy": 0.7593076923076924,
+      "valence": 0.7346923076923078,
+      "acousticness": 0.0749676923076923,
+      "popularity": 64.53846153846153
+    },
+    "2009": {
+      "danceability": 0.6886551724137931,
+      "energy": 0.8085862068965518,
+      "valence": 0.5752758620689655,
+      "acousticness": 0.048881262068965516,
+      "popularity": 55.3448275862069
+    },
+    "2011": {
+      "danceability": 0.6012857142857142,
+      "energy": 0.8213333333333334,
+      "valence": 0.46095238095238095,
+      "acousticness": 0.014386190476190476,
+      "popularity": 56.904761904761905
+    },
+    "2013": {
+      "danceability": 0.6918,
+      "energy": 0.8375999999999999,
+      "valence": 0.694,
+      "acousticness": 0.02116,
+      "popularity": 59.8
+    },
+    "2015": {
+      "danceability": 0.85,
+      "energy": 0.784,
+      "valence": 0.779,
+      "acousticness": 0.134,
+      "popularity": 3.0
+    },
+    "2016": {
+      "danceability": 0.6483333333333333,
+      "energy": 0.5676666666666667,
+      "valence": 0.324,
+      "acousticness": 0.3297333333333333,
+      "popularity": 61.333333333333336
+    },
+    "2017": {
+      "danceability": 0.697,
+      "energy": 0.506,
+      "valence": 0.516,
+      "acousticness": 0.0792,
+      "popularity": 68.0
+    },
+    "2018": {
+      "danceability": 0.5188888888888888,
+      "energy": 0.39311111111111113,
+      "valence": 0.2704444444444445,
+      "acousticness": 0.5336666666666666,
+      "popularity": 72.55555555555556
+    },
+    "2020": {
+      "danceability": 0.7666153846153846,
+      "energy": 0.8157692307692308,
+      "valence": 0.7069230769230769,
+      "acousticness": 0.04217461538461539,
+      "popularity": 43.61538461538461
+    },
+    "2021": {
+      "danceability": 0.6702857142857143,
+      "energy": 0.7145714285714285,
+      "valence": 0.4984285714285714,
+      "acousticness": 0.14748714285714287,
+      "popularity": 0.8571428571428571
+    }
+  },
+  "Adele": {
+    "1929": {
+      "danceability": 0.448625,
+      "energy": 0.195625,
+      "valence": 0.2772,
+      "acousticness": 0.980375,
+      "popularity": 0.25
+    },
+    "1933": {
+      "danceability": 0.58,
+      "energy": 0.1175,
+      "valence": 0.405,
+      "acousticness": 0.982,
+      "popularity": 0.0
+    },
+    "1963": {
+      "danceability": 0.2205,
+      "energy": 0.30500000000000005,
+      "valence": 0.11565,
+      "acousticness": 0.9475,
+      "popularity": 7.0
+    },
+    "2008": {
+      "danceability": 0.5537647058823529,
+      "energy": 0.3650588235294117,
+      "valence": 0.2963294117647059,
+      "acousticness": 0.6314618235294117,
+      "popularity": 60.8235294117647
+    },
+    "2009": {
+      "danceability": 0.5545,
+      "energy": 0.6884999999999999,
+      "valence": 0.5275000000000001,
+      "acousticness": 0.1026,
+      "popularity": 46.5
+    },
+    "2011": {
+      "danceability": 0.5784400000000001,
+      "energy": 0.52416,
+      "valence": 0.39348,
+      "acousticness": 0.46388959999999996,
+      "popularity": 61.4
+    },
+    "2012": {
+      "danceability": 0.346,
+      "energy": 0.552,
+      "valence": 0.0789,
+      "acousticness": 0.417,
+      "popularity": 75.0
+    },
+    "2015": {
+      "danceability": 0.5168947368421053,
+      "energy": 0.47036842105263155,
+      "valence": 0.3016315789473684,
+      "acousticness": 0.3727526315789474,
+      "popularity": 67.05263157894737
+    }
+  },
+  "Taylor Swift": {
+    "2006": {
+      "danceability": 0.5553235294117647,
+      "energy": 0.6587352941176471,
+      "valence": 0.44499999999999995,
+      "acousticness": 0.19832882352941175,
+      "popularity": 54.44117647058823
+    },
+    "2008": {
+      "danceability": 0.5880416666666667,
+      "energy": 0.6162083333333332,
+      "valence": 0.3752361111111111,
+      "acousticness": 0.18965680555555553,
+      "popularity": 54.22222222222222
+    },
+    "2009": {
+      "danceability": 0.4753333333333334,
+      "energy": 0.5956666666666667,
+      "valence": 0.19599999999999998,
+      "acousticness": 0.1023,
+      "popularity": 57.0
+    },
+    "2010": {
+      "danceability": 0.5536666666666668,
+      "energy": 0.6630869565217391,
+      "valence": 0.43731884057971016,
+      "acousticness": 0.20322565217391303,
+      "popularity": 55.2463768115942
+    },
+    "2011": {
+      "danceability": 0.491,
+      "energy": 0.703,
+      "valence": 0.344,
+      "acousticness": 0.0307,
+      "popularity": 57.0
+    },
+    "2012": {
+      "danceability": 0.616625,
+      "energy": 0.6072678571428571,
+      "valence": 0.4774196428571429,
+      "acousticness": 0.13979525,
+      "popularity": 60.089285714285715
+    },
+    "2013": {
+      "danceability": 0.4735,
+      "energy": 0.79,
+      "valence": 0.5,
+      "acousticness": 0.023850000000000003,
+      "popularity": 61.5
+    },
+    "2014": {
+      "danceability": 0.6330877192982456,
+      "energy": 0.7202280701754386,
+      "valence": 0.506719298245614,
+      "acousticness": 0.10469519298245614,
+      "popularity": 60.64912280701754
+    },
+    "2015": {
+      "danceability": 0.654,
+      "energy": 0.655,
+      "valence": 0.221,
+      "acousticness": 0.0294,
+      "popularity": 69.0
+    },
+    "2017": {
+      "danceability": 0.6725,
+      "energy": 0.56375,
+      "valence": 0.26439375,
+      "acousticness": 0.12960750000000001,
+      "popularity": 71.9375
+    },
+    "2019": {
+      "danceability": 0.647157894736842,
+      "energy": 0.5482631578947368,
+      "valence": 0.47831578947368425,
+      "acousticness": 0.33896736842105263,
+      "popularity": 72.63157894736842
+    },
+    "2020": {
+      "danceability": 0.5255666666666666,
+      "energy": 0.4626,
+      "valence": 0.39503333333333335,
+      "acousticness": 0.7431333333333333,
+      "popularity": 74.13333333333334
+    },
+    "2021": {
+      "danceability": 0.5594666666666667,
+      "energy": 0.6447,
+      "valence": 0.43983333333333335,
+      "acousticness": 0.24848636666666665,
+      "popularity": 77.06666666666666
+    }
+  },
+  "Rihanna": {
+    "2005": {
+      "danceability": 0.7171000000000001,
+      "energy": 0.6891,
+      "valence": 0.6375,
+      "acousticness": 0.05003620000000001,
+      "popularity": 52.7
+    },
+    "2006": {
+      "danceability": 0.6494444444444444,
+      "energy": 0.5638888888888889,
+      "valence": 0.5215555555555556,
+      "acousticness": 0.2919611111111111,
+      "popularity": 55.77777777777778
+    },
+    "2007": {
+      "danceability": 0.678235294117647,
+      "energy": 0.7438823529411764,
+      "valence": 0.6011176470588235,
+      "acousticness": 0.10585811764705882,
+      "popularity": 55.8235294117647
+    },
+    "2008": {
+      "danceability": 0.6710625,
+      "energy": 0.6996249999999999,
+      "valence": 0.6078125,
+      "acousticness": 0.105311375,
+      "popularity": 60.5
+    },
+    "2009": {
+      "danceability": 0.5191666666666667,
+      "energy": 0.7271666666666666,
+      "valence": 0.5405000000000001,
+      "acousticness": 0.1840166666666667,
+      "popularity": 64.5
+    },
+    "2010": {
+      "danceability": 0.6379310344827587,
+      "energy": 0.7655862068965518,
+      "valence": 0.5716896551724138,
+      "acousticness": 0.12086068965517241,
+      "popularity": 60.62068965517241
+    },
+    "2011": {
+      "danceability": 0.6860666666666667,
+      "energy": 0.7204666666666667,
+      "valence": 0.5120666666666667,
+      "acousticness": 0.10524533333333334,
+      "popularity": 62.4
+    },
+    "2012": {
+      "danceability": 0.6222903225806452,
+      "energy": 0.6005483870967743,
+      "valence": 0.36822580645161296,
+      "acousticness": 0.28125974193548386,
+      "popularity": 58.806451612903224
+    },
+    "2013": {
+      "danceability": 0.7966,
+      "energy": 0.7624,
+      "valence": 0.5178,
+      "acousticness": 0.2052,
+      "popularity": 56.4
+    },
+    "2014": {
+      "danceability": 0.694,
+      "energy": 0.81,
+      "valence": 0.824,
+      "acousticness": 0.122,
+      "popularity": 64.5
+    },
+    "2015": {
+      "danceability": 0.5995,
+      "energy": 0.6491666666666667,
+      "valence": 0.4371666666666667,
+      "acousticness": 0.20873333333333333,
+      "popularity": 64.33333333333333
+    },
+    "2016": {
+      "danceability": 0.6073571428571428,
+      "energy": 0.5593571428571429,
+      "valence": 0.4322142857142857,
+      "acousticness": 0.23542857142857146,
+      "popularity": 71.14285714285714
+    },
+    "2017": {
+      "danceability": 0.658,
+      "energy": 0.6545714285714286,
+      "valence": 0.4394714285714286,
+      "acousticness": 0.04990571428571428,
+      "popularity": 57.857142857142854
+    },
+    "2020": {
+      "danceability": 0.43,
+      "energy": 0.7,
+      "valence": 0.731,
+      "acousticness": 0.0902,
+      "popularity": 78.0
+    }
+  },
+  "Christina Aguilera": {
+    "1990": {
+      "danceability": 0.513,
+      "energy": 0.695,
+      "valence": 0.179,
+      "acousticness": 0.339,
+      "popularity": 32.0
+    },
+    "1998": {
+      "danceability": 0.498,
+      "energy": 0.3485,
+      "valence": 0.221,
+      "acousticness": 0.21000000000000002,
+      "popularity": 50.5
+    },
+    "2000": {
+      "danceability": 0.575,
+      "energy": 0.744,
+      "valence": 0.701,
+      "acousticness": 0.0687,
+      "popularity": 44.0
+    },
+    "2001": {
+      "danceability": 0.662,
+      "energy": 0.7614,
+      "valence": 0.5640000000000001,
+      "acousticness": 0.1409,
+      "popularity": 61.6
+    },
+    "2002": {
+      "danceability": 0.588,
+      "energy": 0.642,
+      "valence": 0.33177500000000004,
+      "acousticness": 0.27294999999999997,
+      "popularity": 59.125
+    },
+    "2006": {
+      "danceability": 0.5681666666666666,
+      "energy": 0.691,
+      "valence": 0.3671666666666667,
+      "acousticness": 0.3610433333333333,
+      "popularity": 57.166666666666664
+    },
+    "2010": {
+      "danceability": 0.5626,
+      "energy": 0.6676,
+      "valence": 0.41752,
+      "acousticness": 0.2991757,
+      "popularity": 56.5
+    },
+    "2011": {
+      "danceability": 0.726,
+      "energy": 0.768,
+      "valence": 0.627,
+      "acousticness": 0.0125,
+      "popularity": 46.0
+    },
+    "2012": {
+      "danceability": 0.609,
+      "energy": 0.7986666666666666,
+      "valence": 0.5003333333333333,
+      "acousticness": 0.025408,
+      "popularity": 59.333333333333336
+    },
+    "2013": {
+      "danceability": 0.41533333333333333,
+      "energy": 0.359,
+      "valence": 0.1748333333333333,
+      "acousticness": 0.5023333333333334,
+      "popularity": 58.666666666666664
+    },
+    "2014": {
+      "danceability": 0.407,
+      "energy": 0.147,
+      "valence": 0.0765,
+      "acousticness": 0.857,
+      "popularity": 74.5
+    },
+    "2015": {
+      "danceability": 0.7200000000000001,
+      "energy": 0.751,
+      "valence": 0.599,
+      "acousticness": 0.0113,
+      "popularity": 52.0
+    },
+    "2020": {
+      "danceability": 0.708,
+      "energy": 0.784,
+      "valence": 0.697,
+      "acousticness": 0.012,
+      "popularity": 6.0
+    },
+    "2021": {
+      "danceability": 0.7104999999999999,
+      "energy": 0.77225,
+      "valence": 0.67225,
+      "acousticness": 0.0122,
+      "popularity": 1.25
+    }
+  },
+  "Shakira": {
+    "1995": {
+      "danceability": 0.7775454545454547,
+      "energy": 0.5346454545454545,
+      "valence": 0.6330909090909091,
+      "acousticness": 0.2177018181818182,
+      "popularity": 59.36363636363637
+    },
+    "1998": {
+      "danceability": 0.657,
+      "energy": 0.6803636363636364,
+      "valence": 0.5245454545454545,
+      "acousticness": 0.2732909090909091,
+      "popularity": 62.36363636363637
+    },
+    "2000": {
+      "danceability": 0.5095,
+      "energy": 0.7786666666666666,
+      "valence": 0.5165,
+      "acousticness": 0.3881666666666667,
+      "popularity": 44.666666666666664
+    },
+    "2001": {
+      "danceability": 0.6292,
+      "energy": 0.7165,
+      "valence": 0.6093,
+      "acousticness": 0.2394,
+      "popularity": 60.1
+    },
+    "2005": {
+      "danceability": 0.6789999999999999,
+      "energy": 0.6013333333333333,
+      "valence": 0.504,
+      "acousticness": 0.29055777777777775,
+      "popularity": 62.44444444444444
+    },
+    "2007": {
+      "danceability": 0.73575,
+      "energy": 0.5935,
+      "valence": 0.42525,
+      "acousticness": 0.2364475,
+      "popularity": 57.75
+    },
+    "2009": {
+      "danceability": 0.786,
+      "energy": 0.6336666666666666,
+      "valence": 0.6453333333333333,
+      "acousticness": 0.5496666666666666,
+      "popularity": 54.0
+    },
+    "2010": {
+      "danceability": 0.7223571428571428,
+      "energy": 0.7349285714285714,
+      "valence": 0.6422142857142857,
+      "acousticness": 0.23729214285714287,
+      "popularity": 59.785714285714285
+    },
+    "2011": {
+      "danceability": 0.287,
+      "energy": 0.579,
+      "valence": 0.22,
+      "acousticness": 0.9,
+      "popularity": 50.0
+    },
+    "2014": {
+      "danceability": 0.7163333333333334,
+      "energy": 0.7671666666666667,
+      "valence": 0.6361666666666667,
+      "acousticness": 0.23371666666666666,
+      "popularity": 57.5
+    },
+    "2015": {
+      "danceability": 0.857,
+      "energy": 0.561,
+      "valence": 0.76,
+      "acousticness": 0.435,
+      "popularity": 65.0
+    },
+    "2016": {
+      "danceability": 0.7046666666666667,
+      "energy": 0.601,
+      "valence": 0.4711666666666667,
+      "acousticness": 0.02725,
+      "popularity": 53.166666666666664
+    },
+    "2017": {
+      "danceability": 0.717,
+      "energy": 0.804625,
+      "valence": 0.8256249999999999,
+      "acousticness": 0.271125,
+      "popularity": 68.75
+    },
+    "2018": {
+      "danceability": 0.772,
+      "energy": 0.823,
+      "valence": 0.8185,
+      "acousticness": 0.33699999999999997,
+      "popularity": 53.5
+    },
+    "2019": {
+      "danceability": 0.731,
+      "energy": 0.763,
+      "valence": 0.865,
+      "acousticness": 0.385,
+      "popularity": 68.0
+    },
+    "2020": {
+      "danceability": 0.8692,
+      "energy": 0.5549999999999999,
+      "valence": 0.46799999999999997,
+      "acousticness": 0.0911,
+      "popularity": 73.4
+    }
+  },
+  "Alanis Morissette": {
+    "1995": {
+      "danceability": 0.53,
+      "energy": 0.7196666666666666,
+      "valence": 0.4626666666666666,
+      "acousticness": 0.08942499999999999,
+      "popularity": 48.166666666666664
+    },
+    "1998": {
+      "danceability": 0.48275,
+      "energy": 0.44525,
+      "valence": 0.24195,
+      "acousticness": 0.374475,
+      "popularity": 48.0
+    },
+    "1999": {
+      "danceability": 0.3810833333333334,
+      "energy": 0.6363333333333333,
+      "valence": 0.24966666666666668,
+      "acousticness": 0.173525,
+      "popularity": 46.833333333333336
+    },
+    "2002": {
+      "danceability": 0.513,
+      "energy": 0.82,
+      "valence": 0.52,
+      "acousticness": 0.00192,
+      "popularity": 57.0
+    },
+    "2003": {
+      "danceability": 0.498,
+      "energy": 0.361,
+      "valence": 0.207,
+      "acousticness": 0.13,
+      "popularity": 46.0
+    },
+    "2005": {
+      "danceability": 0.549125,
+      "energy": 0.719125,
+      "valence": 0.435,
+      "acousticness": 0.158825,
+      "popularity": 53.0
+    }
+  },
+  "Janet Jackson": {
+    "1982": {
+      "danceability": 0.844,
+      "energy": 0.56,
+      "valence": 0.69,
+      "acousticness": 0.103,
+      "popularity": 20.0
+    },
+    "1986": {
+      "danceability": 0.7562941176470588,
+      "energy": 0.5393529411764706,
+      "valence": 0.6568823529411765,
+      "acousticness": 0.3423470588235294,
+      "popularity": 43.8235294117647
+    },
+    "1987": {
+      "danceability": 0.885,
+      "energy": 0.766,
+      "valence": 0.77,
+      "acousticness": 0.0743,
+      "popularity": 37.0
+    },
+    "1989": {
+      "danceability": 0.6758666666666666,
+      "energy": 0.8453333333333333,
+      "valence": 0.61566,
+      "acousticness": 0.14450666666666664,
+      "popularity": 44.13333333333333
+    },
+    "1990": {
+      "danceability": 0.688,
+      "energy": 0.8955,
+      "valence": 0.659,
+      "acousticness": 0.0516325,
+      "popularity": 37.0
+    },
+    "1993": {
+      "danceability": 0.6718,
+      "energy": 0.7238,
+      "valence": 0.4918,
+      "acousticness": 0.32671518,
+      "popularity": 48.1
+    },
+    "1995": {
+      "danceability": 0.8005,
+      "energy": 0.84675,
+      "valence": 0.72925,
+      "acousticness": 0.129805,
+      "popularity": 41.5
+    },
+    "1997": {
+      "danceability": 0.771,
+      "energy": 0.5286,
+      "valence": 0.4988,
+      "acousticness": 0.15403,
+      "popularity": 48.2
+    },
+    "2001": {
+      "danceability": 0.7524,
+      "energy": 0.8966000000000001,
+      "valence": 0.7767999999999999,
+      "acousticness": 0.059620000000000006,
+      "popularity": 52.8
+    },
+    "2002": {
+      "danceability": 0.8554999999999999,
+      "energy": 0.716,
+      "valence": 0.8605,
+      "acousticness": 0.16749999999999998,
+      "popularity": 51.0
+    },
+    "2004": {
+      "danceability": 0.645,
+      "energy": 0.836,
+      "valence": 0.68,
+      "acousticness": 0.202,
+      "popularity": 40.0
+    },
+    "2006": {
+      "danceability": 0.714,
+      "energy": 0.67,
+      "valence": 0.771,
+      "acousticness": 0.341,
+      "popularity": 57.0
+    },
+    "2010": {
+      "danceability": 0.774,
+      "energy": 0.881,
+      "valence": 0.775,
+      "acousticness": 0.0107,
+      "popularity": 55.0
+    }
+  },
+  "Cyndi Lauper": {
+    "1983": {
+      "danceability": 0.6473333333333333,
+      "energy": 0.7548333333333334,
+      "valence": 0.5644999999999999,
+      "acousticness": 0.2039133333333333,
+      "popularity": 60.0
+    },
+    "1985": {
+      "danceability": 0.71,
+      "energy": 0.807,
+      "valence": 0.946,
+      "acousticness": 0.25,
+      "popularity": 53.0
+    },
+    "1986": {
+      "danceability": 0.5877142857142857,
+      "energy": 0.6948571428571428,
+      "valence": 0.5605714285714286,
+      "acousticness": 0.27922857142857144,
+      "popularity": 41.714285714285715
+    },
+    "1989": {
+      "danceability": 0.5766666666666667,
+      "energy": 0.4394,
+      "valence": 0.49833333333333335,
+      "acousticness": 0.4811666666666667,
+      "popularity": 36.0
+    },
+    "2000": {
+      "danceability": 0.638,
+      "energy": 0.608,
+      "valence": 0.486,
+      "acousticness": 0.0502,
+      "popularity": 40.0
+    },
+    "2001": {
+      "danceability": 0.704,
+      "energy": 0.646,
+      "valence": 0.713,
+      "acousticness": 0.453,
+      "popularity": 52.0
+    },
+    "2007": {
+      "danceability": 0.705,
+      "energy": 0.847,
+      "valence": 0.743,
+      "acousticness": 0.414,
+      "popularity": 66.0
+    },
+    "2010": {
+      "danceability": 0.686,
+      "energy": 0.586,
+      "valence": 0.78,
+      "acousticness": 0.153,
+      "popularity": 56.0
+    },
+    "2014": {
+      "danceability": 0.7155,
+      "energy": 0.612,
+      "valence": 0.535,
+      "acousticness": 0.39499999999999996,
+      "popularity": 70.0
+    }
+  },
+  "Shania Twain": {
+    "1993": {
+      "danceability": 0.661,
+      "energy": 0.514,
+      "valence": 0.6315,
+      "acousticness": 0.247,
+      "popularity": 43.5
+    },
+    "1995": {
+      "danceability": 0.66,
+      "energy": 0.581375,
+      "valence": 0.649,
+      "acousticness": 0.2323625,
+      "popularity": 52.375
+    },
+    "1997": {
+      "danceability": 0.6313,
+      "energy": 0.6493,
+      "valence": 0.6974,
+      "acousticness": 0.31595,
+      "popularity": 51.9
+    },
+    "1999": {
+      "danceability": 0.6124,
+      "energy": 0.6993,
+      "valence": 0.6535,
+      "acousticness": 0.31246999999999997,
+      "popularity": 43.5
+    },
+    "2002": {
+      "danceability": 0.64,
+      "energy": 0.7751666666666667,
+      "valence": 0.7503333333333333,
+      "acousticness": 0.09265000000000001,
+      "popularity": 49.333333333333336
+    },
+    "2004": {
+      "danceability": 0.6092222222222222,
+      "energy": 0.6793333333333333,
+      "valence": 0.6391111111111111,
+      "acousticness": 0.2558111111111111,
+      "popularity": 52.666666666666664
+    },
+    "2012": {
+      "danceability": 0.537,
+      "energy": 0.504,
+      "valence": 0.248,
+      "acousticness": 0.309,
+      "popularity": 48.0
+    },
+    "2020": {
+      "danceability": 0.598,
+      "energy": 0.839,
+      "valence": 0.783,
+      "acousticness": 0.106,
+      "popularity": 64.0
+    }
+  },
+  "Ariana Grande": {
+    "2011": {
+      "danceability": 0.758,
+      "energy": 0.944,
+      "valence": 0.696,
+      "acousticness": 0.0949,
+      "popularity": 59.0
+    },
+    "2012": {
+      "danceability": 0.644,
+      "energy": 0.84,
+      "valence": 0.841,
+      "acousticness": 0.162,
+      "popularity": 54.0
+    },
+    "2013": {
+      "danceability": 0.6065,
+      "energy": 0.6920000000000001,
+      "valence": 0.5874375000000001,
+      "acousticness": 0.2808,
+      "popularity": 58.5625
+    },
+    "2014": {
+      "danceability": 0.5928461538461538,
+      "energy": 0.6461025641025641,
+      "valence": 0.41071794871794876,
+      "acousticness": 0.2173046153846154,
+      "popularity": 49.15384615384615
+    },
+    "2015": {
+      "danceability": 0.6547777777777778,
+      "energy": 0.7078888888888888,
+      "valence": 0.4855555555555556,
+      "acousticness": 0.09342444444444445,
+      "popularity": 40.333333333333336
+    },
+    "2016": {
+      "danceability": 0.6382941176470589,
+      "energy": 0.5965294117647059,
+      "valence": 0.4415352941176471,
+      "acousticness": 0.13328235294117646,
+      "popularity": 67.3529411764706
+    },
+    "2017": {
+      "danceability": 0.51925,
+      "energy": 0.52475,
+      "valence": 0.18975,
+      "acousticness": 0.112825,
+      "popularity": 55.0
+    },
+    "2018": {
+      "danceability": 0.6679090909090909,
+      "energy": 0.5781818181818182,
+      "valence": 0.4393636363636364,
+      "acousticness": 0.17295363636363636,
+      "popularity": 69.18181818181819
+    },
+    "2019": {
+      "danceability": 0.6623076923076923,
+      "energy": 0.5704615384615385,
+      "valence": 0.40592307692307694,
+      "acousticness": 0.27621307692307695,
+      "popularity": 75.15384615384616
+    },
+    "2020": {
+      "danceability": 0.6921666666666666,
+      "energy": 0.65425,
+      "valence": 0.5023333333333334,
+      "acousticness": 0.22095833333333334,
+      "popularity": 79.41666666666667
+    },
+    "2021": {
+      "danceability": 0.5907777777777778,
+      "energy": 0.5607777777777778,
+      "valence": 0.1945111111111111,
+      "acousticness": 0.19534444444444443,
+      "popularity": 67.66666666666667
+    }
+  },
+  "Katy Perry": {
+    "2008": {
+      "danceability": 0.6002222222222222,
+      "energy": 0.8285555555555555,
+      "valence": 0.6288888888888889,
+      "acousticness": 0.0017305277777777779,
+      "popularity": 57.77777777777778
+    },
+    "2009": {
+      "danceability": 0.4856666666666667,
+      "energy": 0.6073333333333334,
+      "valence": 0.34366666666666673,
+      "acousticness": 0.08082666666666667,
+      "popularity": 52.0
+    },
+    "2010": {
+      "danceability": 0.6831666666666667,
+      "energy": 0.798,
+      "valence": 0.6344,
+      "acousticness": 0.029279666666666662,
+      "popularity": 54.166666666666664
+    },
+    "2012": {
+      "danceability": 0.666,
+      "energy": 0.7607499999999999,
+      "valence": 0.6273333333333333,
+      "acousticness": 0.13739858333333335,
+      "popularity": 70.5
+    },
+    "2013": {
+      "danceability": 0.6234545454545454,
+      "energy": 0.6485454545454545,
+      "valence": 0.5712727272727273,
+      "acousticness": 0.09553272727272727,
+      "popularity": 68.45454545454545
+    },
+    "2015": {
+      "danceability": 0.636,
+      "energy": 0.832,
+      "valence": 0.617,
+      "acousticness": 0.141,
+      "popularity": 2.0
+    },
+    "2016": {
+      "danceability": 0.553,
+      "energy": 0.639,
+      "valence": 0.442,
+      "acousticness": 0.0468,
+      "popularity": 66.0
+    },
+    "2017": {
+      "danceability": 0.7972,
+      "energy": 0.758,
+      "valence": 0.6652,
+      "acousticness": 0.07183999999999999,
+      "popularity": 69.6
+    },
+    "2019": {
+      "danceability": 0.7575000000000001,
+      "energy": 0.7875,
+      "valence": 0.3165,
+      "acousticness": 0.2665,
+      "popularity": 74.0
+    },
+    "2020": {
+      "danceability": 0.7110000000000001,
+      "energy": 0.7290000000000001,
+      "valence": 0.449,
+      "acousticness": 0.05375,
+      "popularity": 73.0
+    }
+  },
+  "Pink": {
+    "1967": {
+      "danceability": 0.3696363636363636,
+      "energy": 0.5506363636363637,
+      "valence": 0.42148181818181824,
+      "acousticness": 0.5237454545454545,
+      "popularity": 39.18181818181818
+    },
+    "1968": {
+      "danceability": 0.2517142857142857,
+      "energy": 0.559,
+      "valence": 0.2674571428571429,
+      "acousticness": 0.4112857142857143,
+      "popularity": 39.285714285714285
+    },
+    "1969": {
+      "danceability": 0.3257379310344828,
+      "energy": 0.41555862068965516,
+      "valence": 0.21109655172413794,
+      "acousticness": 0.5723794137931034,
+      "popularity": 31.689655172413794
+    },
+    "1970": {
+      "danceability": 0.3494,
+      "energy": 0.2446,
+      "valence": 0.20078000000000001,
+      "acousticness": 0.5826,
+      "popularity": 45.0
+    },
+    "1971": {
+      "danceability": 0.3849565217391304,
+      "energy": 0.4184260869565217,
+      "valence": 0.29328695652173914,
+      "acousticness": 0.34331304347826086,
+      "popularity": 42.869565217391305
+    },
+    "1972": {
+      "danceability": 0.4579,
+      "energy": 0.3544,
+      "valence": 0.25328,
+      "acousticness": 0.21420377,
+      "popularity": 41.35
+    },
+    "1973": {
+      "danceability": 0.3827,
+      "energy": 0.40086000000000005,
+      "valence": 0.27192,
+      "acousticness": 0.39078,
+      "popularity": 63.05
+    },
+    "1975": {
+      "danceability": 0.38372727272727275,
+      "energy": 0.3967272727272727,
+      "valence": 0.2700727272727273,
+      "acousticness": 0.6140909090909091,
+      "popularity": 60.90909090909091
+    },
+    "1976": {
+      "danceability": 0.8085,
+      "energy": 0.6990000000000001,
+      "valence": 0.957,
+      "acousticness": 0.305,
+      "popularity": 22.5
+    },
+    "1977": {
+      "danceability": 0.5123571428571428,
+      "energy": 0.5147142857142857,
+      "valence": 0.4325857142857143,
+      "acousticness": 0.2027142857142857,
+      "popularity": 43.07142857142857
+    },
+    "1978": {
+      "danceability": 0.71,
+      "energy": 0.707,
+      "valence": 0.7520000000000001,
+      "acousticness": 0.3173333333333333,
+      "popularity": 14.666666666666666
+    },
+    "1979": {
+      "danceability": 0.4746981132075471,
+      "energy": 0.2650037735849057,
+      "valence": 0.2719433962264151,
+      "acousticness": 0.4435207547169811,
+      "popularity": 54.75471698113208
+    },
+    "1980": {
+      "danceability": 0.64,
+      "energy": 0.63,
+      "valence": 0.565,
+      "acousticness": 0.355,
+      "popularity": 17.0
+    },
+    "1981": {
+      "danceability": 0.4415,
+      "energy": 0.476,
+      "valence": 0.31965,
+      "acousticness": 0.27099666666666666,
+      "popularity": 35.416666666666664
+    },
+    "1982": {
+      "danceability": 0.731,
+      "energy": 0.415,
+      "valence": 0.569,
+      "acousticness": 0.0591,
+      "popularity": 27.0
+    },
+    "1983": {
+      "danceability": 0.4505185185185185,
+      "energy": 0.25694074074074075,
+      "valence": 0.22775555555555554,
+      "acousticness": 0.5901407407407407,
+      "popularity": 41.925925925925924
+    },
+    "1986": {
+      "danceability": 0.62,
+      "energy": 0.946,
+      "valence": 0.851,
+      "acousticness": 0.0109,
+      "popularity": 37.0
+    },
+    "1987": {
+      "danceability": 0.37910714285714286,
+      "energy": 0.46172142857142856,
+      "valence": 0.28819999999999996,
+      "acousticness": 0.2828858642857143,
+      "popularity": 40.214285714285715
+    },
+    "1988": {
+      "danceability": 0.35674193548387095,
+      "energy": 0.554483870967742,
+      "valence": 0.28006451612903227,
+      "acousticness": 0.10848,
+      "popularity": 36.645161290322584
+    },
+    "1990": {
+      "danceability": 0.248,
+      "energy": 0.506,
+      "valence": 0.274,
+      "acousticness": 0.00166,
+      "popularity": 28.0
+    },
+    "1993": {
+      "danceability": 0.543,
+      "energy": 0.32975,
+      "valence": 0.45875,
+      "acousticness": 0.33875,
+      "popularity": 14.25
+    },
+    "1994": {
+      "danceability": 0.43983333333333335,
+      "energy": 0.47454166666666664,
+      "valence": 0.27375,
+      "acousticness": 0.3156666666666667,
+      "popularity": 47.916666666666664
+    },
+    "1995": {
+      "danceability": 0.5809090909090909,
+      "energy": 0.729909090909091,
+      "valence": 0.6861818181818182,
+      "acousticness": 0.28100909090909093,
+      "popularity": 30.09090909090909
+    },
+    "1996": {
+      "danceability": 0.37666666666666665,
+      "energy": 0.49333333333333335,
+      "valence": 0.342,
+      "acousticness": 0.3196666666666667,
+      "popularity": 37.333333333333336
+    },
+    "1997": {
+      "danceability": 0.62675,
+      "energy": 0.529625,
+      "valence": 0.7095,
+      "acousticness": 0.5995,
+      "popularity": 34.375
+    },
+    "1999": {
+      "danceability": 0.5328,
+      "energy": 0.4281,
+      "valence": 0.48545999999999995,
+      "acousticness": 0.6381,
+      "popularity": 38.3
+    },
+    "2000": {
+      "danceability": 0.7416666666666667,
+      "energy": 0.7323333333333334,
+      "valence": 0.7000000000000001,
+      "acousticness": 0.11016666666666668,
+      "popularity": 34.333333333333336
+    },
+    "2001": {
+      "danceability": 0.501,
+      "energy": 0.318,
+      "valence": 0.285,
+      "acousticness": 0.739,
+      "popularity": 46.0
+    },
+    "2004": {
+      "danceability": 0.622,
+      "energy": 0.3555,
+      "valence": 0.6415,
+      "acousticness": 0.83875,
+      "popularity": 43.0
+    },
+    "2005": {
+      "danceability": 0.525,
+      "energy": 0.29900000000000004,
+      "valence": 0.4725,
+      "acousticness": 0.889,
+      "popularity": 37.0
+    },
+    "2006": {
+      "danceability": 0.49449999999999994,
+      "energy": 0.5715,
+      "valence": 0.3675,
+      "acousticness": 0.4575,
+      "popularity": 38.0
+    },
+    "2007": {
+      "danceability": 0.5423333333333333,
+      "energy": 0.5593333333333333,
+      "valence": 0.3243333333333333,
+      "acousticness": 0.4123333333333334,
+      "popularity": 41.0
+    },
+    "2008": {
+      "danceability": 0.6774,
+      "energy": 0.8708,
+      "valence": 0.8268000000000001,
+      "acousticness": 0.48224,
+      "popularity": 31.8
+    },
+    "2009": {
+      "danceability": 0.7360000000000001,
+      "energy": 0.727,
+      "valence": 0.8576666666666667,
+      "acousticness": 0.4267666666666667,
+      "popularity": 19.666666666666668
+    },
+    "2010": {
+      "danceability": 0.5016666666666667,
+      "energy": 0.6183333333333333,
+      "valence": 0.5456666666666666,
+      "acousticness": 0.27999999999999997,
+      "popularity": 46.666666666666664
+    },
+    "2011": {
+      "danceability": 0.607,
+      "energy": 0.209,
+      "valence": 0.582,
+      "acousticness": 0.95,
+      "popularity": 21.0
+    },
+    "2012": {
+      "danceability": 0.621,
+      "energy": 0.252,
+      "valence": 0.336,
+      "acousticness": 0.435,
+      "popularity": 60.0
+    },
+    "2013": {
+      "danceability": 0.457,
+      "energy": 0.91,
+      "valence": 0.131,
+      "acousticness": 0.00184,
+      "popularity": 0.0
+    },
+    "2014": {
+      "danceability": 0.6212,
+      "energy": 0.532,
+      "valence": 0.4894,
+      "acousticness": 0.45651,
+      "popularity": 42.4
+    },
+    "2016": {
+      "danceability": 0.3526666666666667,
+      "energy": 0.4776105263157895,
+      "valence": 0.254819298245614,
+      "acousticness": 0.1636637754385965,
+      "popularity": 21.157894736842106
+    },
+    "2017": {
+      "danceability": 0.435,
+      "energy": 0.5316728714285714,
+      "valence": 0.32797857142857145,
+      "acousticness": 0.3253336578571428,
+      "popularity": 58.07142857142857
+    },
+    "2018": {
+      "danceability": 0.31806666666666666,
+      "energy": 0.36778333333333335,
+      "valence": 0.12023333333333334,
+      "acousticness": 0.9255,
+      "popularity": 51.0
+    },
+    "2019": {
+      "danceability": 0.356618085106383,
+      "energy": 0.5113372340425532,
+      "valence": 0.2445882978723404,
+      "acousticness": 0.17861888297872341,
+      "popularity": 30.372340425531913
+    },
+    "2020": {
+      "danceability": 0.6716666666666667,
+      "energy": 0.4083333333333334,
+      "valence": 0.3918333333333333,
+      "acousticness": 0.5998666666666667,
+      "popularity": 59.833333333333336
+    },
+    "2021": {
+      "danceability": 0.6952499999999999,
+      "energy": 0.4565,
+      "valence": 0.49325,
+      "acousticness": 0.62125,
+      "popularity": 75.0
+    }
+  }
+}

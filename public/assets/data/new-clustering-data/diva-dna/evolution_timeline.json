@@ -1,0 +1,337 @@
+{
+  "0": {
+    "cluster_name": "Energetic and Danceable",
+    "years": {
+      "1989": {
+        "danceability": 0.617,
+        "energy": 0.7495,
+        "valence": 0.2665,
+        "acousticness": 0.25105,
+        "loudness": -13.7605
+      },
+      "1990": {
+        "danceability": 0.6866363636363636,
+        "energy": 0.6647272727272727,
+        "valence": 0.3624545454545455,
+        "acousticness": 0.10260454545454545,
+        "loudness": -11.262090909090908
+      },
+      "1992": {
+        "danceability": 0.6588461538461539,
+        "energy": 0.6468461538461538,
+        "valence": 0.32773846153846153,
+        "acousticness": 0.018050153846153848,
+        "loudness": -9.519461538461538
+      },
+      "1994": {
+        "danceability": 0.752,
+        "energy": 0.613,
+        "valence": 0.5505,
+        "acousticness": 0.06615,
+        "loudness": -7.8105
+      },
+      "1995": {
+        "danceability": 0.629,
+        "energy": 0.6779999999999999,
+        "valence": 0.34600000000000003,
+        "acousticness": 0.10515,
+        "loudness": -7.977500000000001
+      },
+      "1998": {
+        "danceability": 0.5901666666666666,
+        "energy": 0.7178333333333334,
+        "valence": 0.3665,
+        "acousticness": 0.09488,
+        "loudness": -9.704166666666667
+      },
+      "2000": {
+        "danceability": 0.6407499999999999,
+        "energy": 0.7052499999999999,
+        "valence": 0.5655,
+        "acousticness": 0.15072,
+        "loudness": -7.836
+      },
+      "2001": {
+        "danceability": 0.534,
+        "energy": 0.561,
+        "valence": 0.219,
+        "acousticness": 0.0442,
+        "loudness": -11.089
+      },
+      "2003": {
+        "danceability": 0.647,
+        "energy": 0.588,
+        "valence": 0.604,
+        "acousticness": 0.0554,
+        "loudness": -7.519
+      },
+      "2005": {
+        "danceability": 0.5706,
+        "energy": 0.7565999999999999,
+        "valence": 0.44020000000000004,
+        "acousticness": 0.002896,
+        "loudness": -7.0476
+      },
+      "2006": {
+        "danceability": 0.603,
+        "energy": 0.846,
+        "valence": 0.438,
+        "acousticness": 0.00118,
+        "loudness": -7.495
+      },
+      "2009": {
+        "danceability": 0.6363333333333334,
+        "energy": 0.7871111111111111,
+        "valence": 0.33977777777777773,
+        "acousticness": 0.1713188888888889,
+        "loudness": -6.133111111111111
+      },
+      "2012": {
+        "danceability": 0.615,
+        "energy": 0.589,
+        "valence": 0.49,
+        "acousticness": 0.0177,
+        "loudness": -6.4455
+      },
+      "2015": {
+        "danceability": 0.722,
+        "energy": 0.63,
+        "valence": 0.519,
+        "acousticness": 0.0485,
+        "loudness": -5.784
+      }
+    }
+  },
+  "1": {
+    "cluster_name": "Acoustic and Mellow",
+    "years": {
+      "1983": {
+        "danceability": 0.8337142857142857,
+        "energy": 0.6210000000000001,
+        "valence": 0.7967142857142857,
+        "acousticness": 0.12051428571428571,
+        "loudness": -11.037285714285714
+      },
+      "1984": {
+        "danceability": 0.7505555555555555,
+        "energy": 0.651,
+        "valence": 0.9165555555555556,
+        "acousticness": 0.2535222222222222,
+        "loudness": -12.095888888888888
+      },
+      "1986": {
+        "danceability": 0.7431428571428571,
+        "energy": 0.6950000000000001,
+        "valence": 0.8884285714285715,
+        "acousticness": 0.2557714285714286,
+        "loudness": -11.231428571428571
+      },
+      "1987": {
+        "danceability": 0.709625,
+        "energy": 0.723875,
+        "valence": 0.82975,
+        "acousticness": 0.202225,
+        "loudness": -11.748625
+      },
+      "1989": {
+        "danceability": 0.711,
+        "energy": 0.722,
+        "valence": 0.8710000000000001,
+        "acousticness": 0.2912,
+        "loudness": -11.3656
+      },
+      "1990": {
+        "danceability": 0.7372500000000001,
+        "energy": 0.6773125,
+        "valence": 0.712375,
+        "acousticness": 0.15709187500000002,
+        "loudness": -10.7518125
+      },
+      "1992": {
+        "danceability": 0.7350000000000001,
+        "energy": 0.7016,
+        "valence": 0.7006,
+        "acousticness": 0.0742,
+        "loudness": -10.049199999999999
+      },
+      "1994": {
+        "danceability": 0.7115,
+        "energy": 0.6105,
+        "valence": 0.7889999999999999,
+        "acousticness": 0.3655,
+        "loudness": -9.3515
+      },
+      "1995": {
+        "danceability": 0.691,
+        "energy": 0.601,
+        "valence": 0.85,
+        "acousticness": 0.628,
+        "loudness": -9.698
+      },
+      "2003": {
+        "danceability": 0.702,
+        "energy": 0.467,
+        "valence": 0.705,
+        "acousticness": 0.239,
+        "loudness": -8.026
+      }
+    }
+  },
+  "2": {
+    "cluster_name": "Bold and Uplifting",
+    "years": {
+      "1984": {
+        "danceability": 0.5455,
+        "energy": 0.477,
+        "valence": 0.4195,
+        "acousticness": 0.508,
+        "loudness": -13.1835
+      },
+      "1986": {
+        "danceability": 0.673,
+        "energy": 0.314,
+        "valence": 0.27,
+        "acousticness": 0.411,
+        "loudness": -14.156
+      },
+      "1987": {
+        "danceability": 0.618,
+        "energy": 0.32,
+        "valence": 0.602,
+        "acousticness": 0.586,
+        "loudness": -12.977
+      },
+      "1989": {
+        "danceability": 0.5812499999999999,
+        "energy": 0.228225,
+        "valence": 0.4835,
+        "acousticness": 0.646,
+        "loudness": -16.521250000000002
+      },
+      "1990": {
+        "danceability": 0.5851428571428572,
+        "energy": 0.3101428571428571,
+        "valence": 0.4002857142857143,
+        "acousticness": 0.7101428571428572,
+        "loudness": -12.725999999999999
+      },
+      "1994": {
+        "danceability": 0.6399999999999999,
+        "energy": 0.489,
+        "valence": 0.4185,
+        "acousticness": 0.624,
+        "loudness": -10.797
+      },
+      "1995": {
+        "danceability": 0.58525,
+        "energy": 0.38325,
+        "valence": 0.22145,
+        "acousticness": 0.51525,
+        "loudness": -11.1685
+      },
+      "1996": {
+        "danceability": 0.4422857142857143,
+        "energy": 0.3324285714285714,
+        "valence": 0.3508142857142857,
+        "acousticness": 0.8124285714285715,
+        "loudness": -12.665142857142857
+      },
+      "1998": {
+        "danceability": 0.57825,
+        "energy": 0.48575,
+        "valence": 0.32375000000000004,
+        "acousticness": 0.6735,
+        "loudness": -12.0645
+      },
+      "2009": {
+        "danceability": 0.549,
+        "energy": 0.408,
+        "valence": 0.319,
+        "acousticness": 0.341,
+        "loudness": -7.698
+      }
+    }
+  },
+  "3": {
+    "cluster_name": "Smooth and Sophisticated",
+    "years": {
+      "1983": {
+        "danceability": 0.8566666666666667,
+        "energy": 0.7595555555555555,
+        "valence": 0.8135555555555556,
+        "acousticness": 0.0763888888888889,
+        "loudness": -5.193888888888889
+      },
+      "1986": {
+        "danceability": 0.7186666666666667,
+        "energy": 0.8396666666666667,
+        "valence": 0.9169999999999999,
+        "acousticness": 0.18546666666666667,
+        "loudness": -8.234
+      },
+      "1987": {
+        "danceability": 0.907,
+        "energy": 0.641,
+        "valence": 0.932,
+        "acousticness": 0.0436,
+        "loudness": -7.694
+      },
+      "1990": {
+        "danceability": 0.6825,
+        "energy": 0.83775,
+        "valence": 0.87675,
+        "acousticness": 0.107425,
+        "loudness": -8.251999999999999
+      },
+      "1994": {
+        "danceability": 0.733,
+        "energy": 0.789,
+        "valence": 0.622,
+        "acousticness": 0.00227,
+        "loudness": -7.95
+      },
+      "1996": {
+        "danceability": 0.772,
+        "energy": 0.805,
+        "valence": 0.657,
+        "acousticness": 0.116,
+        "loudness": -8.363
+      },
+      "2000": {
+        "danceability": 0.736,
+        "energy": 0.802,
+        "valence": 0.871,
+        "acousticness": 0.00149,
+        "loudness": -8.527
+      },
+      "2003": {
+        "danceability": 0.798,
+        "energy": 0.8165,
+        "valence": 0.6705,
+        "acousticness": 0.191,
+        "loudness": -5.9005
+      },
+      "2008": {
+        "danceability": 0.75725,
+        "energy": 0.8714999999999999,
+        "valence": 0.835,
+        "acousticness": 0.03746,
+        "loudness": -4.413
+      },
+      "2009": {
+        "danceability": 0.75325,
+        "energy": 0.8579375,
+        "valence": 0.8269375,
+        "acousticness": 0.14217625,
+        "loudness": -4.4784375
+      },
+      "2012": {
+        "danceability": 0.68,
+        "energy": 0.885,
+        "valence": 0.877,
+        "acousticness": 0.00563,
+        "loudness": -4.345
+      }
+    }
+  }
+}
