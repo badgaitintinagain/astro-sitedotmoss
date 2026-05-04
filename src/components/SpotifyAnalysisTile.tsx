@@ -132,7 +132,7 @@ const DISCO_DYNAMO_IMAGES = [discoDynamoImage, discoDynamoImage2, discoDynamoIma
 
 const getTrackKey = (track: TrackIdentity) => `${track.name}::${track.release_year}`;
 
-const RADAR_KEYS: Array<keyof DivaData> = ['danceability', 'energy', 'valence', 'acousticness', 'speechiness'];
+const RADAR_KEYS: Array<keyof DivaData> = ['danceability', 'energy', 'valence', 'acousticness'];
 
 const DIVA_COLORS = {
   baselineFill: '#C7B59A4D',
@@ -1072,64 +1072,45 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         </div>
                       </div>
                     )}
+                    <div className="absolute bottom-2 right-2 w-40 rounded-[12px] border border-white/60 bg-white/80 p-2 shadow-sm backdrop-blur">
+                      <p className="text-[9px] uppercase tracking-[0.2em] text-stone-500">Mini Map</p>
+                      <svg viewBox="0 0 220 140" className="mt-1 h-16 w-full">
+                        <rect x="0" y="0" width="220" height="140" fill="transparent" />
+                        {divaMapPoints.map(point => {
+                          const x = 20 + point.energy * 180;
+                          const y = 120 - point.valence * 100;
+                          const isSelected = point.artist === selectedCompareDiva?.artists;
+                          const isMadonna = point.artist === 'Madonna';
+                          return (
+                            <circle
+                              key={point.artist}
+                              cx={x}
+                              cy={y}
+                              r={isSelected ? 4.5 : isMadonna ? 4 : 3}
+                              fill={isSelected ? DIVA_COLORS.compareStroke : isMadonna ? DIVA_COLORS.baselineStroke : '#c5c3bc'}
+                              opacity={isSelected || isMadonna ? 0.9 : 0.6}
+                            />
+                          );
+                        })}
+                      </svg>
+                    </div>
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   <div className="rounded-md border border-stone-200 p-3 bg-white">
-                    <p className="text-xs text-stone-600">Selected</p>
-                    <h4 className="mt-1 text-sm font-semibold text-stone-900">{selectedCompareDiva?.artists}</h4>
-                    <div className="mt-3 space-y-2 text-sm">
+                    <div className="flex items-center justify-between">
+                      <p className="text-xs text-stone-600">Selected</p>
+                      <h4 className="text-sm font-semibold text-stone-900 truncate">{selectedCompareDiva?.artists}</h4>
+                    </div>
+                    <div className="mt-2 grid grid-cols-2 gap-2 text-[11px]">
                       {RADAR_KEYS.map(k => (
                         <div key={k} className="flex items-center justify-between">
-                          <span className="text-stone-700 text-xs">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
-                          <span className="font-mono text-sm text-stone-900">{((selectedCompareDiva as any)?.[k] ?? 0).toFixed(3)}</span>
+                          <span className="text-stone-600">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
+                          <span className="font-mono text-stone-900">{((selectedCompareDiva as any)?.[k] ?? 0).toFixed(3)}</span>
                         </div>
                       ))}
                     </div>
-                  </div>
-
-                  <div className="rounded-[12px] border border-stone-200 bg-white/90 p-3 text-sm">
-                    <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Evolution</p>
-                    <div className="mt-2 flex items-center justify-between gap-2">
-                      <div className="text-sm text-stone-700">
-                        {selectedTimelineYear ?? selectedEra?.label ?? 'N/A'}
-                        {selectedTimelineMetrics ? ` • Popularity ${Math.round(selectedTimelineMetrics.popularity)}` : ` • ${selectedEra?.count ?? 0} tracks`}
-                      </div>
-                      <input
-                        type="range"
-                        min={0}
-                        max={Math.max((timelineYears.length || eraProfiles.length) - 1, 0)}
-                        value={timelineYears.length ? safeTimelineIndex : safeSelectedEraIndex}
-                        onChange={event => {
-                          const value = Number(event.target.value);
-                          if (timelineYears.length) {
-                            setSelectedTimelineIndex(value);
-                          } else {
-                            setSelectedEraIndex(value);
-                          }
-                        }}
-                        className="w-1/2 accent-stone-400"
-                        disabled={timelineYears.length <= 1 && eraProfiles.length <= 1}
-                      />
-                    </div>
-                    {selectedTimelineMetrics ? (
-                      <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-stone-600">
-                        {([
-                          { label: 'Dance', value: selectedTimelineMetrics.danceability },
-                          { label: 'Energy', value: selectedTimelineMetrics.energy },
-                          { label: 'Valence', value: selectedTimelineMetrics.valence },
-                          { label: 'Acoustic', value: selectedTimelineMetrics.acousticness }
-                        ]).map(metric => (
-                          <div key={metric.label} className="flex items-center justify-between">
-                            <span>{metric.label}</span>
-                            <span className="font-mono">{metric.value.toFixed(2)}</span>
-                          </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p className="mt-2 text-xs text-stone-600">Each era profile averages Madonna tracks for the selected decade.</p>
-                    )}
                   </div>
                 </div>
               </div>
@@ -1137,32 +1118,6 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
             {/* Right: Mini map + tabbed breakdown */}
             <aside className="space-y-3">
-              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Diva mini map</p>
-                <div className="mt-2 rounded-[12px] border border-stone-200 bg-stone-50/70 p-2">
-                  <svg viewBox="0 0 220 140" className="h-20 w-full">
-                    <rect x="0" y="0" width="220" height="140" fill="transparent" />
-                    {divaMapPoints.map(point => {
-                      const x = 20 + point.energy * 180;
-                      const y = 120 - point.valence * 100;
-                      const isSelected = point.artist === selectedCompareDiva?.artists;
-                      const isMadonna = point.artist === 'Madonna';
-                      return (
-                        <circle
-                          key={point.artist}
-                          cx={x}
-                          cy={y}
-                          r={isSelected ? 5.5 : isMadonna ? 5 : 3.5}
-                          fill={isSelected ? DIVA_COLORS.compareStroke : isMadonna ? DIVA_COLORS.baselineStroke : '#c5c3bc'}
-                          opacity={isSelected || isMadonna ? 0.9 : 0.6}
-                        />
-                      );
-                    })}
-                  </svg>
-                </div>
-                <p className="mt-1 text-[11px] text-stone-500">Energy vs Valence distribution.</p>
-              </div>
-
               <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3 max-h-[320px] overflow-hidden">
                 <div className="flex flex-wrap gap-1">
                   {([
