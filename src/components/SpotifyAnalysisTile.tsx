@@ -492,28 +492,35 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
           <div className="min-w-0 flex-1 overflow-hidden">
         {activeTab === 'personas' && (
-          <section className="grid h-full gap-2 grid-rows-[1fr_auto] grid-cols-[280px_1fr_280px]">
-            {/* Cluster Rail - Left Sidebar */}
+          <section className="grid h-full gap-2 grid-rows-[auto_1fr_auto] grid-cols-[1.8fr_1fr]">
+            {/* Cluster Rail - Top Left */}
             <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-gradient-to-b from-white/88 to-white/72 p-3 relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage2})` }}>
               <div className="pointer-events-none absolute inset-0 bg-white/75" />
               <div className="relative z-10">
-                <div className="flex items-center gap-2 text-stone-700 mb-2">
+                <div className="flex items-center gap-2 text-stone-700 mb-3">
                   <Disc3 className="h-4 w-4" />
                   <p className="text-xs font-semibold">Sonic Personas</p>
                 </div>
-                <div className="flex gap-1.5 flex-wrap">
+                <div className="flex gap-2 flex-wrap">
                   {clusters.map(cluster => {
                     const meta = CLUSTER_NAMES[cluster.cluster];
                     const active = selectedCluster === cluster.cluster;
                     const trackCount = clusterTrackCounts[cluster.cluster] ?? 0;
+                    const bgImages = [backgroundImage1, backgroundImage2, backgroundImage3, backgroundImage4];
                     return (
                       <button
                         key={cluster.cluster}
                         onClick={() => handleClusterSelect(cluster.cluster)}
-                        className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1.5 text-[11px] font-medium border transition-all ${active ? 'border-stone-300/90 bg-white text-stone-900' : 'border-stone-300/70 bg-white/80 text-stone-700 hover:bg-white'}`}
+                        className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold border transition-all relative overflow-hidden ${active ? 'border-stone-300/90 bg-white text-stone-900 shadow-md' : 'border-stone-300/70 text-stone-700 hover:bg-white/60'}`}
+                        style={{
+                          backgroundImage: `url(${bgImages[cluster.cluster]?.src})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center'
+                        }}
                       >
-                        <span className="h-2 w-2 rounded-full" style={{ backgroundColor: meta.color }} />
-                        <span>{trackCount}</span>
+                        <div className={`pointer-events-none absolute inset-0 ${active ? 'bg-white/70' : 'bg-white/55'}`} />
+                        <span className="h-3 w-3 rounded-full relative z-10" style={{ backgroundColor: meta.color }} />
+                        <span className="relative z-10">{trackCount}</span>
                       </button>
                     );
                   })}
@@ -521,8 +528,44 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               </div>
             </div>
 
-            {/* Profile Card - Main Center */}
-            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-white/72 p-4 relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage3})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            {/* Top Tracks - Top Right */}
+            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-gradient-to-b from-white/88 to-white/72 p-3 flex flex-col relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage4})` }}>
+              <div className="pointer-events-none absolute inset-0 bg-white/75" />
+              <div className="relative z-10 flex flex-col h-full">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600 font-semibold mb-2">Top Tracks</p>
+                <div className="flex-1 overflow-y-auto space-y-1">
+                  <div className="mb-2">
+                    <input
+                      aria-label="ค้นหาเพลง"
+                      placeholder="ค้นหา..."
+                      value={searchQuery}
+                      onChange={e => setSearchQuery(e.target.value)}
+                      className="w-full rounded-[6px] border border-stone-300/70 bg-white/90 px-2 py-1 text-xs"
+                    />
+                  </div>
+                    {selectedClusterTracks.slice(0, 6).map(track => (
+                    <button
+                      key={`${track.name}-${track.release_year}`}
+                      onClick={() => {
+                        const index = trackIndexByKey.get(getTrackKey(track));
+                        if (typeof index === 'number') setSelectedTrackIndex(index);
+                      }}
+                      className={`flex w-full items-center justify-between rounded-[8px] border px-2 py-1.5 text-left text-xs transition-colors ${selectedTrack?.name === track.name ? 'border-stone-300/90 bg-white text-stone-900 font-semibold' : 'border-stone-300/70 bg-white/80 text-stone-700 hover:bg-white'}`}
+                    >
+                      <span className="min-w-0 flex-1 truncate pr-2 text-xs">{track.name}</span>
+                      <span className="text-[10px] text-stone-600 shrink-0">{track.release_year}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Profile Card - Main Left, spans rows 1-2 */}
+            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-white/72 p-4 relative overflow-hidden" style={{ 
+              backgroundImage: `url(${[backgroundImage1, backgroundImage2, backgroundImage3, backgroundImage4][selectedCluster]?.src || backgroundImage3.src})`, 
+              backgroundSize: 'cover', 
+              backgroundPosition: 'center' 
+            }}>
               {selectedCluster === 0 && (
                 <>
                   <div
@@ -573,40 +616,8 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               </div>
             </div>
 
-            {/* Top Tracks - Right Sidebar */}
-            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-gradient-to-b from-white/88 to-white/72 p-3 flex flex-col relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage4})` }}>
-              <div className="pointer-events-none absolute inset-0 bg-white/75" />
-              <div className="relative z-10 flex flex-col h-full">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600 font-semibold mb-3">Top Tracks</p>
-                <div className="flex-1 overflow-y-auto space-y-1.5">
-                  <div className="mb-2">
-                    <input
-                      aria-label="ค้นหาเพลง"
-                      placeholder="ค้นหา Top Tracks..."
-                      value={searchQuery}
-                      onChange={e => setSearchQuery(e.target.value)}
-                      className="w-full mb-2 rounded-[8px] border border-stone-300/70 bg-white/90 px-2 py-1 text-xs"
-                    />
-                  </div>
-                    {selectedClusterTracks.slice(0, 8).map(track => (
-                    <button
-                      key={`${track.name}-${track.release_year}`}
-                      onClick={() => {
-                        const index = trackIndexByKey.get(getTrackKey(track));
-                        if (typeof index === 'number') setSelectedTrackIndex(index);
-                      }}
-                      className={`flex w-full items-center justify-between rounded-[10px] border px-2.5 py-2 text-left text-xs transition-colors ${selectedTrack?.name === track.name ? 'border-stone-300/90 bg-white text-stone-900 font-semibold' : 'border-stone-300/70 bg-white/80 text-stone-700 hover:bg-white'}`}
-                    >
-                      <span className="min-w-0 flex-1 truncate pr-2">{track.name}</span>
-                      <span className="text-[10px] text-stone-600 shrink-0">{track.release_year}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
             {/* Bottom Info - Spans all columns */}
-            <div className="col-span-3 rounded-[14px] border border-stone-300/70 bg-stone-50/60 p-2.5 text-xs text-stone-700 relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div className="col-span-2 rounded-[14px] border border-stone-300/70 bg-stone-50/60 p-2.5 text-xs text-stone-700 relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
               <div className="pointer-events-none absolute inset-0 bg-stone-50/70" />
               <div className="relative z-10 flex items-center justify-between gap-4">
                 <p>AI groups tracks by audio feel, not release date • Use similarity network for vibe discovery</p>
