@@ -1140,7 +1140,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
                 <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Diva mini map</p>
                 <div className="mt-2 rounded-[12px] border border-stone-200 bg-stone-50/70 p-2">
-                  <svg viewBox="0 0 220 140" className="h-28 w-full">
+                  <svg viewBox="0 0 220 140" className="h-20 w-full">
                     <rect x="0" y="0" width="220" height="140" fill="transparent" />
                     {divaMapPoints.map(point => {
                       const x = 20 + point.energy * 180;
@@ -1163,7 +1163,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                 <p className="mt-1 text-[11px] text-stone-500">Energy vs Valence distribution.</p>
               </div>
 
-              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
+              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3 max-h-[320px] overflow-hidden">
                 <div className="flex flex-wrap gap-1">
                   {([
                     { key: 'neighbors', label: 'Neighbors' },
@@ -1181,7 +1181,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                 </div>
 
                 {divaSidePanelTab === 'neighbors' && (
-                  <div className="mt-3 grid gap-2">
+                  <div className="mt-3 grid gap-2 overflow-y-auto max-h-[250px] pr-1">
                     {closestDivaNeighbors.map(item => (
                       <div key={item.artists} className="flex items-center justify-between gap-3 rounded-[10px] border border-stone-200 p-2">
                         <div className="min-w-0">
@@ -1195,7 +1195,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                 )}
 
                 {divaSidePanelTab === 'tracks' && (
-                  <div className="mt-3 space-y-2">
+                  <div className="mt-3 space-y-2 overflow-y-auto max-h-[250px] pr-1">
                     {(selectedComparisonEntry?.top_tracks ?? []).slice(0, 6).map(track => (
                       <div key={`${track.name}-${track.year}`} className="flex items-center justify-between text-xs text-stone-700">
                         <span className="truncate pr-2">{track.name}</span>
@@ -1209,7 +1209,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                 )}
 
                 {divaSidePanelTab === 'baseline' && (
-                  <div className="mt-3 space-y-2">
+                  <div className="mt-3 space-y-2 overflow-y-auto max-h-[250px] pr-1">
                     <div className="flex items-center justify-between"><span className="text-xs text-stone-700">Madonna (baseline)</span><span className="font-mono text-sm">{(diva?.danceability ?? 0).toFixed(3)}</span></div>
                     <div className="grid gap-2">
                       {RADAR_KEYS.map(k => (
