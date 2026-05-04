@@ -530,8 +530,19 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
   const selectedComparisonEntry = useMemo(() => {
     if (!divaComparisonData) return null;
-    return divaComparisonData[compareDiva] ?? divaComparisonData['Madonna'] ?? null;
+    return divaComparisonData[compareDiva] ?? null;
   }, [divaComparisonData, compareDiva]);
+
+  const selectedTopTracks = useMemo(() => {
+    if (!selectedComparisonEntry?.top_tracks) return [];
+    const seen = new Set<string>();
+    return selectedComparisonEntry.top_tracks.filter(track => {
+      const key = `${track.name}::${track.year}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }, [selectedComparisonEntry]);
 
   const timelineSeries = useMemo(() => {
     if (!divaTimelineData) return null;
@@ -987,7 +998,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               <div className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
                 <div className="flex items-center justify-center">
                   <div
-                    className="relative"
+                    className="relative pr-40 pb-24"
                     onMouseMove={event => {
                       const rect = event.currentTarget.getBoundingClientRect();
                       setRadarHoverPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
@@ -1103,7 +1114,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                       <p className="text-xs text-stone-600">Selected</p>
                       <h4 className="text-sm font-semibold text-stone-900 truncate">{selectedCompareDiva?.artists}</h4>
                     </div>
-                    <div className="mt-2 grid grid-cols-2 gap-2 text-[11px]">
+                    <div className="mt-3 space-y-2 text-xs">
                       {RADAR_KEYS.map(k => (
                         <div key={k} className="flex items-center justify-between">
                           <span className="text-stone-600">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
@@ -1151,14 +1162,14 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
                 {divaSidePanelTab === 'tracks' && (
                   <div className="mt-3 space-y-2 overflow-y-auto max-h-[250px] pr-1">
-                    {(selectedComparisonEntry?.top_tracks ?? []).slice(0, 6).map(track => (
+                    {selectedTopTracks.slice(0, 6).map(track => (
                       <div key={`${track.name}-${track.year}`} className="flex items-center justify-between text-xs text-stone-700">
                         <span className="truncate pr-2">{track.name}</span>
                         <span className="text-stone-500">{track.year}</span>
                       </div>
                     ))}
-                    {!selectedComparisonEntry && (
-                      <p className="text-xs text-stone-500">Top tracks load from the new diva dataset.</p>
+                    {!selectedTopTracks.length && (
+                      <p className="text-xs text-stone-500">No top tracks available for this artist.</p>
                     )}
                   </div>
                 )}
