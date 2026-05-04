@@ -493,10 +493,10 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
           <div className="min-w-0 flex-1 overflow-hidden">
         {activeTab === 'personas' && (
-          <section className="grid h-full gap-2 grid-rows-[1fr_auto] grid-cols-[1.8fr_1fr]">
+          <section className="grid h-full gap-2 grid-rows-[auto_1fr_auto] grid-cols-[1.8fr_1fr]">
 
             {/* Top Tracks - Top Right */}
-            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-gradient-to-b from-white/88 to-white/72 p-3 flex flex-col relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage4})` }}>
+            <div className="col-span-1 row-span-1 col-start-2 row-start-1 rounded-[14px] border border-stone-300/70 bg-gradient-to-b from-white/88 to-white/72 p-3 flex flex-col relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage4})` }}>
               <div className="pointer-events-none absolute inset-0 bg-white/75" />
               <div className="relative z-10 flex flex-col h-full">
                 <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600 font-semibold mb-2">Top Tracks</p>
@@ -528,7 +528,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
             </div>
 
             {/* Profile Card - Main Left */}
-            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-white/72 p-4 relative overflow-hidden" style={{ 
+            <div className="col-span-1 row-span-2 col-start-1 row-start-1 rounded-[14px] border border-stone-300/70 bg-white/72 p-4 relative overflow-hidden" style={{ 
               backgroundImage: `url(${[backgroundImage1, backgroundImage2, backgroundImage3, backgroundImage4][selectedCluster]?.src || backgroundImage3.src})`, 
               backgroundSize: 'cover', 
               backgroundPosition: 'center' 
@@ -552,23 +552,16 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                   </div>
                   <button
                     type="button"
-                    onClick={() => setIsClusterMenuOpen(true)}
-                    className="rounded-full border border-stone-300/70 bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-stone-700 hover:bg-white"
+                    onClick={() => setIsClusterMenuOpen(open => !open)}
+                    className="rounded-full border border-stone-300/70 bg-white/80 px-2.5 py-1 text-[11px] font-semibold text-stone-700 shadow-sm hover:bg-white"
                   >
                     Choose cluster
                   </button>
                 </div>
                 {isClusterMenuOpen && (
-                  <div className="absolute left-4 top-12 z-20 w-[360px] max-w-[90%] rounded-[16px] border border-stone-300/70 bg-white/95 p-3 shadow-xl">
+                  <div className="absolute left-4 top-12 z-20 w-[360px] max-w-[90%] rounded-[16px] border border-white/40 bg-white/35 p-3 shadow-[0_18px_45px_rgba(15,23,42,0.25)] backdrop-blur-xl">
                     <div className="mb-2 flex items-center justify-between">
                       <p className="text-xs font-semibold text-stone-700">Choose a cluster</p>
-                      <button
-                        type="button"
-                        onClick={() => setIsClusterMenuOpen(false)}
-                        className="rounded-full border border-stone-300/70 bg-white px-2 py-0.5 text-[10px] text-stone-700"
-                      >
-                        Close
-                      </button>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       {clusters.map(cluster => {
@@ -634,7 +627,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
             </div>
 
             {/* Bottom Info - Spans all columns */}
-            <div className="col-span-2 rounded-[14px] border border-stone-300/70 bg-stone-50/60 p-2.5 text-xs text-stone-700 relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <div className="col-span-2 row-start-3 rounded-[14px] border border-stone-300/70 bg-stone-50/60 p-2.5 text-xs text-stone-700 relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage1})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
               <div className="pointer-events-none absolute inset-0 bg-stone-50/70" />
               <div className="relative z-10 flex items-center justify-between gap-4">
                 <p>AI groups tracks by audio feel, not release date • Use similarity network for vibe discovery</p>
