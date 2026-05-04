@@ -248,6 +248,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   const [selectedTimelineIndex, setSelectedTimelineIndex] = useState(0);
   const [radarHoverKey, setRadarHoverKey] = useState<keyof DivaData | null>(null);
   const [radarHoverPos, setRadarHoverPos] = useState<{ x: number; y: number } | null>(null);
+  const [divaSidePanelTab, setDivaSidePanelTab] = useState<'neighbors' | 'tracks' | 'baseline'>('neighbors');
 
   const clusters = clusterSummaryData as ClusterData[];
   const tracks = useMemo(
@@ -961,176 +962,180 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
         )}
 
         {activeTab === 'comparison' && (
-          <section className="grid h-full gap-4 overflow-y-auto pr-1 md:grid-cols-[1.2fr_0.8fr]">
-            {/* Left: Radar + era controls */}
-            <div className="space-y-3">
-              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-4">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-[10px] uppercase tracking-[0.16em] text-stone-600">Diva Radar</p>
-                    <h3 className="mt-1 text-lg font-bold text-stone-900">Compare audio DNA</h3>
-                    <p className="mt-1 text-xs text-stone-600">Choose an artist to compare against the Madonna baseline.</p>
-                  </div>
-                  <div className="ml-auto">
-                    <select
-                      value={compareDiva}
-                      onChange={e => setCompareDiva(e.target.value)}
-                      className="rounded-full border border-stone-300 bg-white/80 px-3 py-1 text-sm text-stone-700 shadow-sm"
-                    >
-                      {divaArtists.map(artist => (
-                        <option key={artist} value={artist}>{artist}</option>
-                      ))}
-                    </select>
-                  </div>
+          <section className="grid h-full gap-3 overflow-hidden md:grid-cols-[1.2fr_0.8fr]">
+            {/* Left: Radar + evolution */}
+            <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-4">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-stone-600">Diva Radar</p>
+                  <h3 className="mt-1 text-lg font-bold text-stone-900">Compare audio DNA</h3>
+                  <p className="mt-1 text-xs text-stone-600">Choose an artist to compare against the Madonna baseline.</p>
                 </div>
-
-                <div className="mt-4 flex flex-col lg:flex-row lg:items-center lg:gap-6">
-                  <div className="flex-1 flex items-center justify-center">
-                    <div
-                      className="relative"
-                      onMouseMove={event => {
-                        const rect = event.currentTarget.getBoundingClientRect();
-                        setRadarHoverPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
-                      }}
-                      onMouseLeave={() => {
-                        setRadarHoverKey(null);
-                        setRadarHoverPos(null);
-                      }}
-                    >
-                      <svg width="100%" height="auto" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet" className="rounded" style={{ maxWidth: 320 }}>
-                      <defs>
-                        <linearGradient id="radarGrad" x1="0" x2="1">
-                          <stop offset="0%" stopColor="#C7B59A" stopOpacity="0.16" />
-                          <stop offset="100%" stopColor="#A6B7A1" stopOpacity="0.16" />
-                        </linearGradient>
-                      </defs>
-                      <g>
-                        {/* Grid rings */}
-                        {[0.25, 0.5, 0.75, 1].map((s, i) => (
-                          <circle key={i} cx={130} cy={130} r={((260 / 2) - 30) * s} stroke="rgba(17,24,39,0.06)" fill="none" />
-                        ))}
-
-                        {/* Madonna baseline */}
-                        <polygon
-                          points={renderRadarPoints(diva as DivaData, 260)}
-                          fill={DIVA_COLORS.baselineFill}
-                          stroke={DIVA_COLORS.baselineStroke}
-                          strokeWidth={1.2}
-                        />
-
-                        {/* Selected diva */}
-                        <polygon
-                          points={renderRadarPoints(selectedCompareDiva as DivaData, 260)}
-                          fill={DIVA_COLORS.compareFill}
-                          stroke={DIVA_COLORS.compareStroke}
-                          strokeWidth={1.2}
-                        />
-
-                        {/* Axis labels */}
-                        {RADAR_KEYS.map((k, i) => {
-                          const angle = -Math.PI / 2 + i * ((Math.PI * 2) / RADAR_KEYS.length);
-                          const labelR = (260 / 2) - 12;
-                          const lx = 130 + Math.cos(angle) * labelR;
-                          const ly = 130 + Math.sin(angle) * labelR;
-                          const label = k.charAt(0).toUpperCase() + k.slice(1);
-                          return (
-                            <text
-                              key={k}
-                              x={lx}
-                              y={ly}
-                              textAnchor="middle"
-                              dominantBaseline="central"
-                              fontSize={11}
-                              fill="#0f172a"
-                              onMouseEnter={() => setRadarHoverKey(k)}
-                              onMouseLeave={() => setRadarHoverKey(null)}
-                            >
-                              {label}
-                            </text>
-                          );
-                        })}
-                      </g>
-                    </svg>
-                      {radarHoverKey && radarHoverPos && (
-                        <div
-                          className="pointer-events-none absolute rounded-[10px] border border-white/50 bg-white/85 px-2.5 py-1 text-[11px] text-stone-700 shadow-md backdrop-blur"
-                          style={{ left: radarHoverPos.x + 10, top: radarHoverPos.y + 10 }}
-                        >
-                          <div className="font-semibold">
-                            {radarHoverKey.charAt(0).toUpperCase() + radarHoverKey.slice(1)}
-                          </div>
-                          <div>
-                            {((selectedCompareDiva as any)?.[radarHoverKey] ?? 0).toFixed(2)}
-                            {' vs '}
-                            {((diva as any)?.[radarHoverKey] ?? 0).toFixed(2)}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="mt-3 lg:mt-0 lg:w-64">
-                    <div className="rounded-md border border-stone-200 p-3 bg-white">
-                      <p className="text-xs text-stone-600">Selected</p>
-                      <h4 className="mt-1 text-sm font-semibold text-stone-900">{selectedCompareDiva?.artists}</h4>
-                      <div className="mt-3 space-y-2 text-sm">
-                        {RADAR_KEYS.map(k => (
-                          <div key={k} className="flex items-center justify-between">
-                            <span className="text-stone-700 text-xs">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
-                            <span className="font-mono text-sm text-stone-900">{((selectedCompareDiva as any)?.[k] ?? 0).toFixed(3)}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
+                <div className="ml-auto">
+                  <select
+                    value={compareDiva}
+                    onChange={e => setCompareDiva(e.target.value)}
+                    className="rounded-full border border-stone-300 bg-white/80 px-3 py-1 text-sm text-stone-700 shadow-sm"
+                  >
+                    {divaArtists.map(artist => (
+                      <option key={artist} value={artist}>{artist}</option>
+                    ))}
+                  </select>
                 </div>
               </div>
 
-              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3 text-sm">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Evolution</p>
-                <div className="mt-2 flex items-center justify-between gap-2">
-                  <div className="text-sm text-stone-700">
-                    {selectedTimelineYear ?? selectedEra?.label ?? 'N/A'}
-                    {selectedTimelineMetrics ? ` • Popularity ${Math.round(selectedTimelineMetrics.popularity)}` : ` • ${selectedEra?.count ?? 0} tracks`}
-                  </div>
-                  <input
-                    type="range"
-                    min={0}
-                    max={Math.max((timelineYears.length || eraProfiles.length) - 1, 0)}
-                    value={timelineYears.length ? safeTimelineIndex : safeSelectedEraIndex}
-                    onChange={event => {
-                      const value = Number(event.target.value);
-                      if (timelineYears.length) {
-                        setSelectedTimelineIndex(value);
-                      } else {
-                        setSelectedEraIndex(value);
-                      }
+              <div className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+                <div className="flex items-center justify-center">
+                  <div
+                    className="relative"
+                    onMouseMove={event => {
+                      const rect = event.currentTarget.getBoundingClientRect();
+                      setRadarHoverPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
                     }}
-                    className="w-1/2 accent-stone-400"
-                    disabled={timelineYears.length <= 1 && eraProfiles.length <= 1}
-                  />
-                </div>
-                {selectedTimelineMetrics ? (
-                  <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-stone-600">
-                    {([
-                      { label: 'Dance', value: selectedTimelineMetrics.danceability },
-                      { label: 'Energy', value: selectedTimelineMetrics.energy },
-                      { label: 'Valence', value: selectedTimelineMetrics.valence },
-                      { label: 'Acoustic', value: selectedTimelineMetrics.acousticness }
-                    ]).map(metric => (
-                      <div key={metric.label} className="flex items-center justify-between">
-                        <span>{metric.label}</span>
-                        <span className="font-mono">{metric.value.toFixed(2)}</span>
+                    onMouseLeave={() => {
+                      setRadarHoverKey(null);
+                      setRadarHoverPos(null);
+                    }}
+                  >
+                    {diva && selectedCompareDiva ? (
+                      <svg width="100%" height="auto" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet" className="rounded" style={{ maxWidth: 320 }}>
+                        <defs>
+                          <linearGradient id="radarGrad" x1="0" x2="1">
+                            <stop offset="0%" stopColor="#C7B59A" stopOpacity="0.16" />
+                            <stop offset="100%" stopColor="#A6B7A1" stopOpacity="0.16" />
+                          </linearGradient>
+                        </defs>
+                        <g>
+                          {/* Grid rings */}
+                          {[0.25, 0.5, 0.75, 1].map((s, i) => (
+                            <circle key={i} cx={130} cy={130} r={((260 / 2) - 30) * s} stroke="rgba(17,24,39,0.06)" fill="none" />
+                          ))}
+
+                          {/* Madonna baseline */}
+                          <polygon
+                            points={renderRadarPoints(diva as DivaData, 260)}
+                            fill={DIVA_COLORS.baselineFill}
+                            stroke={DIVA_COLORS.baselineStroke}
+                            strokeWidth={1.2}
+                          />
+
+                          {/* Selected diva */}
+                          <polygon
+                            points={renderRadarPoints(selectedCompareDiva as DivaData, 260)}
+                            fill={DIVA_COLORS.compareFill}
+                            stroke={DIVA_COLORS.compareStroke}
+                            strokeWidth={1.2}
+                          />
+
+                          {/* Axis labels */}
+                          {RADAR_KEYS.map((k, i) => {
+                            const angle = -Math.PI / 2 + i * ((Math.PI * 2) / RADAR_KEYS.length);
+                            const labelR = (260 / 2) - 12;
+                            const lx = 130 + Math.cos(angle) * labelR;
+                            const ly = 130 + Math.sin(angle) * labelR;
+                            const label = k.charAt(0).toUpperCase() + k.slice(1);
+                            return (
+                              <text
+                                key={k}
+                                x={lx}
+                                y={ly}
+                                textAnchor="middle"
+                                dominantBaseline="central"
+                                fontSize={11}
+                                fill="#0f172a"
+                                onMouseEnter={() => setRadarHoverKey(k)}
+                                onMouseLeave={() => setRadarHoverKey(null)}
+                              >
+                                {label}
+                              </text>
+                            );
+                          })}
+                        </g>
+                      </svg>
+                    ) : (
+                      <div className="flex h-48 w-64 items-center justify-center rounded-[12px] border border-dashed border-stone-300 text-xs text-stone-500">
+                        Radar data loading...
                       </div>
-                    ))}
+                    )}
+                    {radarHoverKey && radarHoverPos && (
+                      <div
+                        className="pointer-events-none absolute rounded-[10px] border border-white/50 bg-white/85 px-2.5 py-1 text-[11px] text-stone-700 shadow-md backdrop-blur"
+                        style={{ left: radarHoverPos.x + 10, top: radarHoverPos.y + 10 }}
+                      >
+                        <div className="font-semibold">
+                          {radarHoverKey.charAt(0).toUpperCase() + radarHoverKey.slice(1)}
+                        </div>
+                        <div>
+                          {((selectedCompareDiva as any)?.[radarHoverKey] ?? 0).toFixed(2)}
+                          {' vs '}
+                          {((diva as any)?.[radarHoverKey] ?? 0).toFixed(2)}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ) : (
-                  <p className="mt-2 text-xs text-stone-600">Each era profile averages Madonna tracks for the selected decade.</p>
-                )}
+                </div>
+
+                <div className="space-y-3">
+                  <div className="rounded-md border border-stone-200 p-3 bg-white">
+                    <p className="text-xs text-stone-600">Selected</p>
+                    <h4 className="mt-1 text-sm font-semibold text-stone-900">{selectedCompareDiva?.artists}</h4>
+                    <div className="mt-3 space-y-2 text-sm">
+                      {RADAR_KEYS.map(k => (
+                        <div key={k} className="flex items-center justify-between">
+                          <span className="text-stone-700 text-xs">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
+                          <span className="font-mono text-sm text-stone-900">{((selectedCompareDiva as any)?.[k] ?? 0).toFixed(3)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="rounded-[12px] border border-stone-200 bg-white/90 p-3 text-sm">
+                    <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Evolution</p>
+                    <div className="mt-2 flex items-center justify-between gap-2">
+                      <div className="text-sm text-stone-700">
+                        {selectedTimelineYear ?? selectedEra?.label ?? 'N/A'}
+                        {selectedTimelineMetrics ? ` • Popularity ${Math.round(selectedTimelineMetrics.popularity)}` : ` • ${selectedEra?.count ?? 0} tracks`}
+                      </div>
+                      <input
+                        type="range"
+                        min={0}
+                        max={Math.max((timelineYears.length || eraProfiles.length) - 1, 0)}
+                        value={timelineYears.length ? safeTimelineIndex : safeSelectedEraIndex}
+                        onChange={event => {
+                          const value = Number(event.target.value);
+                          if (timelineYears.length) {
+                            setSelectedTimelineIndex(value);
+                          } else {
+                            setSelectedEraIndex(value);
+                          }
+                        }}
+                        className="w-1/2 accent-stone-400"
+                        disabled={timelineYears.length <= 1 && eraProfiles.length <= 1}
+                      />
+                    </div>
+                    {selectedTimelineMetrics ? (
+                      <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-stone-600">
+                        {([
+                          { label: 'Dance', value: selectedTimelineMetrics.danceability },
+                          { label: 'Energy', value: selectedTimelineMetrics.energy },
+                          { label: 'Valence', value: selectedTimelineMetrics.valence },
+                          { label: 'Acoustic', value: selectedTimelineMetrics.acousticness }
+                        ]).map(metric => (
+                          <div key={metric.label} className="flex items-center justify-between">
+                            <span>{metric.label}</span>
+                            <span className="font-mono">{metric.value.toFixed(2)}</span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="mt-2 text-xs text-stone-600">Each era profile averages Madonna tracks for the selected decade.</p>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* Right: Mini map + breakdown */}
+            {/* Right: Mini map + tabbed breakdown */}
             <aside className="space-y-3">
               <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
                 <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Diva mini map</p>
@@ -1159,6 +1164,66 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               </div>
 
               <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
+                <div className="flex flex-wrap gap-1">
+                  {([
+                    { key: 'neighbors', label: 'Neighbors' },
+                    { key: 'tracks', label: 'Top Tracks' },
+                    { key: 'baseline', label: 'Baseline' }
+                  ] as const).map(tab => (
+                    <button
+                      key={tab.key}
+                      onClick={() => setDivaSidePanelTab(tab.key)}
+                      className={`rounded-full border px-2.5 py-1 text-[11px] ${divaSidePanelTab === tab.key ? 'border-stone-300/90 bg-stone-100 text-stone-900' : 'border-stone-300/60 bg-white text-stone-600'}`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
+                </div>
+
+                {divaSidePanelTab === 'neighbors' && (
+                  <div className="mt-3 grid gap-2">
+                    {closestDivaNeighbors.map(item => (
+                      <div key={item.artists} className="flex items-center justify-between gap-3 rounded-[10px] border border-stone-200 p-2">
+                        <div className="min-w-0">
+                          <div className="text-sm font-semibold text-stone-900 truncate">{item.artists}</div>
+                          <div className="text-xs text-stone-600">{RADAR_KEYS.slice(0, 4).map(k => `${k.charAt(0).toUpperCase()}${k.slice(1)}:${(item[k] as number).toFixed(2)}`).join(' • ')}</div>
+                        </div>
+                        <button onClick={() => setCompareDiva(item.artists)} className="rounded px-2 py-1 text-xs border border-stone-300 bg-white">Compare</button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {divaSidePanelTab === 'tracks' && (
+                  <div className="mt-3 space-y-2">
+                    {(selectedComparisonEntry?.top_tracks ?? []).slice(0, 6).map(track => (
+                      <div key={`${track.name}-${track.year}`} className="flex items-center justify-between text-xs text-stone-700">
+                        <span className="truncate pr-2">{track.name}</span>
+                        <span className="text-stone-500">{track.year}</span>
+                      </div>
+                    ))}
+                    {!selectedComparisonEntry && (
+                      <p className="text-xs text-stone-500">Top tracks load from the new diva dataset.</p>
+                    )}
+                  </div>
+                )}
+
+                {divaSidePanelTab === 'baseline' && (
+                  <div className="mt-3 space-y-2">
+                    <div className="flex items-center justify-between"><span className="text-xs text-stone-700">Madonna (baseline)</span><span className="font-mono text-sm">{(diva?.danceability ?? 0).toFixed(3)}</span></div>
+                    <div className="grid gap-2">
+                      {RADAR_KEYS.map(k => (
+                        <div key={k} className="flex items-center justify-between text-sm">
+                          <span className="text-stone-700">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
+                          <span className="font-mono">{((diva as any)?.[k] ?? 0).toFixed(3)}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
                 <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">% difference vs Madonna</p>
                 <div className="mt-2 space-y-2">
                   {deltaMetrics.map(metric => {
@@ -1182,51 +1247,6 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                       </div>
                     );
                   })}
-                </div>
-              </div>
-
-              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Closest pop neighbors</p>
-                <div className="mt-3 grid gap-2">
-                  {closestDivaNeighbors.map(item => (
-                    <div key={item.artists} className="flex items-center justify-between gap-3 rounded-[10px] border border-stone-200 p-2">
-                      <div className="min-w-0">
-                        <div className="text-sm font-semibold text-stone-900 truncate">{item.artists}</div>
-                        <div className="text-xs text-stone-600">{RADAR_KEYS.slice(0, 4).map(k => `${k.charAt(0).toUpperCase()}${k.slice(1)}:${(item[k] as number).toFixed(2)}`).join(' • ')}</div>
-                      </div>
-                      <button onClick={() => setCompareDiva(item.artists)} className="rounded px-2 py-1 text-xs border border-stone-300 bg-white">Compare</button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Top tracks spotlight</p>
-                <div className="mt-2 space-y-2">
-                  {(selectedComparisonEntry?.top_tracks ?? []).slice(0, 4).map(track => (
-                    <div key={`${track.name}-${track.year}`} className="flex items-center justify-between text-xs text-stone-700">
-                      <span className="truncate pr-2">{track.name}</span>
-                      <span className="text-stone-500">{track.year}</span>
-                    </div>
-                  ))}
-                  {!selectedComparisonEntry && (
-                    <p className="text-xs text-stone-500">Top tracks load from the new diva dataset.</p>
-                  )}
-                </div>
-              </div>
-
-              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
-                <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Diva baseline</p>
-                <div className="mt-2 space-y-2">
-                  <div className="flex items-center justify-between"><span className="text-xs text-stone-700">Madonna (baseline)</span><span className="font-mono text-sm">{(diva?.danceability ?? 0).toFixed(3)}</span></div>
-                  <div className="grid gap-2">
-                    {RADAR_KEYS.map(k => (
-                      <div key={k} className="flex items-center justify-between text-sm">
-                        <span className="text-stone-700">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
-                        <span className="font-mono">{((diva as any)?.[k] ?? 0).toFixed(3)}</span>
-                      </div>
-                    ))}
-                  </div>
                 </div>
               </div>
             </aside>
