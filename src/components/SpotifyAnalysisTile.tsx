@@ -50,6 +50,24 @@ interface DivaData {
   speechiness: number;
 }
 
+interface DivaComparisonEntry {
+  track_count: number;
+  year_range: { min: number; max: number };
+  profile: {
+    danceability: number;
+    energy: number;
+    valence: number;
+    acousticness: number;
+    loudness: number;
+    popularity: number;
+  };
+  vs_madonna: Record<string, { value: number; delta: number; percentage: number }>;
+  top_tracks: Array<{ name: string; year: number; popularity: number }>;
+}
+
+type DivaComparisonData = Record<string, DivaComparisonEntry>;
+type DivaTimelineData = Record<string, Record<string, { danceability: number; energy: number; valence: number; acousticness: number; popularity: number }>>;
+
 interface SimilarTrack {
   index: number;
   similarity: number;
@@ -115,6 +133,13 @@ const DISCO_DYNAMO_IMAGES = [discoDynamoImage, discoDynamoImage2, discoDynamoIma
 const getTrackKey = (track: TrackIdentity) => `${track.name}::${track.release_year}`;
 
 const RADAR_KEYS: Array<keyof DivaData> = ['danceability', 'energy', 'valence', 'acousticness', 'speechiness'];
+
+const DIVA_COLORS = {
+  baselineFill: '#C7B59A4D',
+  baselineStroke: '#9E8C72',
+  compareFill: '#A6B7A14D',
+  compareStroke: '#7F9A7C'
+} as const;
 
 const renderRadarPoints = (entry: DivaData | undefined, size = 220) => {
   if (!entry) return '';
@@ -218,6 +243,11 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   const [hoveredTrack, setHoveredTrack] = useState<{ index: number; x: number; y: number } | null>(null);
   const [compareDiva, setCompareDiva] = useState('');
   const [isClusterMenuOpen, setIsClusterMenuOpen] = useState(false);
+  const [divaComparisonData, setDivaComparisonData] = useState<DivaComparisonData | null>(null);
+  const [divaTimelineData, setDivaTimelineData] = useState<DivaTimelineData | null>(null);
+  const [selectedTimelineIndex, setSelectedTimelineIndex] = useState(0);
+  const [radarHoverKey, setRadarHoverKey] = useState<keyof DivaData | null>(null);
+  const [radarHoverPos, setRadarHoverPos] = useState<{ x: number; y: number } | null>(null);
 
   const clusters = clusterSummaryData as ClusterData[];
   const tracks = useMemo(
@@ -236,11 +266,41 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   }, [divas, tracks]);
 
   useEffect(() => {
-    if (!compareDiva && computedDivas.length) {
+    if (compareDiva) return;
+    if (divaComparisonData) {
+      const firstNonMadonna = Object.keys(divaComparisonData).find(name => name !== 'Madonna');
+      setCompareDiva(firstNonMadonna ?? 'Madonna');
+      return;
+    }
+    if (computedDivas.length) {
       const firstNonMadonna = computedDivas.find(d => d.artists !== 'Madonna') ?? computedDivas[0];
       setCompareDiva(firstNonMadonna?.artists ?? '');
     }
-  }, [computedDivas, compareDiva]);
+  }, [computedDivas, compareDiva, divaComparisonData]);
+  useEffect(() => {
+    let isMounted = true;
+    const loadDivaData = async () => {
+      try {
+        const [comparisonResponse, timelineResponse] = await Promise.all([
+          fetch('/assets/data/new-clustering-data/diva-dna/comprehensive_diva_comparison.json'),
+          fetch('/assets/data/new-clustering-data/diva-dna/diva_evolution_timeline.json')
+        ]);
+        if (!comparisonResponse.ok || !timelineResponse.ok) return;
+        const [comparison, timeline] = await Promise.all([comparisonResponse.json(), timelineResponse.json()]);
+        if (!isMounted) return;
+        setDivaComparisonData(comparison as DivaComparisonData);
+        setDivaTimelineData(timeline as DivaTimelineData);
+      } catch {
+        if (!isMounted) return;
+        setDivaComparisonData(null);
+        setDivaTimelineData(null);
+      }
+    };
+    loadDivaData();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
   const trackFeatureSpace = useMemo(() => new TrackFeatureSpace(tracks), [tracks]);
   const trackIndexByKey = useMemo(() => {
     const map = new Map<string, number>();
@@ -426,15 +486,100 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   const safeSelectedEraIndex = clamp(selectedEraIndex, 0, Math.max(eraProfiles.length - 1, 0));
   const selectedEra = eraProfiles[safeSelectedEraIndex] ?? eraProfiles[0];
 
-  const diva = useMemo(() => computedDivas.find(item => item.artists === 'Madonna') ?? computedDivas[0], [computedDivas]);
-  const selectedCompareDiva = useMemo(() => computedDivas.find(item => item.artists === compareDiva) ?? computedDivas.find(d => d.artists !== 'Madonna') ?? computedDivas[0], [computedDivas, compareDiva]);
-  const closestDivaNeighbors = useMemo(
-    () => computedDivas
-      .filter(item => item.artists !== selectedCompareDiva?.artists)
-      .sort((left, right) => Math.abs(left.energy - (selectedCompareDiva?.energy ?? 0)) - Math.abs(right.energy - (selectedCompareDiva?.energy ?? 0)))
-      .slice(0, 6),
-    [selectedCompareDiva, computedDivas]
-  );
+  const divaArtists = useMemo(() => {
+    if (divaComparisonData) return Object.keys(divaComparisonData).sort();
+    return computedDivas.map(item => item.artists).sort();
+  }, [divaComparisonData, computedDivas]);
+
+  const divaProfiles = useMemo(() => {
+    if (divaComparisonData) {
+      return Object.entries(divaComparisonData).reduce<Record<string, DivaData>>((acc, [artist, entry]) => {
+        acc[artist] = {
+          artists: artist,
+          danceability: entry.profile.danceability,
+          energy: entry.profile.energy,
+          valence: entry.profile.valence,
+          acousticness: entry.profile.acousticness,
+          speechiness: 0
+        };
+        return acc;
+      }, {});
+    }
+    return computedDivas.reduce<Record<string, DivaData>>((acc, entry) => {
+      acc[entry.artists] = entry;
+      return acc;
+    }, {});
+  }, [divaComparisonData, computedDivas]);
+
+  const diva = useMemo(() => divaProfiles['Madonna'] ?? Object.values(divaProfiles)[0], [divaProfiles]);
+  const selectedCompareDiva = useMemo(() => divaProfiles[compareDiva] ?? Object.values(divaProfiles).find(d => d.artists !== 'Madonna') ?? Object.values(divaProfiles)[0], [divaProfiles, compareDiva]);
+
+  const closestDivaNeighbors = useMemo(() => {
+    const baseline = selectedCompareDiva;
+    if (!baseline) return [];
+    const entries = Object.values(divaProfiles).filter(item => item.artists !== baseline.artists);
+    const distance = (left: DivaData, right: DivaData) => {
+      const keys: Array<keyof DivaData> = ['danceability', 'energy', 'valence', 'acousticness'];
+      return Math.sqrt(keys.reduce((sum, key) => sum + Math.pow((left[key] ?? 0) - (right[key] ?? 0), 2), 0));
+    };
+    return entries
+      .sort((left, right) => distance(left, baseline) - distance(right, baseline))
+      .slice(0, 6);
+  }, [divaProfiles, selectedCompareDiva]);
+
+  const selectedComparisonEntry = useMemo(() => {
+    if (!divaComparisonData) return null;
+    return divaComparisonData[compareDiva] ?? divaComparisonData['Madonna'] ?? null;
+  }, [divaComparisonData, compareDiva]);
+
+  const timelineSeries = useMemo(() => {
+    if (!divaTimelineData) return null;
+    return divaTimelineData[compareDiva] ?? divaTimelineData['Madonna'] ?? null;
+  }, [divaTimelineData, compareDiva]);
+
+  const timelineYears = useMemo(() => {
+    if (!timelineSeries) return [];
+    return Object.keys(timelineSeries).sort((a, b) => Number(a) - Number(b));
+  }, [timelineSeries]);
+
+  useEffect(() => {
+    setSelectedTimelineIndex(0);
+  }, [compareDiva]);
+
+  const safeTimelineIndex = clamp(selectedTimelineIndex, 0, Math.max(timelineYears.length - 1, 0));
+  const selectedTimelineYear = timelineYears[safeTimelineIndex];
+  const selectedTimelineMetrics = selectedTimelineYear && timelineSeries ? timelineSeries[selectedTimelineYear] : null;
+
+  const deltaMetrics = useMemo(() => {
+    const fallbackPercent = (key: keyof DivaData) => {
+      const base = diva?.[key] ?? 0;
+      const value = selectedCompareDiva?.[key] ?? 0;
+      if (!base) return 0;
+      return ((value - base) / base) * 100;
+    };
+
+    const getPercent = (key: keyof DivaData) => {
+      if (selectedComparisonEntry?.vs_madonna?.[key]) {
+        return selectedComparisonEntry.vs_madonna[key].percentage;
+      }
+      return fallbackPercent(key);
+    };
+
+    return [
+      { key: 'danceability', label: 'Danceability', percent: getPercent('danceability') },
+      { key: 'energy', label: 'Energy', percent: getPercent('energy') },
+      { key: 'valence', label: 'Valence', percent: getPercent('valence') },
+      { key: 'acousticness', label: 'Acousticness', percent: getPercent('acousticness') }
+    ];
+  }, [diva, selectedCompareDiva, selectedComparisonEntry]);
+
+  const divaMapPoints = useMemo(() => {
+    return Object.values(divaProfiles).map(entry => ({
+      artist: entry.artists,
+      energy: entry.energy,
+      valence: entry.valence
+    }));
+  }, [divaProfiles]);
 
   const handleClusterSelect = useCallback((cluster: number) => {
     setSelectedCluster(cluster);
@@ -816,7 +961,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
         )}
 
         {activeTab === 'comparison' && (
-          <section className="grid h-full gap-4 overflow-y-auto pr-1 lg:grid-cols-[1fr_360px]">
+          <section className="grid h-full gap-4 overflow-y-auto pr-1 md:grid-cols-[1.2fr_0.8fr]">
             {/* Left: Radar + era controls */}
             <div className="space-y-3">
               <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-4">
@@ -827,9 +972,13 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                     <p className="mt-1 text-xs text-stone-600">Choose an artist to compare against the Madonna baseline.</p>
                   </div>
                   <div className="ml-auto">
-                    <select value={compareDiva} onChange={e => setCompareDiva(e.target.value)} className="rounded px-3 py-1 text-sm border border-stone-300 bg-white">
-                      {computedDivas.map(d => (
-                        <option key={d.artists} value={d.artists}>{d.artists}</option>
+                    <select
+                      value={compareDiva}
+                      onChange={e => setCompareDiva(e.target.value)}
+                      className="rounded-full border border-stone-300 bg-white/80 px-3 py-1 text-sm text-stone-700 shadow-sm"
+                    >
+                      {divaArtists.map(artist => (
+                        <option key={artist} value={artist}>{artist}</option>
                       ))}
                     </select>
                   </div>
@@ -837,11 +986,22 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
                 <div className="mt-4 flex flex-col lg:flex-row lg:items-center lg:gap-6">
                   <div className="flex-1 flex items-center justify-center">
-                    <svg width="100%" height="auto" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet" className="rounded" style={{ maxWidth: 320 }}>
+                    <div
+                      className="relative"
+                      onMouseMove={event => {
+                        const rect = event.currentTarget.getBoundingClientRect();
+                        setRadarHoverPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
+                      }}
+                      onMouseLeave={() => {
+                        setRadarHoverKey(null);
+                        setRadarHoverPos(null);
+                      }}
+                    >
+                      <svg width="100%" height="auto" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet" className="rounded" style={{ maxWidth: 320 }}>
                       <defs>
                         <linearGradient id="radarGrad" x1="0" x2="1">
-                          <stop offset="0%" stopColor="#38BDF8" stopOpacity="0.18" />
-                          <stop offset="100%" stopColor="#FF4D8D" stopOpacity="0.18" />
+                          <stop offset="0%" stopColor="#C7B59A" stopOpacity="0.16" />
+                          <stop offset="100%" stopColor="#A6B7A1" stopOpacity="0.16" />
                         </linearGradient>
                       </defs>
                       <g>
@@ -853,16 +1013,16 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         {/* Madonna baseline */}
                         <polygon
                           points={renderRadarPoints(diva as DivaData, 260)}
-                          fill="#38BDF845"
-                          stroke="#0ea5e9"
+                          fill={DIVA_COLORS.baselineFill}
+                          stroke={DIVA_COLORS.baselineStroke}
                           strokeWidth={1.2}
                         />
 
                         {/* Selected diva */}
                         <polygon
                           points={renderRadarPoints(selectedCompareDiva as DivaData, 260)}
-                          fill="#FF4D8D45"
-                          stroke="#ff4d8d"
+                          fill={DIVA_COLORS.compareFill}
+                          stroke={DIVA_COLORS.compareStroke}
                           strokeWidth={1.2}
                         />
 
@@ -874,11 +1034,39 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                           const ly = 130 + Math.sin(angle) * labelR;
                           const label = k.charAt(0).toUpperCase() + k.slice(1);
                           return (
-                            <text key={k} x={lx} y={ly} textAnchor="middle" dominantBaseline="central" fontSize={11} fill="#0f172a">{label}</text>
+                            <text
+                              key={k}
+                              x={lx}
+                              y={ly}
+                              textAnchor="middle"
+                              dominantBaseline="central"
+                              fontSize={11}
+                              fill="#0f172a"
+                              onMouseEnter={() => setRadarHoverKey(k)}
+                              onMouseLeave={() => setRadarHoverKey(null)}
+                            >
+                              {label}
+                            </text>
                           );
                         })}
                       </g>
                     </svg>
+                      {radarHoverKey && radarHoverPos && (
+                        <div
+                          className="pointer-events-none absolute rounded-[10px] border border-white/50 bg-white/85 px-2.5 py-1 text-[11px] text-stone-700 shadow-md backdrop-blur"
+                          style={{ left: radarHoverPos.x + 10, top: radarHoverPos.y + 10 }}
+                        >
+                          <div className="font-semibold">
+                            {radarHoverKey.charAt(0).toUpperCase() + radarHoverKey.slice(1)}
+                          </div>
+                          <div>
+                            {((selectedCompareDiva as any)?.[radarHoverKey] ?? 0).toFixed(2)}
+                            {' vs '}
+                            {((diva as any)?.[radarHoverKey] ?? 0).toFixed(2)}
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <div className="mt-3 lg:mt-0 lg:w-64">
@@ -901,23 +1089,102 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3 text-sm">
                 <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Evolution</p>
                 <div className="mt-2 flex items-center justify-between gap-2">
-                  <div className="text-sm text-stone-700">{selectedEra?.label ?? 'N/A'} • {selectedEra?.count ?? 0} tracks</div>
+                  <div className="text-sm text-stone-700">
+                    {selectedTimelineYear ?? selectedEra?.label ?? 'N/A'}
+                    {selectedTimelineMetrics ? ` • Popularity ${Math.round(selectedTimelineMetrics.popularity)}` : ` • ${selectedEra?.count ?? 0} tracks`}
+                  </div>
                   <input
                     type="range"
                     min={0}
-                    max={Math.max(eraProfiles.length - 1, 0)}
-                    value={safeSelectedEraIndex}
-                    onChange={event => setSelectedEraIndex(Number(event.target.value))}
-                    className="w-1/2 accent-cyan-400"
-                    disabled={eraProfiles.length <= 1}
+                    max={Math.max((timelineYears.length || eraProfiles.length) - 1, 0)}
+                    value={timelineYears.length ? safeTimelineIndex : safeSelectedEraIndex}
+                    onChange={event => {
+                      const value = Number(event.target.value);
+                      if (timelineYears.length) {
+                        setSelectedTimelineIndex(value);
+                      } else {
+                        setSelectedEraIndex(value);
+                      }
+                    }}
+                    className="w-1/2 accent-stone-400"
+                    disabled={timelineYears.length <= 1 && eraProfiles.length <= 1}
                   />
                 </div>
-                <p className="mt-2 text-xs text-stone-600">Each era profile averages Madonna tracks for the selected decade.</p>
+                {selectedTimelineMetrics ? (
+                  <div className="mt-2 grid grid-cols-2 gap-2 text-xs text-stone-600">
+                    {([
+                      { label: 'Dance', value: selectedTimelineMetrics.danceability },
+                      { label: 'Energy', value: selectedTimelineMetrics.energy },
+                      { label: 'Valence', value: selectedTimelineMetrics.valence },
+                      { label: 'Acoustic', value: selectedTimelineMetrics.acousticness }
+                    ]).map(metric => (
+                      <div key={metric.label} className="flex items-center justify-between">
+                        <span>{metric.label}</span>
+                        <span className="font-mono">{metric.value.toFixed(2)}</span>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="mt-2 text-xs text-stone-600">Each era profile averages Madonna tracks for the selected decade.</p>
+                )}
               </div>
             </div>
 
-            {/* Right: Neighbors and breakdown */}
+            {/* Right: Mini map + breakdown */}
             <aside className="space-y-3">
+              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
+                <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Diva mini map</p>
+                <div className="mt-2 rounded-[12px] border border-stone-200 bg-stone-50/70 p-2">
+                  <svg viewBox="0 0 220 140" className="h-28 w-full">
+                    <rect x="0" y="0" width="220" height="140" fill="transparent" />
+                    {divaMapPoints.map(point => {
+                      const x = 20 + point.energy * 180;
+                      const y = 120 - point.valence * 100;
+                      const isSelected = point.artist === selectedCompareDiva?.artists;
+                      const isMadonna = point.artist === 'Madonna';
+                      return (
+                        <circle
+                          key={point.artist}
+                          cx={x}
+                          cy={y}
+                          r={isSelected ? 5.5 : isMadonna ? 5 : 3.5}
+                          fill={isSelected ? DIVA_COLORS.compareStroke : isMadonna ? DIVA_COLORS.baselineStroke : '#c5c3bc'}
+                          opacity={isSelected || isMadonna ? 0.9 : 0.6}
+                        />
+                      );
+                    })}
+                  </svg>
+                </div>
+                <p className="mt-1 text-[11px] text-stone-500">Energy vs Valence distribution.</p>
+              </div>
+
+              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
+                <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">% difference vs Madonna</p>
+                <div className="mt-2 space-y-2">
+                  {deltaMetrics.map(metric => {
+                    const magnitude = Math.min(Math.abs(metric.percent), 100);
+                    const isPositive = metric.percent >= 0;
+                    return (
+                      <div key={metric.key} className="text-xs text-stone-700">
+                        <div className="flex items-center justify-between">
+                          <span>{metric.label}</span>
+                          <span className="font-mono">{metric.percent.toFixed(1)}%</span>
+                        </div>
+                        <div className="mt-1 h-2 rounded-full bg-stone-200/70 overflow-hidden">
+                          <div
+                            className="h-full rounded-full"
+                            style={{
+                              width: `${magnitude}%`,
+                              backgroundColor: isPositive ? '#9fb4a1' : '#c9a6a0'
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
               <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
                 <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Closest pop neighbors</p>
                 <div className="mt-3 grid gap-2">
@@ -925,11 +1192,26 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                     <div key={item.artists} className="flex items-center justify-between gap-3 rounded-[10px] border border-stone-200 p-2">
                       <div className="min-w-0">
                         <div className="text-sm font-semibold text-stone-900 truncate">{item.artists}</div>
-                        <div className="text-xs text-stone-600">{RADAR_KEYS.map(k => `${k.charAt(0).toUpperCase()}${k.slice(1)}:${(item[k] as number).toFixed(2)}`).join(' • ')}</div>
+                        <div className="text-xs text-stone-600">{RADAR_KEYS.slice(0, 4).map(k => `${k.charAt(0).toUpperCase()}${k.slice(1)}:${(item[k] as number).toFixed(2)}`).join(' • ')}</div>
                       </div>
                       <button onClick={() => setCompareDiva(item.artists)} className="rounded px-2 py-1 text-xs border border-stone-300 bg-white">Compare</button>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-3">
+                <p className="text-[10px] uppercase tracking-[0.14em] text-stone-600">Top tracks spotlight</p>
+                <div className="mt-2 space-y-2">
+                  {(selectedComparisonEntry?.top_tracks ?? []).slice(0, 4).map(track => (
+                    <div key={`${track.name}-${track.year}`} className="flex items-center justify-between text-xs text-stone-700">
+                      <span className="truncate pr-2">{track.name}</span>
+                      <span className="text-stone-500">{track.year}</span>
+                    </div>
+                  ))}
+                  {!selectedComparisonEntry && (
+                    <p className="text-xs text-stone-500">Top tracks load from the new diva dataset.</p>
+                  )}
                 </div>
               </div>
 
