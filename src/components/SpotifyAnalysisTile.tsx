@@ -493,69 +493,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
           <div className="min-w-0 flex-1 overflow-hidden">
         {activeTab === 'personas' && (
-          <section className="relative grid h-full gap-2 grid-rows-[auto_1fr_auto] grid-cols-[1.8fr_1fr]">
-            {/* Cluster Picker - Top Left */}
-            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-white/85 p-3">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-2 text-stone-700">
-                  <Disc3 className="h-4 w-4" />
-                  <p className="text-xs font-semibold">Sonic Personas</p>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => setIsClusterMenuOpen(true)}
-                  className="rounded-full border border-stone-300/70 bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-stone-700 hover:bg-white"
-                >
-                  Choose cluster
-                </button>
-              </div>
-            </div>
-
-            {isClusterMenuOpen && (
-              <div className="absolute inset-0 z-30">
-                <button
-                  type="button"
-                  aria-label="Close cluster picker"
-                  className="absolute inset-0 cursor-default bg-black/15"
-                  onClick={() => setIsClusterMenuOpen(false)}
-                />
-                <div className="absolute left-0 top-0 mt-2 w-[360px] max-w-[90%] rounded-[16px] border border-stone-300/70 bg-white/95 p-3 shadow-xl">
-                  <div className="mb-2 flex items-center justify-between">
-                    <p className="text-xs font-semibold text-stone-700">Choose a cluster</p>
-                    <button
-                      type="button"
-                      onClick={() => setIsClusterMenuOpen(false)}
-                      className="rounded-full border border-stone-300/70 bg-white px-2 py-0.5 text-[10px] text-stone-700"
-                    >
-                      Close
-                    </button>
-                  </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    {clusters.map(cluster => {
-                      const meta = CLUSTER_NAMES[cluster.cluster];
-                      const active = selectedCluster === cluster.cluster;
-                      const trackCount = clusterTrackCounts[cluster.cluster] ?? 0;
-                      return (
-                        <button
-                          key={cluster.cluster}
-                          onClick={() => {
-                            handleClusterSelect(cluster.cluster);
-                            setIsClusterMenuOpen(false);
-                          }}
-                          className={`flex items-center justify-between rounded-[12px] border px-3 py-2 text-left text-xs transition-colors ${active ? 'border-stone-300/90 bg-stone-50 text-stone-900' : 'border-stone-300/70 bg-white text-stone-700 hover:bg-stone-50'}`}
-                        >
-                          <span className="flex items-center gap-2">
-                            <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
-                            <span className="font-semibold">{meta.name}</span>
-                          </span>
-                          <span className="text-[11px] text-stone-600">{trackCount}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
-            )}
+          <section className="grid h-full gap-2 grid-rows-[1fr_auto] grid-cols-[1.8fr_1fr]">
 
             {/* Top Tracks - Top Right */}
             <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-gradient-to-b from-white/88 to-white/72 p-3 flex flex-col relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage4})` }}>
@@ -589,7 +527,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               </div>
             </div>
 
-            {/* Profile Card - Main Left, spans rows 1-2 */}
+            {/* Profile Card - Main Left */}
             <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-white/72 p-4 relative overflow-hidden" style={{ 
               backgroundImage: `url(${[backgroundImage1, backgroundImage2, backgroundImage3, backgroundImage4][selectedCluster]?.src || backgroundImage3.src})`, 
               backgroundSize: 'cover', 
@@ -607,6 +545,56 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full blur-3xl" style={{ backgroundColor: `${selectedClusterMeta.color}45` }} />
               
               <div className="relative h-full flex flex-col justify-between z-10">
+                <div className="mb-4 flex items-center justify-between gap-3">
+                  <div className="flex items-center gap-2 text-stone-700">
+                    <Disc3 className="h-4 w-4" />
+                    <p className="text-xs font-semibold">Sonic Personas</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsClusterMenuOpen(true)}
+                    className="rounded-full border border-stone-300/70 bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-stone-700 hover:bg-white"
+                  >
+                    Choose cluster
+                  </button>
+                </div>
+                {isClusterMenuOpen && (
+                  <div className="absolute left-4 top-12 z-20 w-[360px] max-w-[90%] rounded-[16px] border border-stone-300/70 bg-white/95 p-3 shadow-xl">
+                    <div className="mb-2 flex items-center justify-between">
+                      <p className="text-xs font-semibold text-stone-700">Choose a cluster</p>
+                      <button
+                        type="button"
+                        onClick={() => setIsClusterMenuOpen(false)}
+                        className="rounded-full border border-stone-300/70 bg-white px-2 py-0.5 text-[10px] text-stone-700"
+                      >
+                        Close
+                      </button>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2">
+                      {clusters.map(cluster => {
+                        const meta = CLUSTER_NAMES[cluster.cluster];
+                        const active = selectedCluster === cluster.cluster;
+                        const trackCount = clusterTrackCounts[cluster.cluster] ?? 0;
+                        return (
+                          <button
+                            key={cluster.cluster}
+                            onClick={() => {
+                              handleClusterSelect(cluster.cluster);
+                              setIsClusterMenuOpen(false);
+                            }}
+                            className={`flex items-center justify-between rounded-[12px] border px-3 py-2 text-left text-xs transition-colors ${active ? 'border-stone-300/90 bg-stone-50 text-stone-900' : 'border-stone-300/70 bg-white text-stone-700 hover:bg-stone-50'}`}
+                          >
+                            <span className="flex items-center gap-2">
+                              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
+                              <span className="font-semibold">{meta.name}</span>
+                            </span>
+                            <span className="text-[11px] text-stone-600">{trackCount}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
                 <div>
                   <div className="flex items-center gap-3 mb-2">
                     <span className="h-4 w-4 rounded-full" style={{ backgroundColor: selectedClusterMeta.color }} />
