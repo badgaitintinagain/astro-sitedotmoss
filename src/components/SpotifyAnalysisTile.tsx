@@ -217,6 +217,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   const [searchQuery, setSearchQuery] = useState('');
   const [hoveredTrack, setHoveredTrack] = useState<{ index: number; x: number; y: number } | null>(null);
   const [compareDiva, setCompareDiva] = useState('');
+  const [isClusterMenuOpen, setIsClusterMenuOpen] = useState(false);
 
   const clusters = clusterSummaryData as ClusterData[];
   const tracks = useMemo(
@@ -492,41 +493,69 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
           <div className="min-w-0 flex-1 overflow-hidden">
         {activeTab === 'personas' && (
-          <section className="grid h-full gap-2 grid-rows-[auto_1fr_auto] grid-cols-[1.8fr_1fr]">
-            {/* Cluster Rail - Top Left */}
-            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-gradient-to-b from-white/88 to-white/72 p-3 relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage2})` }}>
-              <div className="pointer-events-none absolute inset-0 bg-white/75" />
-              <div className="relative z-10">
-                <div className="flex items-center gap-2 text-stone-700 mb-3">
+          <section className="relative grid h-full gap-2 grid-rows-[auto_1fr_auto] grid-cols-[1.8fr_1fr]">
+            {/* Cluster Picker - Top Left */}
+            <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-white/85 p-3">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-2 text-stone-700">
                   <Disc3 className="h-4 w-4" />
                   <p className="text-xs font-semibold">Sonic Personas</p>
                 </div>
-                <div className="flex gap-2 flex-wrap">
-                  {clusters.map(cluster => {
-                    const meta = CLUSTER_NAMES[cluster.cluster];
-                    const active = selectedCluster === cluster.cluster;
-                    const trackCount = clusterTrackCounts[cluster.cluster] ?? 0;
-                    const bgImages = [backgroundImage1, backgroundImage2, backgroundImage3, backgroundImage4];
-                    return (
-                      <button
-                        key={cluster.cluster}
-                        onClick={() => handleClusterSelect(cluster.cluster)}
-                        className={`inline-flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold border transition-all relative overflow-hidden ${active ? 'border-stone-300/90 bg-white text-stone-900 shadow-md' : 'border-stone-300/70 text-stone-700 hover:bg-white/60'}`}
-                        style={{
-                          backgroundImage: `url(${bgImages[cluster.cluster]?.src})`,
-                          backgroundSize: 'cover',
-                          backgroundPosition: 'center'
-                        }}
-                      >
-                        <div className={`pointer-events-none absolute inset-0 ${active ? 'bg-white/70' : 'bg-white/55'}`} />
-                        <span className="h-3 w-3 rounded-full relative z-10" style={{ backgroundColor: meta.color }} />
-                        <span className="relative z-10">{trackCount}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsClusterMenuOpen(true)}
+                  className="rounded-full border border-stone-300/70 bg-white/90 px-2.5 py-1 text-[11px] font-semibold text-stone-700 hover:bg-white"
+                >
+                  Choose cluster
+                </button>
               </div>
             </div>
+
+            {isClusterMenuOpen && (
+              <div className="absolute inset-0 z-30">
+                <button
+                  type="button"
+                  aria-label="Close cluster picker"
+                  className="absolute inset-0 cursor-default bg-black/15"
+                  onClick={() => setIsClusterMenuOpen(false)}
+                />
+                <div className="absolute left-0 top-0 mt-2 w-[360px] max-w-[90%] rounded-[16px] border border-stone-300/70 bg-white/95 p-3 shadow-xl">
+                  <div className="mb-2 flex items-center justify-between">
+                    <p className="text-xs font-semibold text-stone-700">Choose a cluster</p>
+                    <button
+                      type="button"
+                      onClick={() => setIsClusterMenuOpen(false)}
+                      className="rounded-full border border-stone-300/70 bg-white px-2 py-0.5 text-[10px] text-stone-700"
+                    >
+                      Close
+                    </button>
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {clusters.map(cluster => {
+                      const meta = CLUSTER_NAMES[cluster.cluster];
+                      const active = selectedCluster === cluster.cluster;
+                      const trackCount = clusterTrackCounts[cluster.cluster] ?? 0;
+                      return (
+                        <button
+                          key={cluster.cluster}
+                          onClick={() => {
+                            handleClusterSelect(cluster.cluster);
+                            setIsClusterMenuOpen(false);
+                          }}
+                          className={`flex items-center justify-between rounded-[12px] border px-3 py-2 text-left text-xs transition-colors ${active ? 'border-stone-300/90 bg-stone-50 text-stone-900' : 'border-stone-300/70 bg-white text-stone-700 hover:bg-stone-50'}`}
+                        >
+                          <span className="flex items-center gap-2">
+                            <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
+                            <span className="font-semibold">{meta.name}</span>
+                          </span>
+                          <span className="text-[11px] text-stone-600">{trackCount}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
 
             {/* Top Tracks - Top Right */}
             <div className="col-span-1 row-span-1 rounded-[14px] border border-stone-300/70 bg-gradient-to-b from-white/88 to-white/72 p-3 flex flex-col relative overflow-hidden" style={{ backgroundImage: `url(${backgroundImage4})` }}>
