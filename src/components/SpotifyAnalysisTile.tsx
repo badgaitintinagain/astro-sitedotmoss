@@ -973,7 +973,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
         )}
 
         {activeTab === 'comparison' && (
-          <section className="grid h-full gap-3 overflow-hidden md:grid-cols-[1.2fr_0.8fr]">
+          <section className="grid h-full gap-3 overflow-hidden md:grid-cols-[1fr_320px]">
             {/* Left: Radar + evolution */}
             <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-4">
               <div className="flex items-start justify-between gap-4">
@@ -998,7 +998,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
               <div className="mt-4">
                 <div className="flex items-center justify-center">
                   <div
-                    className="relative pr-52 pb-32"
+                    className="relative flex h-[340px] w-full max-w-[420px] items-center justify-center"
                     onMouseMove={event => {
                       const rect = event.currentTarget.getBoundingClientRect();
                       setRadarHoverPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
@@ -1105,12 +1105,12 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         })}
                       </svg>
                     </div>
-                    <div className="absolute bottom-3 left-3 w-48 rounded-[12px] border border-white/60 bg-white/85 px-3 py-2.5 text-[11px] text-stone-700 shadow-sm backdrop-blur">
+                    <div className="absolute bottom-3 left-3 h-[88px] w-[240px] rounded-[12px] border border-white/60 bg-white/85 px-3 py-2 text-[11px] text-stone-700 shadow-sm backdrop-blur">
                       <div className="flex items-center justify-between">
                         <span className="text-[9px] uppercase tracking-[0.2em] text-stone-500">Selected</span>
                         <span className="font-semibold text-stone-900 truncate">{selectedCompareDiva?.artists}</span>
                       </div>
-                      <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1.5">
+                      <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-1">
                         {RADAR_KEYS.map(k => (
                           <div key={k} className="flex items-center justify-between">
                             <span className="text-[10px] text-stone-600">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
@@ -1161,8 +1161,8 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                   <div className="mt-3 space-y-2 overflow-y-auto max-h-[250px] pr-1">
                     {selectedTopTracks.slice(0, 6).map(track => (
                       <div key={`${track.name}-${track.year}`} className="flex items-center justify-between text-xs text-stone-700">
-                        <span className="truncate pr-2">{track.name}</span>
-                        <span className="text-stone-500">{track.year}</span>
+                        <span className="min-w-0 flex-1 truncate pr-2">{track.name}</span>
+                        <span className="text-stone-500 shrink-0">{track.year}</span>
                       </div>
                     ))}
                     {!selectedTopTracks.length && (
