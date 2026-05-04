@@ -995,10 +995,10 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                 </div>
               </div>
 
-              <div className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+              <div className="mt-4">
                 <div className="flex items-center justify-center">
                   <div
-                    className="relative pr-40 pb-24"
+                    className="relative pr-44 pb-28"
                     onMouseMove={event => {
                       const rect = event.currentTarget.getBoundingClientRect();
                       setRadarHoverPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
@@ -1009,7 +1009,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                     }}
                   >
                     {diva && selectedCompareDiva ? (
-                      <svg width="100%" height="auto" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet" className="rounded" style={{ maxWidth: 320 }}>
+                      <svg width="100%" height="auto" viewBox="0 0 260 260" preserveAspectRatio="xMidYMid meet" className="rounded" style={{ maxWidth: 380 }}>
                         <defs>
                           <linearGradient id="radarGrad" x1="0" x2="1">
                             <stop offset="0%" stopColor="#C7B59A" stopOpacity="0.16" />
@@ -1083,7 +1083,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         </div>
                       </div>
                     )}
-                    <div className="absolute bottom-2 right-2 w-40 rounded-[12px] border border-white/60 bg-white/80 p-2 shadow-sm backdrop-blur">
+                    <div className="absolute bottom-2 right-2 w-40 rounded-[12px] border border-white/60 bg-white/85 p-2 shadow-sm backdrop-blur">
                       <p className="text-[9px] uppercase tracking-[0.2em] text-stone-500">Mini Map</p>
                       <svg viewBox="0 0 220 140" className="mt-1 h-16 w-full">
                         <rect x="0" y="0" width="220" height="140" fill="transparent" />
@@ -1105,22 +1105,19 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         })}
                       </svg>
                     </div>
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="rounded-md border border-stone-200 p-3 bg-white">
-                    <div className="flex items-center justify-between">
-                      <p className="text-xs text-stone-600">Selected</p>
-                      <h4 className="text-sm font-semibold text-stone-900 truncate">{selectedCompareDiva?.artists}</h4>
-                    </div>
-                    <div className="mt-3 space-y-2 text-xs">
-                      {RADAR_KEYS.map(k => (
-                        <div key={k} className="flex items-center justify-between">
-                          <span className="text-stone-600">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
-                          <span className="font-mono text-stone-900">{((selectedCompareDiva as any)?.[k] ?? 0).toFixed(3)}</span>
-                        </div>
-                      ))}
+                    <div className="absolute bottom-2 left-2 w-44 rounded-[12px] border border-white/60 bg-white/85 px-2.5 py-2 text-[11px] text-stone-700 shadow-sm backdrop-blur">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[9px] uppercase tracking-[0.2em] text-stone-500">Selected</span>
+                        <span className="font-semibold text-stone-900 truncate">{selectedCompareDiva?.artists}</span>
+                      </div>
+                      <div className="mt-2 grid grid-cols-2 gap-x-2 gap-y-1">
+                        {RADAR_KEYS.map(k => (
+                          <div key={k} className="flex items-center justify-between">
+                            <span className="text-[10px] text-stone-600">{k.charAt(0).toUpperCase()+k.slice(1)}</span>
+                            <span className="font-mono text-[10px] text-stone-900">{((selectedCompareDiva as any)?.[k] ?? 0).toFixed(2)}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
