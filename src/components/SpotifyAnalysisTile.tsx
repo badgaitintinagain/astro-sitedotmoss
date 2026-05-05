@@ -975,14 +975,14 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
         {activeTab === 'comparison' && (
           <section className="grid h-full gap-3 overflow-hidden md:grid-cols-[1fr_320px]">
             {/* Left: Radar + evolution */}
-            <div className="rounded-[14px] border border-stone-300/70 bg-white/90 p-4">
-              <div className="flex items-start justify-between gap-4">
+            <div className="flex flex-col h-full overflow-hidden rounded-[14px] border border-stone-300/70 bg-white/90 p-4">
+              <div className="flex shrink-0 items-start justify-between gap-4">
                 <div>
                   <p className="text-[10px] uppercase tracking-[0.16em] text-stone-600">Diva Radar</p>
                   <h3 className="mt-1 text-lg font-bold text-stone-900">Compare audio DNA</h3>
                   <p className="mt-1 text-xs text-stone-600">Choose an artist to compare against the Madonna baseline.</p>
                 </div>
-                <div className="ml-auto">
+                <div className="ml-auto shrink-0">
                   <select
                     value={compareDiva}
                     onChange={e => setCompareDiva(e.target.value)}
@@ -995,10 +995,10 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                 </div>
               </div>
 
-              <div className="mt-4">
-                <div className="flex items-center justify-center">
+              <div className="mt-4 flex-1 min-h-0 relative">
+                <div className="absolute inset-0 flex items-start justify-center overflow-hidden">
                   <div
-                    className="relative flex h-[440px] w-full items-start justify-center pt-2"
+                    className="relative flex h-full w-full max-w-[420px] items-start justify-center pt-2 pb-24"
                     onMouseMove={event => {
                       const rect = event.currentTarget.getBoundingClientRect();
                       setRadarHoverPos({ x: event.clientX - rect.left, y: event.clientY - rect.top });
@@ -1009,7 +1009,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                     }}
                   >
                     {diva && selectedCompareDiva ? (
-                      <svg width="100%" height="auto" viewBox="-40 -10 340 280" preserveAspectRatio="xMidYMid meet" className="rounded max-h-[300px]" style={{ maxWidth: 360 }}>
+                      <svg width="100%" height="100%" viewBox="-40 -20 340 300" preserveAspectRatio="xMidYMid meet" className="max-h-[300px]" style={{ maxWidth: 360 }}>
                         <defs>
                           <linearGradient id="radarGrad" x1="0" x2="1">
                             <stop offset="0%" stopColor="#C7B59A" stopOpacity="0.16" />
@@ -1083,7 +1083,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         </div>
                       </div>
                     )}
-                    <div className="absolute bottom-4 right-4 w-[140px] rounded-[12px] border border-white/60 bg-white/95 p-2.5 shadow-sm backdrop-blur-md">
+                    <div className="absolute bottom-1 right-2 w-[140px] rounded-[12px] border border-stone-200/60 bg-white/95 p-2.5 shadow-sm backdrop-blur-md">
                       <p className="text-[9px] uppercase tracking-[0.2em] text-stone-500 font-semibold mb-1">Mini Map</p>
                       <svg viewBox="0 0 220 140" className="h-16 w-full">
                         <rect x="0" y="0" width="220" height="140" fill="transparent" />
@@ -1107,7 +1107,7 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
                         })}
                       </svg>
                     </div>
-                    <div className="absolute bottom-4 left-4 min-w-[200px] max-w-[220px] rounded-[12px] border border-white/60 bg-white/95 p-3 text-[11px] text-stone-800 shadow-sm backdrop-blur-md">
+                    <div className="absolute bottom-1 left-2 min-w-[200px] max-w-[220px] rounded-[12px] border border-stone-200/60 bg-white/95 p-3 text-[11px] text-stone-800 shadow-sm backdrop-blur-md">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-[9px] uppercase tracking-[0.2em] text-stone-500 font-semibold">Selected</span>
                         <span className="font-bold text-stone-900 truncate">{selectedCompareDiva?.artists}</span>
