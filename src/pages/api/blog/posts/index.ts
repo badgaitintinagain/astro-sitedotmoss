@@ -22,8 +22,8 @@ export const GET: APIRoute = async ({ url }) => {
         published: posts.published,
         createdAt: posts.createdAt,
         updatedAt: posts.updatedAt,
-        likesCount: sql<number>`(SELECT COUNT(*) FROM post_likes WHERE post_likes.post_id = ${posts.id})`.mapWith(Number),
-        commentsCount: sql<number>`(SELECT COUNT(*) FROM comments WHERE comments.post_slug = ${posts.slug})`.mapWith(Number),
+        likesCount: sql<number>`(SELECT COUNT(*) FROM post_likes WHERE post_likes.post_id = posts.id)`.mapWith(Number),
+        commentsCount: sql<number>`(SELECT COUNT(*) FROM comments WHERE comments.post_slug = posts.slug)`.mapWith(Number),
       })
       .from(posts)
       .where(eq(posts.published, true))
