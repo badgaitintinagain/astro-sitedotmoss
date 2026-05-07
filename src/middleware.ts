@@ -17,5 +17,12 @@ export const onRequest = defineMiddleware(async (context, next) => {
       }
     }
   }
-  return await next();
+  try {
+    return await next();
+  } catch (error: any) {
+    console.error("Middleware caught an error:", error);
+    return new Response(`Server Error: ${error.message}\n${error.stack}`, {
+      status: 500,
+    });
+  }
 });

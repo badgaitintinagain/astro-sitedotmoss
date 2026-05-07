@@ -6,8 +6,8 @@ export function getTurso() {
   if (_turso) return _turso;
 
   // Attempt to read from process.env (polyfilled by middleware on Cloudflare) or import.meta.env
-  let url = process.env.TURSO_DATABASE_URL;
-  let token = process.env.TURSO_AUTH_TOKEN;
+  let url = typeof process !== 'undefined' && process.env ? process.env.TURSO_DATABASE_URL : undefined;
+  let token = typeof process !== 'undefined' && process.env ? process.env.TURSO_AUTH_TOKEN : undefined;
 
   if (typeof import.meta !== 'undefined' && import.meta.env) {
     url = url || import.meta.env.TURSO_DATABASE_URL;
