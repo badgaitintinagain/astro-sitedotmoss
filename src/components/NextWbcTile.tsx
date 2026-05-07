@@ -44,7 +44,8 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
 
     try {
         const { Client } = await import("@gradio/client");
-        const client = await Client.connect("badgaitintin/nextwbc");
+        // Use the direct Space URL to avoid metadata fetch failures on restricted origins
+        const client = await Client.connect("https://badgaitintin-nextwbc.hf.space");
         const job = client.submit("/predict", [file]);
 
         for await (const event of job) {
@@ -59,7 +60,8 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
             }
         }
     } catch (err: any) {
-        setError(err.message);
+        const message = err?.message || 'Failed to process image.';
+        setError(message);
         setLoading(false);
     }
   };
