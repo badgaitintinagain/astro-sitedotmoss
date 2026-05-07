@@ -27,10 +27,15 @@ export function getTurso() {
   }
 
   if (url) {
-    _realTurso = createClient({
+    const config: { url: string; authToken?: string; fetch?: typeof fetch } = {
       url,
       authToken: token,
-    });
+    };
+    if (typeof fetch !== 'undefined') {
+      config.fetch = fetch;
+    }
+
+    _realTurso = createClient(config);
     return _realTurso;
   }
 
