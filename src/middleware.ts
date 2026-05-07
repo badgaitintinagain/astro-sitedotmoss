@@ -1,12 +1,13 @@
 import { defineMiddleware } from 'astro:middleware';
+import { env } from 'cloudflare:workers';
 
 export const onRequest = defineMiddleware(async (context, next) => {
   // Inject Cloudflare runtime environment variables into process.env
   // so that lazily-evaluated variables can still pick them up.
-  if (context.locals.runtime?.env) {
+  if (env) {
     // Assign the Cloudflare bindings directly to a global variable
     // because Object.keys() doesn't work on Cloudflare's C++ binding objects.
-    (globalThis as any).CF_ENV = context.locals.runtime.env;
+    (globalThis as any).CF_ENV = env;
     
     try {
       if (typeof globalThis.process === 'undefined') {
@@ -16,7 +17,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
       }
       
       // Explicitly map known required variables just in case
-      const CF_ENV = context.locals.runtime.env as any;
+      const CF_ENV = env as any;
       if (CF_ENV.TURSO_DATABASE_URL) globalThis.process.env.TURSO_DATABASE_URL = CF_ENV.TURSO_DATABASE_URL;
       if (CF_ENV.TURSO_AUTH_TOKEN) globalThis.process.env.TURSO_AUTH_TOKEN = CF_ENV.TURSO_AUTH_TOKEN;
       if (CF_ENV.CLOUDINARY_API_KEY) globalThis.process.env.CLOUDINARY_API_KEY = CF_ENV.CLOUDINARY_API_KEY;
