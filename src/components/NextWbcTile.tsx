@@ -16,12 +16,6 @@ const CLASS_COLORS: Record<string, string> = {
   lymphocyte:  '#00C8FF', monocyte:    '#00FF00', thrombocyte: '#C8C8C8',
 };
 
-const MENU_ITEMS = [
-    { id: 'upload', label: 'Upload', icon: Upload },
-    { id: 'scan', label: 'Scan', icon: ScanLine },
-    { id: 'classes', label: 'Classes', icon: Shapes },
-] as const;
-
 const shellCard = 'rounded-[14px] border border-stone-300/70 bg-white/72 shadow-[0_1px_0_rgba(255,255,255,0.6)]';
 
 const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary', opacity = 40, isFullPage = false }) => {
@@ -30,8 +24,8 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
-  const [progress, setProgress] = useState(0);
-    const [activeMenu, setActiveMenu] = useState<'upload' | 'scan' | 'classes'>('upload');
+    const [progress, setProgress] = useState(0);
+    const [showAnnotated, setShowAnnotated] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const processFile = async (file: File) => {
@@ -95,7 +89,7 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
 
                     {(result || previewUrl) && (
                         <button
-                            onClick={() => { setResult(null); setPreviewUrl(null); setError(null); setStatusText(''); setProgress(0); setActiveMenu('upload'); }}
+                            onClick={() => { setResult(null); setPreviewUrl(null); setError(null); setStatusText(''); setProgress(0); }}
                             className="inline-flex items-center gap-2 rounded-full border border-stone-300/80 bg-white/80 px-3 py-1.5 text-xs text-stone-700 transition-colors hover:bg-white hover:text-stone-900"
                         >
                             <X className="h-3.5 w-3.5" /> Reset
@@ -106,29 +100,6 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
 
             <div className="min-h-0 flex-1 overflow-hidden px-2 py-2 sm:px-3 sm:py-3">
                 <div className="flex h-full gap-2">
-                    <aside className="w-[168px] shrink-0 overflow-y-auto rounded-[14px] border border-stone-300/70 bg-white/72 p-2.5">
-                        <p className="px-1 text-[10px] uppercase tracking-[0.2em] text-stone-600">Menu</p>
-                        <div className="mt-2 space-y-1.5">
-                            {MENU_ITEMS.map(item => {
-                                const Icon = item.icon;
-                                const active = activeMenu === item.id;
-                                return (
-                                    <button
-                                        key={item.id}
-                                        onClick={() => {
-                                            setActiveMenu(item.id);
-                                            if (item.id === 'upload') fileInputRef.current?.click();
-                                        }}
-                                        className={`flex w-full items-center gap-2 rounded-[10px] border px-2.5 py-2 text-left text-xs transition-colors ${active ? 'border-stone-300/90 bg-white text-stone-900' : 'border-stone-300/70 bg-white/80 text-stone-700 hover:bg-white hover:text-stone-900'}`}
-                                    >
-                                        <Icon className="h-3.5 w-3.5" />
-                                        <span className="truncate">{item.label}</span>
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </aside>
-
                     <div className="min-w-0 flex-1 overflow-hidden">
                         <div className="grid h-full gap-2 overflow-y-auto pr-1 lg:grid-cols-[minmax(0,1.25fr)_290px]">
                             <section className="space-y-2">
@@ -138,9 +109,19 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
                                             <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Upload</p>
                                             <h3 className="mt-1 text-base font-semibold text-stone-900">Blood smear scan</h3>
                                         </div>
-                                        <span className="rounded-full border border-stone-300/80 bg-white/90 px-2 py-0.5 text-[10px] text-stone-700">
-                                            {loading ? `${progress}%` : result ? 'Done' : 'Ready'}
-                                        </span>
+                                        <div className="flex items-center gap-2">
+                                            {result?.annotated_image && (
+                                                <button
+                                                    onClick={() => setShowAnnotated((prev) => !prev)}
+                                                    className="rounded-full border border-stone-300/80 bg-white/90 px-2 py-0.5 text-[10px] text-stone-700"
+                                                >
+                                                    {showAnnotated ? 'Annotated' : 'Original'}
+                                                </button>
+                                            )}
+                                            <span className="rounded-full border border-stone-300/80 bg-white/90 px-2 py-0.5 text-[10px] text-stone-700">
+                                                {loading ? `${progress}%` : result ? 'Done' : 'Ready'}
+                                            </span>
+                                        </div>
                                     </div>
 
                                     <input ref={fileInputRef} type="file" className="hidden" onChange={(e) => e.target.files?.[0] && processFile(e.target.files[0])} />
@@ -151,7 +132,10 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
                                     >
                                         {previewUrl ? (
                                             <div className="relative w-full max-w-[520px] overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70">
-                                                <img src={previewUrl} className="max-h-[280px] w-full object-contain" />
+                                                <img
+                                                    src={showAnnotated && result?.annotated_image ? result.annotated_image : previewUrl}
+                                                    className="max-h-[280px] w-full object-contain"
+                                                />
                                                 {loading && (
                                                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 p-4 text-white">
                                                         <Loader2 className="mb-2 h-5 w-5 animate-spin" />
@@ -179,15 +163,23 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
                                 </div>
 
                                 <div className={shellCard + ' p-3'}>
-                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Summary</p>
-                                    <div className="mt-2 grid gap-1.5 sm:grid-cols-3">
-                                        {resultSummary.map(item => (
-                                            <div key={item.label} className="rounded-[10px] border border-stone-300/70 bg-white/85 px-2.5 py-2">
-                                                <div className="text-[11px] text-stone-600">{item.label}</div>
-                                                <div className="mt-1 text-base font-semibold text-stone-900">{item.value}</div>
-                                            </div>
-                                        ))}
-                                    </div>
+                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Crops</p>
+                                    {result?.cells?.length > 0 ? (
+                                        <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
+                                            {result.cells.map((cell: any) => (
+                                                <div key={cell.id} className="rounded-[10px] border border-stone-300/70 bg-white/85 p-1.5">
+                                                    <img src={cell.crop_base64} className="aspect-square w-full object-contain" />
+                                                    <div className="mt-1 truncate text-[10px] text-stone-600" style={{ color: CLASS_COLORS[cell.class] }}>
+                                                        {cell.class}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div className="mt-2 rounded-[12px] border border-stone-300/70 bg-white/80 p-4 text-sm text-stone-600">
+                                            No crops yet. Upload an image to view cells.
+                                        </div>
+                                    )}
                                 </div>
                             </section>
 
@@ -237,21 +229,6 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
                                     )}
                                 </div>
 
-                                {result?.cells?.length > 0 && (
-                                    <div className={shellCard + ' p-3'}>
-                                        <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Crops</p>
-                                        <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
-                                            {result.cells.map((cell: any) => (
-                                                <div key={cell.id} className="rounded-[10px] border border-stone-300/70 bg-white/85 p-1.5">
-                                                    <img src={cell.crop_base64} className="aspect-square w-full object-contain" />
-                                                    <div className="mt-1 truncate text-[10px] text-stone-600" style={{ color: CLASS_COLORS[cell.class] }}>
-                                                        {cell.class}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
                             </div>
                         </div>
                     </div>
