@@ -5,9 +5,15 @@ let _turso: ReturnType<typeof createClient> | null = null;
 export function getTurso() {
   if (_turso) return _turso;
 
-  // Attempt to read from process.env (polyfilled by middleware on Cloudflare) or import.meta.env
-  let url = typeof process !== 'undefined' && process.env ? process.env.TURSO_DATABASE_URL : undefined;
-  let token = typeof process !== 'undefined' && process.env ? process.env.TURSO_AUTH_TOKEN : undefined;
+  // Try to get variables from Cloudflare global context or process.env
+  const cfEnv = (globalThis as any).CF_ENV || {};
+  let url = cfEnv.TURSO_DATABASE_URL;
+  let token = cfEnv.TURSO_AUTH_TOKEN;
+
+  if (!url && typeof process !== 'undefined' && process.env) {
+    url = process.env.TURSO_DATABASE_URL;
+    token = process.env.TURSO_AUTH_TOKEN;
+  }
 
   if (typeof import.meta !== 'undefined' && import.meta.env) {
     url = url || import.meta.env.TURSO_DATABASE_URL;
