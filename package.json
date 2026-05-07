@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "db:setup": "node scripts/setup-db.js",
     "cf:deploy": "npm run build && npx wrangler deploy",
     "cf:whoami": "npx wrangler whoami"
   },

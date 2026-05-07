@@ -55,8 +55,13 @@ export const GET: APIRoute = async ({ url }) => {
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (error: any) {
-    console.error('Error fetching posts:', error);
-    return new Response(JSON.stringify({ error: 'Failed to fetch posts', details: error.message }), {
+    const causeMessage = error?.cause?.message || error?.cause || null;
+    console.error('Error fetching posts:', error, causeMessage);
+    return new Response(JSON.stringify({
+      error: 'Failed to fetch posts',
+      details: error.message,
+      cause: causeMessage,
+    }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
