@@ -163,21 +163,36 @@ const NextWbcTile: React.FC<NextWbcProps> = ({ size = '2x1', accent = 'primary',
                                 </div>
 
                                 <div className={shellCard + ' p-3'}>
-                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Crops</p>
+                                    <p className="text-[10px] uppercase tracking-[0.2em] text-stone-600">Cells</p>
                                     {result?.cells?.length > 0 ? (
-                                        <div className="mt-2 grid grid-cols-3 gap-2 sm:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8">
-                                            {result.cells.map((cell: any) => (
-                                                <div key={cell.id} className="rounded-[10px] border border-stone-300/70 bg-white/85 p-1.5">
-                                                    <img src={cell.crop_base64} className="aspect-square w-full object-contain" />
-                                                    <div className="mt-1 truncate text-[10px] text-stone-600" style={{ color: CLASS_COLORS[cell.class] }}>
-                                                        {cell.class}
+                                        <div className="mt-2 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+                                            {result.cells.map((cell: any, index: number) => {
+                                                const confidenceValue = cell.confidence ?? cell.score ?? cell.probability ?? null;
+                                                const confidencePct = typeof confidenceValue === 'number'
+                                                    ? `${Math.round(confidenceValue * 100)}%`
+                                                    : 'n/a';
+                                                return (
+                                                    <div key={cell.id ?? index} className="rounded-[10px] border border-stone-300/70 bg-white/85 p-2.5">
+                                                        <div className="flex items-center justify-between text-xs text-stone-700">
+                                                            <span className="inline-flex items-center gap-2">
+                                                                <span className="h-2 w-2 rounded-full" style={{ backgroundColor: CLASS_COLORS[cell.class] }} />
+                                                                <span className="uppercase tracking-[0.12em]">{cell.class ?? 'unknown'}</span>
+                                                            </span>
+                                                            <span className="rounded-full border border-stone-300/70 bg-white px-2 py-0.5 text-[10px] text-stone-700">
+                                                                {confidencePct}
+                                                            </span>
+                                                        </div>
+                                                        <div className="mt-2 grid grid-cols-2 gap-2 text-[11px] text-stone-600">
+                                                            <div>Id: <span className="text-stone-900">{cell.id ?? index + 1}</span></div>
+                                                            <div>Class: <span className="text-stone-900">{cell.class ?? 'unknown'}</span></div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            ))}
+                                                );
+                                            })}
                                         </div>
                                     ) : (
                                         <div className="mt-2 rounded-[12px] border border-stone-300/70 bg-white/80 p-4 text-sm text-stone-600">
-                                            No crops yet. Upload an image to view cells.
+                                            No cells yet. Upload an image to view metadata.
                                         </div>
                                     )}
                                 </div>
