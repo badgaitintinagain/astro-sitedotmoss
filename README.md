@@ -9,25 +9,6 @@ npm install
 npm run dev
 ```
 
-## Required Environment Variables
-
-Copy `.env.example` to `.env.local` for local development:
-
-```sh
-cp .env.example .env.local
-```
-
-Set these values:
-
-- `TURSO_DATABASE_URL`
-- `TURSO_AUTH_TOKEN`
-- `AUTH_SECRET`
-- `ADMIN_EMAIL`
-- `ADMIN_PASSWORD`
-- `CLOUDINARY_CLOUD_NAME`
-- `CLOUDINARY_API_KEY`
-- `CLOUDINARY_API_SECRET`
-
 ## Deploy to Cloudflare Workers
 
 This project uses Astro 6 with `@astrojs/cloudflare` and deploys to Cloudflare Workers.
