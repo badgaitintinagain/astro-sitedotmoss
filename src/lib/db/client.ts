@@ -1,9 +1,15 @@
 import { createClient } from "@libsql/client/web";
 
-let _turso: ReturnType<typeof createClient> | null = null;
+// Create a dummy client to satisfy Drizzle during initialization + build time
+const _dummyTurso = createClient({
+  url: "libsql://missing-database.turso.io",
+  authToken: "missing-token",
+});
+
+let _realTurso: ReturnType<typeof createClient> | null = null;
 
 export function getTurso() {
-  if (_turso) return _turso;
+  if (_realTurso) return _realTurso;
 
   // Try to get variables from Cloudflare global context or process.env
   const cfEnv = (globalThis as any).CF_ENV || {};
@@ -20,25 +26,23 @@ export function getTurso() {
     token = token || import.meta.env.TURSO_AUTH_TOKEN;
   }
 
-  if (!url) {
-    // Return a dummy client at build time if env is not found to prevent crashes,
-    // Note: Astro may evaluate this module at build time.
-    url = "libsql://missing-database.turso.io";
-    token = "missing-token";
+  if (url) {
+    _realTurso = createClient({
+      url,
+      authToken: token,
+    });
+    return _realTurso;
   }
 
-  _turso = createClient({
-    url,
-    authToken: token,
-  });
-
-  return _turso;
+  return _dummyTurso;
 }
 
-export const turso = new Proxy({} as ReturnType<typeof createClient>, {
-  get(target, prop, receiver) {
+// Proxy all calls to the real client if configured, otherwise fallback to dummy
+export const turso = new Proxy(_dummyTurso, {
+  get(_target, prop) {
     const client = getTurso();
-    const val = Reflect.get(client, prop, receiver);
+    const val = (client as any)[prop];
+    // Return functions bound to the client so 'this' is correct
     return typeof val === 'function' ? val.bind(client) : val;
   }
 });
