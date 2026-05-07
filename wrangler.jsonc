@@ -1,5 +1,11 @@
 {
   "name": "sitedotmoss",
   "compatibility_date": "2025-05-21",
-  "compatibility_flags": ["nodejs_compat"]
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true
+    }
+  }
 }
