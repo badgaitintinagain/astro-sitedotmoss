@@ -521,7 +521,11 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
     const entries = Object.values(divaProfiles).filter(item => item.artists !== baseline.artists);
     const distance = (left: DivaData, right: DivaData) => {
       const keys: Array<keyof DivaData> = ['danceability', 'energy', 'valence', 'acousticness'];
-      return Math.sqrt(keys.reduce((sum, key) => sum + Math.pow((left[key] ?? 0) - (right[key] ?? 0), 2), 0));
+      return Math.sqrt(keys.reduce((sum, key) => {
+        const leftValue = Number(left[key] ?? 0);
+        const rightValue = Number(right[key] ?? 0);
+        return sum + Math.pow(leftValue - rightValue, 2);
+      }, 0));
     };
     return entries
       .sort((left, right) => distance(left, baseline) - distance(right, baseline))
@@ -564,10 +568,12 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
 
   const deltaMetrics = useMemo(() => {
     const computePercent = (key: keyof DivaData) => {
-      const base = diva?.[key] ?? 0;
-      const value = selectedCompareDiva?.[key] ?? 0;
-      if (!base) return 0;
-      return ((value - base) / base) * 100;
+      const base = Number(diva?.[key] ?? 0);
+      const value = Number(selectedCompareDiva?.[key] ?? 0);
+      const average = (base + value) / 2;
+      if (!average) return 0;
+      const diff = value - base;
+      return (diff / average) * 100;
     };
 
     return [
