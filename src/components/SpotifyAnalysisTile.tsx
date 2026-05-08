@@ -563,27 +563,20 @@ const SpotifyAnalysisTile: React.FC<SpotifyAnalysisTileProps> = ({
   const selectedTimelineMetrics = selectedTimelineYear && timelineSeries ? timelineSeries[selectedTimelineYear] : null;
 
   const deltaMetrics = useMemo(() => {
-    const fallbackPercent = (key: keyof DivaData) => {
+    const computePercent = (key: keyof DivaData) => {
       const base = diva?.[key] ?? 0;
       const value = selectedCompareDiva?.[key] ?? 0;
       if (!base) return 0;
       return ((value - base) / base) * 100;
     };
 
-    const getPercent = (key: keyof DivaData) => {
-      if (selectedComparisonEntry?.vs_madonna?.[key]) {
-        return selectedComparisonEntry.vs_madonna[key].percentage;
-      }
-      return fallbackPercent(key);
-    };
-
     return [
-      { key: 'danceability', label: 'Danceability', percent: getPercent('danceability') },
-      { key: 'energy', label: 'Energy', percent: getPercent('energy') },
-      { key: 'valence', label: 'Valence', percent: getPercent('valence') },
-      { key: 'acousticness', label: 'Acousticness', percent: getPercent('acousticness') }
+      { key: 'danceability', label: 'Danceability', percent: computePercent('danceability') },
+      { key: 'energy', label: 'Energy', percent: computePercent('energy') },
+      { key: 'valence', label: 'Valence', percent: computePercent('valence') },
+      { key: 'acousticness', label: 'Acousticness', percent: computePercent('acousticness') }
     ];
-  }, [diva, selectedCompareDiva, selectedComparisonEntry]);
+  }, [diva, selectedCompareDiva]);
 
   const divaMapPoints = useMemo(() => {
     return Object.values(divaProfiles).map(entry => ({
