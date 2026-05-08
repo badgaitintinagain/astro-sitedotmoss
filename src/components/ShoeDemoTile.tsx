@@ -168,12 +168,12 @@ const ShoeDemoTile: React.FC<ShoeDemoProps> = ({ size = '2x2', accent = 'seconda
                 )}
 
                 {previewUrl && (
-                  <div className="relative h-full w-full overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70">
+                  <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[12px] border border-stone-300/70 bg-stone-100/70">
                     <img
                       src={viewMode === 'depth' ? result?.depth_map : viewMode === 'annotated' ? result?.annotated_image : previewUrl}
-                      className={`max-h-[360px] w-full object-contain ${selectedPerson !== null ? 'opacity-30 blur-[1px]' : ''}`}
+                      className={`max-h-[360px] max-w-full object-contain ${selectedPerson !== null && viewMode === 'annotated' ? 'opacity-30 blur-[1px]' : ''}`}
                     />
-                    {selectedPersonData && (viewMode === 'original' || viewMode === 'annotated') && (
+                    {selectedPersonData && viewMode === 'annotated' && (
                       <div className="absolute inset-0 flex items-center justify-center">
                         <img
                           src={selectedPersonData.person_crop_base64}
